@@ -1,0 +1,637 @@
+---
+title: "Homework 1"
+author: "Emre Beray Boztepe"
+date: "06 05 2024"
+output:
+  word_document:
+    pandoc_args: ["--mathml"]
+  pdf_document: default
+---
+
+## Exercise One
+
+Formulate a linear program for an agricultural cooperative. It has 1200 hectares of arable land available for crop cultivation. Suitable crops for the given area include wheat, barley, rapeseed, corn, and sunflower. Rapeseed cannot be grown on more than 250 hectares of land, and sunflowers cannot be grown on more than 500 hectares of land. The table below shows the costs of cultivating 1 hectare of crops and the expected yields per hectare.
+
+| Crop      | Costs (CZK/ha) | Yields (CZK/ha) |
+|-----------|----------------|-----------------|
+| Wheat     | 300            | 2000            |
+| Barley    | 400            | 5000            |
+| Rapeseed  | 600            | 8000            |
+| Corn      | 500            | 6000            |
+| Sunflower | 700            | 9000            |
+
+At the beginning, the cooperative has a capital of 75000 CZK, which must cover the costs, and of course, it wants to maximize its profit (yields minus costs). The cooperative also needs to incorporate the following two EU directives:
+
+* Rapeseed must be cultivated on at least the area equal to the absolute difference between the
+cultivation of corn and barley.
+
+* Additionally, the cooperative will receive a subsidy of 5000 CZK per hectare for the minimum
+area of a single crop. (Specifically, the EU subsidy for balanced farming.)
+
+## Answer
+
+* $x_1$: the hectares of land used for wheat
+
+* $x_2$: the hectares of land used for barley
+
+* $x_3$: the hectares of land used for rapeseed
+
+* $x_4$: the hectares of land used for corn
+
+* $x_5$: the hectares of land used for sunflower
+
+* $x_{sub}$: EU subsidy for balanced farming
+
+### Objective Function: 
+
+**Maximize P**: $(2000x_1 - 300x_1) + (5000x_2 - 400x_2)+(8000x_3 - 600x_3)+(6000x_4-500x_4)+(9000x_5 -700x_5) + (5000x_{sub})$
+
+**P**: $1700x_1+4600x_2+7400x_3+5500x_4+8300x_5 + 5000x_{sub}$
+
+### Constraints:
+
+* Total hectares limitation: $x_1 + x_2 + x_3 + x_4 + x_5 \leq 1200$
+
+* Initial costs cannot exceed CZK 75000: $300x_1 + 400x_2 + 600x_3 + 500x_4 +700x_5 \leq 75000$
+
+* Specific limitations: 
+
+1-) $x_3 \leq 250$ (rapeseed)
+
+2-) $x_5 \leq 500$ (sunflower)
+
+* Rapeseed area EU directive:
+
+1-) $x_3 \geq x_4 - x_2$ (Rapeseed must cover at least the absolute difference in hectares between corn and barley)
+
+2-) $x_3 \geq x_2 - x_4$ (Rapeseed must cover at least the absolute difference in hectares between barley and corn)
+
+* EU subsidy for the minimum area of a single crop
+
+1-) $x_{sub} \geq x_1$
+
+2-) $x_{sub} \geq x_2$
+
+3-) $x_{sub} \geq x_3$
+
+4-) $x_{sub} \geq x_4$
+
+5-) $x_{sub} \geq x_5$
+
+## Exercise Two 
+
+In this exercise, we will deal with the following optimization problem:
+
+$min f(x,y,z) = x^2 + 13y^2 +4z^2 +6xy+2xz+10yz+6x-2y+4z+3$
+
+### Option 1:
+
+Prove or disprove whether the function f is convex.
+
+### Answer:
+
+First, we need to compute first and second derivatives for each variable (x, y, z) and their combinations (xy, xz, yz)
+
+$\frac{\partial f}{\partial x}$ = $2x + 6y + 2z + 6$
+
+$\frac{\partial f}{\partial y}$ = $26y + 6x + 10z - 2$
+
+$\frac{\partial f}{\partial z}$ = $8z + 2x + 10y + 4$
+
+$\frac{\partial^2 f}{\partial x^2}$ = $2$
+
+$\frac{\partial^2 f}{\partial y^2}$ = $26$
+
+$\frac{\partial^2 f}{\partial z^2}$ = $8$
+
+$\frac{\partial^2 f}{\partial x \partial y}$ = $\frac{\partial^2 f}{\partial y \partial x}$ = $6$
+
+$\frac{\partial^2 f}{\partial x \partial z}$ = $\frac{\partial^2 f}{\partial z \partial x}$ = $2$
+
+$\frac{\partial^2 f}{\partial y \partial z}$ = $\frac{\partial^2 f}{\partial z \partial y}$ = $10$
+
+\[ H = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x^2} &  \frac{\partial^2 f}{\partial x \partial y} & \frac{\partial^2 f}{\partial x \partial z}\\
+\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2} & \frac{\partial^2 f}{\partial y \partial z} \\
+\frac{\partial^2 f}{\partial z \partial x} & \frac{\partial^2 f}{\partial z \partial y} & \frac{\partial^2 f}{\partial z^2}
+\end{bmatrix} \rightarrow \begin{bmatrix}
+2 &  6 & 2\\
+6 & 26 & 10 \\
+2 & 10 & 8
+\end{bmatrix} \]
+
+When we check if it is convex or not: 
+
+* Determinant of 1x1 matrix = $H_{11} = 2 \geq 0$
+
+* Determinant of 2x2 matrix = 
+
+\[ H_2 = \begin{bmatrix}
+2 &  6\\
+6 & 26
+\end{bmatrix} \]
+
+$\det(H_2) = (26 × 2) - (6 × 6) = 16 \geq 0$
+
+* Determinant of 3x3 matrix. Since we have 3x3 matrix, we can use Sarrus Rule: 
+
+Sarrus Rule: 
+
+\[ M = \begin{bmatrix}
+a &  b & c\\
+d & e & f\\
+g & h & i
+\end{bmatrix} = aei + bfg + cdh - ceg - bdi - afh \]
+
+When we apply this to our Hessian Matrix:
+
+$((2 × 26 × 8) + (6 × 10 × 2) + (2 × 6 × 10)) - ((2 × 26 × 2) + (6 × 6 × 8) + (10 × 10 × 2)) = 64 \geq 0$
+
+Conclusion: Since all determinants are higher than zero, we can say the matrix is positive definite and it is convex.
+
+### Option 2:
+
+Write the optimization problem using the standard matrix notation for quadratic programs, in other words, find A, b, c such that
+
+$min_{x,y,z} f(x,y,z) = min_{v \in \mathbb{R}^3} \frac{1}{2}v^TAv+b^Tv+c$
+
+In order to find that A, b, c; we can check our equation: 
+
+$min f(x,y,z) = x^2 + 13y^2 +4z^2 +6xy+2xz+10yz+6x-2y+4z+3$
+
+We can say that:
+
+Coefficient of the quadratic terms: $\frac{1}{2}v^TAv = x^2 + 13y^2 +4z^2 +6xy+2xz+10yz$
+
+Coefficient of the linear terms: $b^Tv = 6x-2y+4z$
+
+Scalar term: $c = 3$
+
+Let's find A first. since, we have 3 different variables, we would have 3x3 matrix which would look like:
+
+\[ A = \begin{bmatrix}
+x^2 &  xy & xz\\
+yx & y^2 & yz \\
+zx & zy & z^2
+\end{bmatrix} \] 
+
+which the values of matrix elements are the coefficients of the values we have in the equation. Since it is a quadratic form then, A should be symmetric matrix.
+
+\[ A = \begin{bmatrix}
+2 &  6 & 2\\
+6 & 26 & 10 \\
+2 & 10 & 8
+\end{bmatrix} \]
+
+we would get A as nothing but Hessian matrix of this equation.
+
+To calculate b vector we need to look for the coefficients of linear terms:
+
+$b^Tv = 6x-2y+4z$
+
+we would get:
+
+\[b = \begin{bmatrix}
+x\\
+y\\
+z
+\end{bmatrix} = \begin{bmatrix}
+6\\
+-2\\
+4
+\end{bmatrix} \]
+
+and for constant c, we would get by looking to the scalar term:
+
+$c=3$
+
+### Answer: 
+
+### Option 3:
+
+Find a global minimum solution $x^*$. Explain in full detail how you can compute such a solution for this quadratic program (and similar) using pen, paper and calculator, without use of some computer code.
+
+We know that A is Hessian matrix of the equation and it is positive definite. That means, this function has a unique global minimum. 
+
+In order to find this minimum, we can set the gradient of the function to zero and solve it for u. Which is:
+
+$\nabla f = Au + b = 0$
+
+$Au + b = 0$
+
+$u = A^{-1}(-b)$
+
+So, let's find inverse of matrix A by using Gaussian Elimination Method:
+
+\[A^{-1} = \left[\begin{array}{ccc|ccc}
+2 & 6 & 2 & 1 & 0 & 0 \\
+6 & 26 & 10 & 0 & 1 & 0 \\
+2 & 10 & 8 & 0 & 0 & 1
+\end{array}\right]\]
+
+Divide first row by 2 ($R_1 \rightarrow R_1/2$)
+
+\[A^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 3 & 1 & \frac{1}{2} & 0 & 0 \\
+6 & 26 & 10 & 0 & 1 & 0 \\
+2 & 10 & 8 & 0 & 0 & 1
+\end{array}\right]\]
+
+Subtract 6 times the first row from the second row ($R_2 \rightarrow R_2 - 6R_1$) and subtract 2 times the first row from the third row ($R_3 \rightarrow R_3 - 2R_1$)
+
+\[A^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 3 & 1 & \frac{1}{2} & 0 & 0 \\
+0 & 8 & 4 & -3 & 1 & 0 \\
+0 & 4 & 6 & -1 & 0 & 1
+\end{array}\right]\]
+
+Divide second row by 8 ($R_2 \rightarrow R_2/8$)
+
+\[A^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 3 & 1 & \frac{1}{2} & 0 & 0 \\
+0 & 1 & \frac{1}{2} & -\frac{3}{8} & \frac{1}{8} & 0 \\
+0 & 4 & 6 & -1 & 0 & 1
+\end{array}\right]\]
+
+Subtract 3 times the second row from the first row ($R_1 \rightarrow R_1 - 3R_2$) and subtract 4 times the second row from the third row
+
+\[A^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 0 & -\frac{1}{2} & \frac{13}{8} & -\frac{3}{8} & 0 \\
+0 & 1 & \frac{1}{2} & -\frac{3}{8} & \frac{1}{8} & 0 \\
+0 & 0 & 4 & \frac{1}{2} & -\frac{1}{2} & 1
+\end{array}\right]\]
+
+Divide third row by 4 ($R_3 \rightarrow R_3 /4$)
+
+\[A^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 0 & -\frac{1}{2} & \frac{13}{8} & -\frac{3}{8} & 0 \\
+0 & 1 & \frac{1}{2} & -\frac{3}{8} & \frac{1}{8} & 0 \\
+0 & 0 & 1 & \frac{1}{8} & -\frac{1}{8} & \frac{1}{4}
+\end{array}\right]\]
+
+Add $\frac{1}{2}$ times the third row to the first row ($R_1 \rightarrow R_1 + \frac{1}{2}R_3$) and subtract $\frac{1}{2}$ times the third row from the second row ($R_2 \rightarrow R_2 - \frac{1}{2}R_3$)
+
+\[A^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 0 & 0 & \frac{27}{16} & -\frac{7}{16} & \frac{1}{8} \\
+0 & 1 & 0 & -\frac{7}{16} & \frac{3}{16} & -\frac{1}{8} \\
+0 & 0 & 1 & \frac{1}{8} & -\frac{1}{8} & \frac{1}{4}
+\end{array}\right]\]
+
+Finally
+
+\[A^{-1} = \begin{bmatrix}
+\frac{27}{16} & -\frac{7}{16} & \frac{1}{8} \\
+-\frac{7}{16} & \frac{3}{16} & -\frac{1}{8} \\
+\frac{1}{8} & -\frac{1}{8} & \frac{1}{4}
+\end{bmatrix}\]
+
+Let's find $A^{-1}(-b)$
+
+\[ \begin{bmatrix}
+\frac{27}{16} & -\frac{7}{16} & \frac{1}{8} \\
+-\frac{7}{16} & \frac{3}{16} & -\frac{1}{8} \\
+\frac{1}{8} & -\frac{1}{8} & \frac{1}{4}
+\end{bmatrix} \begin{bmatrix}
+-6\\
+2\\
+-4
+\end{bmatrix} = u\]
+
+
+\[ \begin{bmatrix}
+\frac{27}{16}×(-6) - \frac{7}{16}×2 + \frac{1}{8}×(-4)\\
+-\frac{7}{16}×(-6) + \frac{3}{16}×2 - \frac{1}{8}×(-4)\\
+\frac{1}{8}×(-6) - \frac{1}{8}×2 + \frac{1}{4}×(-4)
+\end{bmatrix} =  \begin{bmatrix}
+-10.125 - 0.875 - 0.5\\
+2.625 + 0.375 + 0.5\\
+-0.75 - 0.25 - 1
+\end{bmatrix}\]
+
+\[u = \begin{bmatrix}
+-11.5\\
+3.5\\
+-2
+\end{bmatrix}\]
+
+So, if we check if u is indeed the global minimum, we can use the formula of $\nabla f = Au + b = 0$
+
+\[Au = \begin{bmatrix}
+2 &  6 & 2\\
+6 & 26 & 10 \\
+2 & 10 & 8
+\end{bmatrix} \begin{bmatrix}
+-11.5\\
+3.5\\
+-2
+\end{bmatrix}\]
+
+\[Au = \begin{bmatrix} 2 × (-11.5) + 6 × 3.5 + 2 × (-2)\\
+6 × (-11.5) + 26 × 3.5 + 10 × (-2)\\
+2 × (-11.5) + 10 × 3.5 + 8 × (-2)
+\end{bmatrix}\]
+
+\[Au = \begin{bmatrix}
+-6\\
+2\\
+-4
+\end{bmatrix}\]
+
+\[Au + b = \begin{bmatrix}
+-6\\
+2\\
+-4
+\end{bmatrix} + \begin{bmatrix}
+6\\
+-2\\
+4
+\end{bmatrix} = \begin{bmatrix}
+0\\
+0\\
+0
+\end{bmatrix}\]
+
+So, we get 0. Then, we can say it is indeed the global minimum.
+
+
+### Answer: 
+
+### Option 4:
+
+Perform one step of the gradient descent method with backtracking via the Armijo condition, starting at the initial point (2, 1, 2). For the backtracking, start with the initial step length α = 1 and use the parameters c = 0.8 (suficient decrease parameter of Armijo) and ρ = 0.1 (contraction multiplier that is used to contract α).
+
+Be thorough in your explanation - explain all computations that you performed to execute it, and do not skip any detail (for example, how to compute the gradient).
+
+### Answer: 
+
+Our variables: $\alpha = 1, c=0.8, p=0.1$
+
+First, we need to compute gradients for f with respect to each variable's derivative.
+
+$\frac{\partial f}{\partial x}$ = $2x + 6y + 2z + 6$
+
+$\frac{\partial f}{\partial y}$ = $26y + 6x + 10z - 2$
+
+$\frac{\partial f}{\partial z}$ = $8z + 2x + 10y + 4$
+
+Then, we can give starting initial point to these derivatives to find $\nabla f$ at the starting point.
+
+$\frac{\partial f}{\partial x}$ = $2(2) + 6 (1)+2(2)+6 = 20$
+
+$\frac{\partial f}{\partial y}$ = $26(1)+6(2)+10(2)-2 = 56$
+
+$\frac{\partial f}{\partial z}$ = $8(2)+2(2)+10(1)+4 = 34$
+
+$\nabla f (2, 1, 2) = (20, 56, 34)$
+
+We can perform backtracking line search:
+
+The formula of Armijo Condition:
+
+$f(x - \alpha \nabla f(x)) \leq f(x) - c \alpha ||\nabla f(x)||^2$
+
+To calculate $f(x)$ at the starting initial point
+
+$f(2, 1, 2) = (2)^2 + 13(1)^2+ 4(2)^2+6(2)(1)+2(2)(2)+10(1)(2)+6(2)-2(1)+4(2)+3 = 94$
+
+Now, we need to calculate $f(x - \alpha \nabla f(x))$ by $(x_{new}, y_{new}, z_{new}) = (2,1,2) - \alpha \nabla f(2,1,2)$ at $(2 - 20\alpha, 1-56\alpha, 2 -34\alpha)$ for $\alpha=1$ and we will get $f(-18, -55, -32)$
+
+To calculate $f(x)$ at the new calculated points:
+
+$f(-18, -55, -32) = (-18)^2 + 13(-55)^2+4(-32)^2+6(-18)(-55)+2(-18)(-32)+10(-55)(-32)+6(-18)-2(-55)+4(-32)+3 = 68314$
+
+According to the Armijo condition, we would get something like that:
+
+$68314 \geq 94 - 0.8 × (\sqrt{(20)^2+(56)^2+(34)^2})^2 \rightarrow 68314 \geq -3659.6$
+
+Since, the Armijo condition is not fulfilled, we need to update our $\alpha$ by:
+
+$\alpha = \rho\alpha \rightarrow 0.1 × 1 = 0.1$
+
+And now, we can do the same process one more time:
+
+$f(x - \alpha \nabla f(x))$ by $(x_{new}, y_{new}, z_{new}) = (2,1,2) - \alpha \nabla f(2,1,2)$ at $(2 - 20\alpha, 1-56\alpha, 2 -34\alpha)$ for $\alpha=0.1$ and we will get $f(0, -4.6, -1.4)$
+
+To calculate $f(x)$ at the new calculated points:
+
+$f(0, -4.6, -1.4) = (0)^2 + 13(-4.6)^2+4(-1.4)^2+6(0)(-4.6)+2(0)(-1.4)+10(-4.6)(-1.4)+6(0)-2(-4.6)+4(-1.4)+3 = 353.92$
+
+According to the Armijo condition, we would get something like that:
+
+$353.92 \geq 94 - 0.8 × 0.1 × (\sqrt{(20)^2+(56)^2+(34)^2})^2 \rightarrow 353.92 \geq -281.36$
+
+We need to update alpha again and again until to get the condition is fulfilled. Since the question asks us to perform one step, I stop here.
+
+### Option 5:
+
+Perform one step of Newton's method, starting at the same initial point (2, 1, 2), and using the same parameters α = 1, c = 0.8 and ρ = 0.1. Again, be thorough in your explanations; if you use any linear algebraic subroutines (for example, Gaussian elimination), do not skip the computation and explain it in detail.
+
+### Answer: 
+
+First, we need to calculate Hessian matrix $H$ and Gradient $\nabla f$
+
+$\frac{\partial f}{\partial x}$ = $2x + 6y + 2z + 6$
+
+$\frac{\partial f}{\partial y}$ = $26y + 6x + 10z - 2$
+
+$\frac{\partial f}{\partial z}$ = $8z + 2x + 10y + 4$
+
+$\frac{\partial^2 f}{\partial x^2}$ = $2$
+
+$\frac{\partial^2 f}{\partial y^2}$ = $26$
+
+$\frac{\partial^2 f}{\partial z^2}$ = $8$
+
+$\frac{\partial^2 f}{\partial x \partial y}$ = $\frac{\partial^2 f}{\partial y \partial x}$ = $6$
+
+$\frac{\partial^2 f}{\partial x \partial z}$ = $\frac{\partial^2 f}{\partial z \partial x}$ = $2$
+
+$\frac{\partial^2 f}{\partial y \partial z}$ = $\frac{\partial^2 f}{\partial z \partial y}$ = $10$
+
+\[ H = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x^2} &  \frac{\partial^2 f}{\partial x \partial y} & \frac{\partial^2 f}{\partial x \partial z}\\
+\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2} & \frac{\partial^2 f}{\partial y \partial z} \\
+\frac{\partial^2 f}{\partial z \partial x} & \frac{\partial^2 f}{\partial z \partial y} & \frac{\partial^2 f}{\partial z^2}
+\end{bmatrix} \rightarrow \begin{bmatrix}
+2 &  6 & 2\\
+6 & 26 & 10 \\
+2 & 10 & 8
+\end{bmatrix} \]
+
+\[ \nabla f = \begin{bmatrix}
+\frac{\partial f}{\partial x}\\
+\frac{\partial f}{\partial y}\\
+\frac{\partial f}{\partial z}
+\end{bmatrix} \rightarrow \begin{bmatrix}
+2x+6y+2z+6\\
+26y+6x+10z-2\\
+8z+2x+10y+4
+\end{bmatrix} \]
+
+When we check gradient and hessian at the starting initial point (2, 1, 2)
+
+\[ \nabla f = \begin{bmatrix}
+2(2)+6(1)+2(2)+6\\
+26(1)+6(2)+10(2)-2\\
+8(2)+2(2)+10(1)+4
+\end{bmatrix} \]
+
+\[ \nabla f(2, 1, 2) = \begin{bmatrix}
+20\\
+56\\
+34
+\end{bmatrix}\]
+
+\[ H(2, 1, 2) = \begin{bmatrix}
+2 &  6 & 2\\
+6 & 26 & 10 \\
+2 & 10 & 8
+\end{bmatrix} \]
+
+To perform Newton's method by the formula:
+
+$x_{new} = x_{old} - \alpha H_f^{-1}\nabla f$
+
+Which is:
+
+\[ x_{new} = \begin{bmatrix}
+2\\
+1\\
+2
+\end{bmatrix} - 1 \begin{bmatrix}
+2 &  6 & 2\\
+6 & 26 & 10 \\
+2 & 10 & 8
+\end{bmatrix}^{-1} \begin{bmatrix}
+20\\
+56\\
+34
+\end{bmatrix} \]
+
+Let's calculate inverse of Hessian, which is 3x3 matrix. We can use Gaussian Elimination method
+
+\[H^{-1} = \left[\begin{array}{ccc|ccc}
+2 & 6 & 2 & 1 & 0 & 0 \\
+6 & 26 & 10 & 0 & 1 & 0 \\
+2 & 10 & 8 & 0 & 0 & 1
+\end{array}\right]\]
+
+Divide first row by 2 ($R_1 \rightarrow R_1/2$)
+
+\[H^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 3 & 1 & \frac{1}{2} & 0 & 0 \\
+6 & 26 & 10 & 0 & 1 & 0 \\
+2 & 10 & 8 & 0 & 0 & 1
+\end{array}\right]\]
+
+Subtract 6 times the first row from the second row ($R_2 \rightarrow R_2 - 6R_1$) and subtract 2 times the first row from the third row ($R_3 \rightarrow R_3 - 2R_1$)
+
+\[H^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 3 & 1 & \frac{1}{2} & 0 & 0 \\
+0 & 8 & 4 & -3 & 1 & 0 \\
+0 & 4 & 6 & -1 & 0 & 1
+\end{array}\right]\]
+
+Divide second row by 8 ($R_2 \rightarrow R_2/8$)
+
+\[H^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 3 & 1 & \frac{1}{2} & 0 & 0 \\
+0 & 1 & \frac{1}{2} & -\frac{3}{8} & \frac{1}{8} & 0 \\
+0 & 4 & 6 & -1 & 0 & 1
+\end{array}\right]\]
+
+Subtract 3 times the second row from the first row ($R_1 \rightarrow R_1 - 3R_2$) and subtract 4 times the second row from the third row
+
+\[H^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 0 & -\frac{1}{2} & \frac{13}{8} & -\frac{3}{8} & 0 \\
+0 & 1 & \frac{1}{2} & -\frac{3}{8} & \frac{1}{8} & 0 \\
+0 & 0 & 4 & \frac{1}{2} & -\frac{1}{2} & 1
+\end{array}\right]\]
+
+Divide third row by 4 ($R_3 \rightarrow R_3 /4$)
+
+\[H^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 0 & -\frac{1}{2} & \frac{13}{8} & -\frac{3}{8} & 0 \\
+0 & 1 & \frac{1}{2} & -\frac{3}{8} & \frac{1}{8} & 0 \\
+0 & 0 & 1 & \frac{1}{8} & -\frac{1}{8} & \frac{1}{4}
+\end{array}\right]\]
+
+Add $\frac{1}{2}$ times the third row to the first row ($R_1 \rightarrow R_1 + \frac{1}{2}R_3$) and subtract $\frac{1}{2}$ times the third row from the second row ($R_2 \rightarrow R_2 - \frac{1}{2}R_3$)
+
+\[H^{-1} = \left[\begin{array}{ccc|ccc}
+1 & 0 & 0 & \frac{27}{16} & -\frac{7}{16} & \frac{1}{8} \\
+0 & 1 & 0 & -\frac{7}{16} & \frac{3}{16} & -\frac{1}{8} \\
+0 & 0 & 1 & \frac{1}{8} & -\frac{1}{8} & \frac{1}{4}
+\end{array}\right]\]
+
+Finally
+
+\[H^{-1} = \begin{bmatrix}
+\frac{27}{16} & -\frac{7}{16} & \frac{1}{8} \\
+-\frac{7}{16} & \frac{3}{16} & -\frac{1}{8} \\
+\frac{1}{8} & -\frac{1}{8} & \frac{1}{4}
+\end{bmatrix}\]
+
+Let's return to our formula: 
+
+\[ x_{new} = \begin{bmatrix}
+2\\
+1\\
+2
+\end{bmatrix} - 1 \begin{bmatrix}
+\frac{27}{16} & -\frac{7}{16} & \frac{1}{8} \\
+-\frac{7}{16} & \frac{3}{16} & -\frac{1}{8} \\
+\frac{1}{8} & -\frac{1}{8} & \frac{1}{4}
+\end{bmatrix} \begin{bmatrix}
+20\\
+56\\
+34
+\end{bmatrix} \]
+
+\[ x_{new} = \begin{bmatrix}
+2\\
+1\\
+2
+\end{bmatrix} - \begin{bmatrix}
+\frac{27}{16}×20 - \frac{7}{16}×56 + \frac{1}{8}×34\\
+-\frac{7}{16}×20 + \frac{3}{16}×56 - \frac{1}{8}×34\\
+\frac{1}{8}×20 - \frac{1}{8}×56 + \frac{1}{4}×34
+\end{bmatrix} =  \begin{bmatrix}
+2\\
+1\\
+2
+\end{bmatrix} - \begin{bmatrix}
+\frac{27}{2}\\
+-\frac{5}{2}\\
+4
+\end{bmatrix}\]
+
+
+\[x_{new}= \begin{bmatrix}
+-\frac{23}{2}\\
+\frac{7}{2}\\
+-2
+\end{bmatrix} = \begin{bmatrix}
+-11.5\\
+3.5\\
+-2
+\end{bmatrix}\]
+
+Now, we can use Armijo's conditions to check if we have $f(x_{new}) > f(x) + c\alpha <\nabla f(x) - \nabla f(x)>$
+
+Left hand side:
+
+$f(-11.5, 3.5, -2) = (-11.5)^2 + 13(3.5)^2 + 4(-2)^2 + 6(-11.5)(3.5) + 2(-11.5)(-2) + 10(3.5)(-2) + 6(-11.5) - 2(3.5) + 4(-2) + 3 = -39$
+
+For the right-hand side:
+
+$f(2, 1, 2) = (2)^2 + 13(1)^2+ 4(2)^2+6(2)(1)+2(2)(2)+10(1)(2)+6(2)-2(1)+4(2)+3 = 94$
+
+$<\nabla f(x) - \nabla f(x)> = ((20, 56, 34).(-20, -56, -34)) = (-400 - 3136 - 1156) = -4,692$ 
+
+$c\alpha <\nabla f(x) - \nabla f(x)> = (0.8) × 1 × -4692 = -3,753.6$
+
+$f(x) + c\alpha <\nabla f(x) - \nabla f(x)> = 94 - 3,753.6 = -3659.6$
+
+So, since we have $-39 > -3659.6$ we need to update $\alpha$ as $\alpha = \rho \alpha$ which is equal to $\alpha = 0.1 × 1 = 0.1$ and perform more steps until we have the satisfied condition.
+

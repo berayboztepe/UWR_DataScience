@@ -1,0 +1,789 @@
+---
+title: "Assignment 3"
+author: "Emre Beray Boztepe"
+date: "31 05 2024"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+1-) Prove that the trace of the symmetric real matrix is equal to the sum of its eigenvalues (Hint : use the spectral decomposition and the circular property of the trace).
+
+We know that for real symmetric matrix A, there exists an Orthogonal matrix P (where the columns are made of eigenvectors of A) and a diagonal matrix $\Lambda$ such that:
+
+$A = P \Lambda P^T$
+
+Since P is orthogonal, we can say that:
+
+$PP^T = P^TP = I$ which is the Identity matrix
+
+And $\Lambda$ is diagonal with eigenvalues of A $(\lambda_1, \lambda_2, ..., \lambda_n)$:
+
+$\Lambda = diag(\lambda_1, \lambda_2, ..., \lambda_n)$
+
+As a property of trace operator, suppose that we have two matrices X and Y:
+
+The trace of their product is commutative: $tr(XY) = tr(YX)$
+
+So, when we want to apply trace operator to our spectral decomposition $A = P \Lambda P^T$:
+
+$tr(A) = tr(P \Lambda P^T) = tr(P P^T\Lambda)=tr(\Lambda I) = tr(\Lambda)$
+
+Trace of diagonal matrix is simply the sum of its diagonal elements:
+
+$tr(\Lambda) = \lambda_1 + \lambda_2 + ... + \lambda_n$ which are exactly the eigenvalues of A
+
+2-) Consider the real matrix X of the dimension n × p.
+
+a) Prove that X’X is semipositive definite and that its eigenvalues are larger or equal to zero.
+
+b) Prove that when p>n than at least one eigenvalue of X’X is equal to zero (i.e. X’X is singular).
+
+### Option a-)
+
+We can say a matrix is semipositive definite if for all vectors v: $v^T Av \geq 0$:
+
+$v^T (X^TX)v = (Xv)^T (Xv)$ for any vector $v \in \mathbb{R}^p$
+
+We know that dot product of the vector $Xv$ with itself is always non-negative.
+
+$(Xv)^T (Xv) = ||Xv||^2 \geq 0$
+
+$||Xv||^2$ is sum of the squares of the components of Xv. So, $X^TX$ is semipositive definite.
+
+Since $X^TX$ is semipositive definite, for any eigenvector v corresponding to $\lambda$:
+
+$v^T(X^TX)v = \lambda v^Tv = \lambda ||v||^2$
+
+And $||v||^2 \gt 0$ for any non-zero vector v, we can say $\lambda \geq 0$ 
+
+
+### Option b-)
+
+We have $X_{n×p}$ and we can say that matrix $X^TX_{p×p}$. 
+
+When $p \gt n$ the rank of matrix we have $X_{n×p}$ is at most n because n is smaller, and it is limited by the smaller dimension.
+
+And $X^TX_{p×p}$ has $p-n$ eigenvalues that are zero because the rank plus the dimension of the kernel of a matrix equals its total number of columns.
+
+So, $X^TX$ is singular. Because it does not have full rank and has zero eigenvalues
+
+
+3-) Your data contains 10 variables. You fit 10 regression models including the first variable, the first two variables, etc. The residual sums of squares for these 10 consecutive models are equal to (1731, 730, 49, 38.9, 32, 29, 28.5 27.8, 27.6, 26.6). The sample size is equal to 100. Which of these 10 models will be selected by AIC ? And which model will be selected by BIC or RIC? Assume that the standard deviation of the error term is known; σ = 1.
+
+Formulas:
+
+$AIC = n \ln{(\frac{RSS}{n})} + 2k$
+
+$BIC = n \ln{(\frac{RSS}{n})} + k \ln{(n)}$
+
+$n = 100$
+
+$\sigma = 1$
+
+```{r, echo=FALSE}
+n = 100
+rss = c(1731, 730, 49, 38.9, 32, 29, 28.5, 27.8, 27.6, 26.6)
+k = 1:10
+
+# AIC and BIC formulas
+ln_rss_over_n = log(rss / n)
+ln_n = log(n)
+
+aic = n * ln_rss_over_n + 2 * k
+bic = n * ln_rss_over_n + k * ln_n
+
+# minimum AIC and BIC
+min_aic_index = which.min(aic)
+min_bic_index = which.min(bic)
+
+
+print(paste("AIC values:", aic))
+print(paste("BIC values:", bic))
+
+print(paste("Model selected by AIC:", min_aic_index))
+print(paste("Model selected by BIC:", min_bic_index))
+```
+
+4-) Assuming the orthogonal design (X′X = I) and n = p = 10000 calculate the expected number of false discoveries for AIC, BIC and RIC, when none of the variables is really important (i.e. p0 = p).
+
+Formulas:
+
+$AIC = (p-k) × 2 × (1 - \Phi(2^{0.5}))$
+
+$BIC = (p-k)×2×(1 - \Phi(\sqrt{log(n)}))$
+
+$RIC = (p-k) × 2 × (1 - \Phi(\sqrt{2 log(p)}))$
+
+```{r, echo=FALSE}
+set.seed(123)  
+n = 10000
+p = 10000
+k = 0
+
+pnorm_aic = 2^(0.5)
+pnorm_bic = (log(n))^(0.5)
+pnorm_ric = (2*log(p))^(0.5)
+
+aic_val = (p-k)*2*(1-pnorm(pnorm_aic))
+bic_val = (p-k)*2*(1-pnorm(pnorm_bic))
+ric_val = (p-k)*2*(1-pnorm(pnorm_ric))
+
+
+cat("Expected Number of FD - AIC: ", aic_val, 
+    "\nExpected Number of FD - BIC: ", bic_val,
+    "\nExpected Number of FD - RIC: ", ric_val)
+```
+
+5-) When would you use AIC ? BIC ? RIC ?
+
+AIC:
+
+When we are looking for goodness of fit but not for the simplicity or interpretablity of the model.
+
+The sample size is sufficiently large compared to the number of parameters.
+
+BIC:
+
+When we need model that is either good at predicting and reasonably simple.
+
+The sample size is very large. Because BIC penalizes model complexity more heavily when sample size is large.
+
+RIC:
+
+When we need a balance between overfitting and underfitting.
+
+When we need a criterion that is consistent under mild conditions (less restrictive than BIC)
+
+Summary:
+
+AIC is less sensitive to sample size changes. BIC and RIC are more appropriate for larger datasets. (penalty terms)
+
+When we have a model with a large number of parameters, BIC and RIC may help prevent overfitting more effectively than AIC
+
+For predictive accuracy, AIC might be preferable. For finding the model that balances accuracy with simplicity, BIC or RIC may be more suitable.
+
+6-) Derive the formula for the bias, variance and mse of the ridge regression estimate under the orthogonal design (i.e when X’X=I). Compare to the respective values for the least square estimator.
+
+For the regression model $y = X \beta + \epsilon$ where $\epsilon \sim N(0, \sigma^2I)$, the ridge regression estimator:
+
+$\hat{\beta}_{ridge} = (X^TX + \lambda I)^{-1}X^T y$
+
+In an orthogonal design where $X^TX = I$
+
+$\hat{\beta}_{ridge} = (I + \lambda I)^{-1}X^Ty = \frac{1}{1 + \lambda} X^Ty$
+
+Since $X^Ty = X^T(X \beta + \epsilon) = I \beta + X^T \epsilon$, and given the orthogonality, $X^T\epsilon = \epsilon$ we would have:
+
+$\hat{\beta}_{ridge} = \frac{1}{1 + \lambda} (\beta + \epsilon)$
+
+Bias of the ridge estimator:
+
+$E[\hat{\beta}_{ridge}] = E [\frac{1}{1 + \lambda} (\beta + \epsilon)] = \frac{1}{1 + \lambda} \beta$
+
+$Bias(\hat{\beta}_{ridge}) = \frac{1}{1 + \lambda} \beta - \beta = (\frac{1}{1 + \lambda} - 1) \beta = - \frac{\lambda}{1 + \lambda}\beta$
+
+Variance of the ridge estimator:
+
+$Var(\hat{\beta}_{ridge}) = Var(\frac{1}{1 + \lambda} (\beta + \epsilon)) = (\frac{1}{1 + \lambda})^2 Var(\epsilon)$
+
+We know that: $Var(\epsilon) = \sigma^2I$
+
+$Var(\hat{\beta}_{ridge}) = (\frac{1}{1 + \lambda})^2 \sigma^2I$
+
+Mean Squared Error (MSE) of the ridge estimator:
+
+$MSE(\hat{\beta}_{ridge}) = Bias(\hat{\beta}_{ridge}) + Var(\hat{\beta}_{ridge})$
+
+$MSE(\hat{\beta}_{ridge}) = (\frac{1}{1 + \lambda})^2 ||\beta||^2 + (\frac{1}{1 + \lambda})^2 \sigma^2I$
+
+Comparison with Least Squares:
+
+$\hat{\beta}_{LS} = (X^TX)^{-1}X^Ty = X^Ty$
+
+Bias: $E[\hat{\beta}_{LS}] - \beta = \beta - \beta = 0$ (unbiased)
+
+Variance: $Var(\hat{\beta}_{LS}) = \sigma^2(X^TX)^{-1} = \sigma^2 I$
+
+MSE: $MSE(\hat{\beta}_{LS}) = Var(\hat{\beta}_{LS}) = \sigma^2 I$ Since it is unbiased, MSE simplifies to the variance.
+
+7-) For a given data set with 40 explanatory variables the residual sums of squares from the least squares method and the ridge regression are equal to : 4.5 and 11.6, respectively. For the ridge regression the trace of $X(X′X + γI)^{−1}X′$ is equal to 32. Which of these two methods yields the better estimated prediction error.
+
+We have the information: 
+
+* RSS for Least Squares: 4.5
+
+* RSS for Ridge Regression: 11.6
+
+* Trace of $X(X'X + \gamma I)^{-1}X'$: 32
+
+When we compare these two methods by their RSS values, we can say least squares with RSS of 4.5 fits the data better than the ridge regression model which has RSS of 11.6. Because lower RSS indicates a better fit.
+
+When we check trace, we can say 32 out of 40 explanatory variables implies that the model still retains a significant amount of the complexity of the data despite the regularization.
+
+As a result, least squares should suggest a better model fit in terms of minimizing the prediction error on the given dataset with having lower RSS.
+
+8-) Given X’X=I calculate the expected value of false discoveries and the power of LASSO
+
+Variables for LASSO are chosen according to whether or not their coefficients stay non-zero after being decreased towards zero. With the assumption that each coefficient is evaluated against a threshold given by $\lambda$ (tuning parameter), the FDR may be approximately computed.
+
+In an orthogonal design, the LASSO problem for each coefficient $\beta_i$:
+
+$\hat{\beta_i} = sign(z_i)max(0, |z_i|- \lambda)$
+
+$z_i:$ ith element of $X'y$
+
+Under the null hypothesis, $z_i \sim N(0, \sigma^2)$ 
+
+If $|z_i| \gt \lambda$ we can say variable is false discovered.
+
+P(False Discovery) = $P(|z_i| \gt \lambda)$ = $2P(z_i \gt \lambda)$ = $2(1-\phi(\frac{\lambda}{\sigma}))$
+
+$\phi:$ cdf of the standard normal distribution. Expected number of FD, p × P(False Discovery), where p is the number of predictors.
+
+Power of LASSO:
+
+For any non-zero coefficient $\beta_i$,
+
+$z_i = \beta_i + \epsilon_i$
+
+where $\epsilon \sim N(0, \sigma^2)$
+
+P(Power) = $P(|\beta_i + \epsilon_i| \gt \lambda)$
+
+$\beta_i + \epsilon_i \sim N(\beta_i, \sigma^2)$, then:
+
+P(Power) = $1 - P(|N(\beta_i, \sigma^2)| \leq \lambda)$
+
+9-) Consider adaptive LASSO with $λ_i = w_iλ$.
+
+i) How can you calculate adaptive LASSO estimator using the numerical solver for LASSO (like glmnet).
+
+ii) In the orthogonal case $(X’X=I)$ calculate the value of the adaptive LASSO estimator for the specific coordinate of the beta vector.
+
+iii) The ordinary least squares estimator of $β_1$ under the orthogonal design (X’X=I) is equal to 3 and the LASSO estimator of this parameter is equal to 2. What is the value of the adaptive LASSO estimator of $β_1$ if we use the same value of λ and the weight for $X_1$ is $w_1$ = 1/4.
+
+### Option i)
+
+The adaptive LASSO problem can be solved using glmnet:
+
+```{r, echo=FALSE}
+if (!require("glmnet")) {
+  install.packages("glmnet", dependencies = TRUE)
+  library(glmnet)
+}
+```
+
+$AL = glmnet(X, Y, alpha = 1, penalty.factor = w)$
+
+### Option ii)
+
+The adaptive LASSO estimator for a coefficient $\beta_i$ can be simplified to:
+
+$\hat{\beta}_i^{AL} = sgn(\hat{\beta}_i^{LS})max(|\hat{\beta}_i^{LS}| - w_i \lambda, 0)$
+
+* $\hat{\beta}_i^{AL}$ = Adaptive LASSO estimator of $\beta_i$
+
+* $\hat{\beta}_i^{LS}$ = Least Squares estimator of $\beta_i$
+
+### Option iii)
+
+
+We have:
+
+* $\hat{\beta}_i^{LS} = 3$
+
+* $\hat{\beta}_i^{LASSO} = 2$
+
+* $w_1 = \frac{1}{4}$
+
+It is wanted to calculate $\beta_1$
+
+First, from this calculation $\hat{\beta}_i^{LASSO} = 2$, it is implied that $\lambda$ was set such that $max(3 - \lambda, 0) = 2$ in the simple LASSO formula. So, we can say $\lambda = 1$ 
+
+From this formula,
+
+$\hat{\beta}_i^{AL} = sgn(\hat{\beta}_i^{LS})max(|\hat{\beta}_i^{LS}| - w_i \lambda, 0)$
+
+$\hat{\beta}_1^{AL} = sgn(3)max(3 - \frac{1}{4} × 1, 0) = max(3 - 0.25, 0) = 2.75$
+
+So, $\hat{\beta}_1^{AL} = 2.75$
+
+## Project 1: James-Stein estimator and Prediction Error in Multiple Regression
+
+1-) The data set Lab3.Rdata contains the matrix xx with expressions of 300 genes for 210 individuals.
+
+
+### Option a)
+
+```{r, echo=FALSE}
+load("~/Scripts/R-Scripts/Statistical_Learning/Assignment_3/Lab3.Rdata")
+
+standardized_xx = apply(xx, 1, function(gene_expression) {
+  mean_gene = mean(gene_expression)
+  sd_gene = sd(gene_expression)
+  gene_expression_standardized = mean_gene + (gene_expression - mean_gene) / sd_gene
+  return(gene_expression_standardized)
+})
+
+cat("First values of standardized data: \n", standardized_xx[1:5])
+```
+
+
+### Option b)
+
+```{r, echo=FALSE}
+centered_xx = apply(standardized_xx, 2, function(gene_expression) {
+  gene_expression - 10
+})
+
+cat("First values of centered data: \n", centered_xx[1:5])
+```
+
+### Option c)
+
+For gene expression data that has been standardized and centered, $\sigma^2$ is typically assumed to be 1 because the data has already been scaled to have a standard deviation of 1. So, we can choose it as 1.
+
+JS-Shrinks Zero: 
+
+$\hat{\theta}_{JS} = \max\left(0, 1 - \frac{(p-3) \sigma^2}{\sum (\text{estimate})^2}\right) \times \text{estimate}$
+
+JS-Shrinks Mean:
+
+$\hat{\theta}_{JS} = \max\left(0, 1 - \frac{(p-3) \sigma^2}{\sum (\text{estimate} - \mu)^2}\right) \times (\text{estimate} - \mu) + \mu$
+
+* $\mu$: overall mean
+
+* estimate: I've used MLE means in this context
+
+* p: length of estimate
+
+```{r, echo=FALSE}
+mle_means = colMeans(centered_xx[ , 1:5])
+
+# overall mean if shrinking towards a common mean
+overall_mean = mean(as.vector(centered_xx))
+
+# JSE: shrinking towards zero
+js_shrink_zero = function(estimate) {
+  p = length(estimate)
+  sigma2 = 1
+  shrinkage_factor = 1 - ((p-3) * sigma2) / sum((estimate)^2)
+  max(0, shrinkage_factor) * estimate
+}
+
+# JSE: shrinking towards the overall mean
+js_shrink_mean = function(estimate) {
+  p = length(estimate)
+  sigma2 = 1
+  shrinkage_factor = 1 - ((p-3) * sigma2) / sum((estimate - overall_mean)^2)
+  max(0, shrinkage_factor) * (estimate - overall_mean) + overall_mean
+}
+
+js_estimates_zero = js_shrink_zero(mle_means)
+js_estimates_mean = js_shrink_mean(mle_means)
+
+cat("MLE Estimator: ", mle_means,
+    "\nJSE: Shrinking Towards Zero: ", js_estimates_zero,
+    "\nJSE: Shrinking Towards Mean: ", js_estimates_mean)
+```
+
+### Option d)
+
+#### Option d Option i)
+
+```{r, echo=FALSE}
+average_expressions = colMeans(centered_xx[, 6:210])
+
+library(ggplot2)
+
+df_plot = data.frame(
+  Actual = average_expressions,
+  MLE = mle_means,
+  JS_Zero = js_estimates_zero,
+  JS_Mean = js_estimates_mean
+)
+
+# melting data for ggplot
+df_long = reshape2::melt(df_plot, id.vars = "Actual")
+
+ggplot(df_long, aes(x = Actual, y = value, color = variable)) +
+  geom_point(alpha = 0.5) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") +
+  labs(x = "Actual Mean Expression", y = "Estimated Mean Expression",
+       title = "Comparison of Estimators") +
+  theme_minimal()
+```
+
+#### Option d Option ii)
+
+```{r, echo=FALSE}
+squared_error_mle = sum((mle_means - average_expressions)^2)
+squared_error_js_zero = sum((js_estimates_zero - average_expressions)^2)
+squared_error_js_mean = sum((js_estimates_mean - average_expressions)^2)
+
+cat("Squarred Error for MLE: ", squared_error_mle,
+    "\nSquarred Error for JSE Zero: ", squared_error_js_zero,
+    "\nSquarred Error for JSE Mean: ", squared_error_js_mean)
+```
+
+#### Option d Option iii)
+
+Among this three, JSE Shrunk towards to mean has the lowest squared error, where MSE has a moderate squared error and JSE shrunk toward to zero has the highest one. While MLE provides a low-bias estimate, its variance might not always be optimal. JSE techniques aim to balance this issue by introducing some bias through shrinkage but not significantly reducing variance. Shrinkage towards common mean reduces the risk of extreme values driven by random sample variability.
+
+2-) Generate the design matrix $X_{1000×950}$ such that its elements are iid random variables from N (0, $σ = \sqrt{\frac{1}{1000}}$). Then generate the vector of the response variable according to the model Y = Xβ + ϵ, where $β = (3, 3, 3, 3, 3, 0, . . . , 0)^T$ and ϵ ∼ N (0, I).
+
+i) 2 first variables
+ii) 5 first variables
+iii) 10 first variables
+iv) 100 first variables
+v) 500 first variables
+vi) all 950 variables.
+
+For each of the considered models:
+
+```{r, echo=FALSE}
+set.seed(123)
+n = 1000
+p = 950
+X = matrix(rnorm(n * p, mean = 0, sd = sqrt(1/1000)), nrow = n, ncol = p)
+
+
+perform_regression = function(X, num_vars) {
+  beta = c(rep(3, num_vars), rep(0, p-num_vars))
+  epsilon = rnorm(n)
+  Y = X %*% beta + epsilon
+  
+  beta_hat = solve(t(X) %*% X) %*% t(X) %*% Y
+  
+  residuals = Y - X %*% beta_hat
+  rss = sum(residuals^2)
+  
+  pe_theoretical = sum((X %*% (beta - beta_hat))^2) + 1000 * 1
+  
+  list(num_var = num_vars, beta_hat = beta_hat[1:2], RSS = rss, PE_Theoretical = pe_theoretical)
+}
+
+perform_regression_pe = function(X, num_vars, sigma_squared = 1) {
+  beta = c(rep(3, num_vars), rep(0, p-num_vars))
+  epsilon = rnorm(n)
+  Y = X %*% beta + epsilon
+  
+  beta_hat = solve(t(X) %*% X) %*% t(X) %*% Y
+  
+  residuals = Y - X %*% beta_hat
+  rss = sum(residuals^2)
+  
+  # Calculate PE with new noise
+  epsilon_star = rnorm(nrow(X))
+  Y_new = X %*% beta + epsilon_star * sqrt(sigma_squared)
+  pe_theoretical_new = sum((Y_new - X %*% beta_hat)^2)
+  
+  list(num_var = num_vars, beta_hat = beta_hat[1:2], RSS = rss, PE_Theoretical_New = pe_theoretical_new)
+}
+
+perform_regression_pe_using_rss = function(X, num_vars, sigma_squarred=1) {
+  beta = c(rep(3, num_vars), rep(0, p-num_vars))
+  epsilon = rnorm(n)
+  Y = X %*% beta + epsilon
+  
+  beta_hat = solve(t(X) %*% X) %*% t(X) %*% Y
+  
+  residuals = Y - X %*% beta_hat
+  rss = sum(residuals^2)
+  
+  n = nrow(X)
+  pe_using_rss = rss + 2 * sigma_squarred*p
+  
+  list(num_var = num_vars, beta_hat = beta_hat[1:2], RSS = rss, PE_Using_RSS = pe_using_rss)
+}
+
+perform_regression_LOO = function(X, num_vars) {
+  beta = c(rep(3, num_vars), rep(0, p-num_vars))
+  epsilon = rnorm(n)
+  Y = X %*% beta + epsilon
+  
+  beta_hat = solve(t(X) %*% X) %*% t(X) %*% Y
+  residuals = X %*% beta_hat - Y
+  
+  rss = sum(residuals^2)
+  
+  M = X %*% solve(t(X) %*% X) %*% t(X)
+  leverage = diag(M)  
+  
+  loo_errors = (residuals / (1 - leverage))^2
+  PE_LOO = sum(loo_errors)
+  
+  list(
+    num_var = num_vars,
+    beta_hat = beta_hat[1:2],
+    RSS = rss,
+    PE_Loo = PE_LOO
+  )
+}
+
+variables = c(2, 5, 10, 100, 500, 950)
+
+final_df = data.frame()
+
+for(i in variables){
+  pe = perform_regression(X, i)
+  pe_df = data.frame(
+      PE_name = "Prediction Error",
+      num_var = pe$num_var,
+      RSS = pe$RSS,
+      PE = pe$PE_Theoretical
+    )
+  
+  pe_noise = perform_regression_pe(X, i)
+  pe_noise_df = data.frame(
+      PE_name = "Least Squares",
+      num_var = pe_noise$num_var,
+      RSS = pe_noise$RSS,
+      PE = pe_noise$PE_Theoretical_New
+    )
+  
+  pe_rss = perform_regression_pe_using_rss(X, i)
+  pe_rss_df = data.frame(
+      PE_name = "RSS",
+      num_var = pe_rss$num_var,
+      RSS = pe_rss$RSS,
+      PE = pe_rss$PE_Using_RSS
+    )
+  
+  pe_loo = perform_regression_LOO(X, i)
+  pe_loo_df = data.frame(
+      PE_name = "LOO",
+      num_var = pe_loo$num_var,
+      RSS = pe_loo$RSS,
+      PE = pe_loo$PE_Loo
+    )
+  
+  final_df = rbind(final_df, pe_df, pe_noise_df, pe_rss_df, pe_loo_df)
+}
+```
+
+### Option a)
+
+```{r, echo=FALSE}
+library(dplyr)
+print(filter(final_df, PE_name=="Least Squares"))
+```
+
+### Option b)
+
+```{r, echo=FALSE}
+print(filter(final_df, PE_name=="RSS"))
+```
+
+### Option c)
+
+Formula provided in the class: Loo Cross-Validation = $\sum_{i=1}^n (\frac{Y_i - \hat{Y_i}}{1 - M_{ii}})^2$
+
+```{r, echo=FALSE}
+print(filter(final_df, PE_name=="LOO"))
+```
+
+### Option d)
+
+```{r, echo=FALSE}
+print(final_df)
+```
+
+Least Squares: This estimator performs best with a moderate to high number of variables, achieving its lowest PE at 10 variables (1882.063) and still performing reasonably well at 500 variables (1892.549).
+
+RSS: Consistently produces lower PEs across all variable counts compared to Least Squares, except at 10 variables where Least Squares slightly outperforms. RSS shows a more stable PE as the number of variables increases, suggesting robustness.
+
+LOO: Shows significantly higher PEs across all counts of variables, suggesting it might not be as effective as the other two estimators for this particular data set.
+
+The model using Least Squares with 10 variables appears to offer the best PE among the three estimators and is the most favorable in this analysis.
+
+### Option e)
+
+I have a problem for plotting. As can be seen, all values for both LS - PE and RSS - PE are between -200 and 300 for all first i (i = 2, 5, 10, ..., 950) variables. But whatever I do, I could not limit y-values starting from minus values. Since all plot starts in y axis from 0, it looks like all differences are 0 (like RSS, PE and LS are the same) they are not as can be seen from the results that are printed. Also, having LOO around 20000 is a big difference when we compare with other estimators.
+
+```{r, echo=FALSE}
+num_rep = 30
+
+for(i in variables){
+  est_pe = data.frame(replicate(num_rep, perform_regression(X, i)$PE_Theoretical))
+  colnames(est_pe) = "PE"
+  est_ls = data.frame(replicate(num_rep, perform_regression_pe(X, i)$PE_Theoretical_New))
+  colnames(est_ls) = "Least Square"
+  est_rss = data.frame(replicate(num_rep, perform_regression_pe_using_rss(X, i)$PE_Using_RSS))
+  colnames(est_rss) = "RSS"
+  est_loo = data.frame(replicate(num_rep, perform_regression_LOO(X, i)$PE_Loo))
+  colnames(est_loo) = "LOO"
+  
+  res_ls = rbind(t(est_ls - est_pe), t(est_rss - est_pe), t(est_loo - est_pe))
+  res_ls_df = as.data.frame(t(res_ls))
+  colnames(res_ls_df) = c("Least Square", "RSS", "LOO")
+  
+  print(paste("Results for", i, "first variables"))
+  print(res_ls_df)
+
+  boxplot(res_ls_df, col=c("red", "green", "blue"), names=c("LS - PE", "RSS - PE", "LOO - PE"), main=paste("Boxplot for", i, "first variables"))
+}
+```
+
+From the plots, we can not see any outliers (small circles in plots) when we use variables 2 and 950. Using 5 variables, there are outliers for LOO estimator. For 10 variables, there are outliers for RSS estimator. Using 100 variables, there are outliers for LS. Using 500 variables, there are outliers for each estimator.
+
+As the number of variables increases from 2 to 950, the median and variability of the prediction errors in the LOO model generally increase. This could suggest overfitting as more variables are included, which is common in models that are too complex relative to the amount of data. Sensitivity of the LOO method to the changes in data and possibly its greater reliability in reflecting the true prediction error in these settings.
+
+Methods RSS and LS are either not much sensitive to the changes in the data or are consistently close to perfect under the tested conditions because having values so close to real PE value that we have.
+
+## Project 2: Multiple regression - model selection and regularization
+
+Generate the design matrix X1000×950 such that its elements are iid random variables from N (0, $σ = \sqrt{\frac{1}{1000}}$). Then generate the vector of the response variable according to the model
+
+Y = Xβ + ϵ , where $β_1 = . . . = β_k = 6, β_{k+1} = . . . = β_p = 0$ with k = 20, and ϵ ∼ N(0, I).
+
+```{r, echo=FALSE}
+set.seed(123)
+
+n = 1000
+p = 950
+X = matrix(rnorm(n * p, mean = 0, sd = 1/sqrt(1000)), n, p)
+k=20
+
+beta = rep(0, p)
+beta[1:k] = 6
+
+epsilon = rnorm(n)
+Y = X %*% beta + epsilon
+```
+
+Analyse this data using
+
+* mBIC2
+
+* Ridge
+
+* LASSO (min, 1se)
+
+* Tuned LASSO
+
+* SLOPE
+
+```{r, echo=FALSE}
+if (!require("bigstep")) {
+  install.packages("bigstep", dependencies = TRUE)
+  library(bigstep)
+}
+
+big = prepare_data(Y, X)
+big_result = stepwise(big, crit = mbic2)
+indices = as.numeric(big_result$model)
+b_hat_mbic = rep(0, p)
+b_hat_mbic[indices] = as.numeric(get_model(big_result)$coefficients)[-1]
+cat("Indices for MBIC2: ", indices)
+```
+
+```{r, echo=FALSE}
+cv_ridge = cv.glmnet(X, Y, alpha = 0)
+cv_ridge_coef = coef(cv_ridge)[-1, ]
+```
+
+```{r, echo=FALSE}
+lasso = cv.glmnet(X, Y, alpha=1, intercept = F)
+lasso_min = coef(lasso, s = "lambda.min")[-1,]
+lasso_1se = coef(lasso, s = "lambda.1se")[-1,]
+```
+
+```{r, echo=FALSE}
+s = qnorm(1 - 0.1/2/p)
+lasso_tuning = coef(lasso, s = s/n)[-1, ]
+```
+
+```{r, echo=FALSE}
+if (!require("SLOPE")) {
+  install.packages("SLOPE", dependencies = TRUE)
+  library(SLOPE)
+}
+
+slope = SLOPE(X, Y, lambda = qnorm(1 - seq(1, 950, 1)*0.1/2/p)/n)
+slope_coef = coef(slope)[,20][-1]
+```
+
+For each of these methods calculate the square estimation errors $||βˆ − β||^2$ and $||X(βˆ − β)||^2$ . In case of LASSO and SLOPE consider also estimators obtained by performing the regular least squares fit within the selected model. For all methods apart from ridge calculate also the False Discovery Proportion and the True Positive Proportion (Power)
+
+```{r, echo=FALSE}
+square_estimation_error = function(beta_hat, beta) {
+  sum((beta_hat - beta)^2)
+}
+
+prediction_error = function(X, beta_hat, beta) {
+  sum((X %*% beta_hat - X %*% beta)^2)
+}
+
+calculate_tpr_fdr = function(beta_hat, beta) {
+  true_positive = sum(beta_hat != 0 & beta != 0)
+  false_positive = sum(beta_hat != 0 & beta == 0)
+  total_actual_positive = sum(beta != 0)
+  total_predicted_positive = sum(beta_hat != 0)
+  
+  tpr = true_positive / total_actual_positive
+  fdr = false_positive / total_predicted_positive
+  list(TPR = tpr, FDR = fdr)
+}
+
+all_calculations = function(X, beta_hat, beta){
+  return(c(square_estimation_error(beta_hat, beta), prediction_error(X, beta_hat, beta), calculate_tpr_fdr(beta_hat, beta)))
+}
+
+results = data.frame(
+  rbind(all_calculations(X, b_hat_mbic, beta), all_calculations(X, cv_ridge_coef, beta), all_calculations(X, lasso_min, beta), all_calculations(X, lasso_1se, beta), all_calculations(X, lasso_tuning, beta), all_calculations(X, slope_coef, beta))
+)
+
+colnames(results)=c("Square Estimation Error", "Prediction Error", "TPR", "FDR")
+rownames(results)=c("mBIC2", "Ridge", "Lasso Min", "Lasso 1se", "Lasso Tuning", "SLOPE")
+print(results)
+```
+
+mBIC2 shows the best overall performance with the lowest errors and perfect scores in TPR and FDR, suggesting it's highly effective for both identifying relevant variables and avoiding irrelevant ones.
+
+Ridge and Lasso methods vary in effectiveness, with some trading off between high TPR and high FDR. Higher FDR in these methods might suggest they are fitting some noise as signal.
+
+SLOPE shows the poorest performance in terms of errors, which might indicate issues with its application to this particular dataset or perhaps its sensitivity to parameter settings.
+
+
+Regular Least Squares for all LASSO models and SLOPE
+```{r, echo=FALSE}
+regular_least_squares = function(X, beta_hat, Y) {
+  selected_vars = which(beta_hat != 0)
+  
+  if (length(selected_vars) > 0) {
+    X_selected = X[, selected_vars, drop = FALSE]
+    ols_fit = lm(Y ~ X_selected + 0)
+    return(list(Coefficients = coef(ols_fit)))
+  } else {
+    return(list(Coefficients = rep(0, ncol(X))))
+  }
+}
+
+results_rls = data.frame(rbind(regular_least_squares(X, lasso_min, Y), regular_least_squares(X, lasso_1se, Y), regular_least_squares(X, lasso_tuning, Y), regular_least_squares(X, slope_coef, Y)))
+colnames(results_rls) = c("Regular Least Squares")
+rownames_rls = c("Lasso Min", "Lasso 1se", "Lasso Tuning", "SLOPE")
+rownames(results_rls) = rownames_rls
+print("First 5 coefficients of regular least squares for each model: ")
+
+printed_results = data.frame()
+
+for(i in results_rls){
+  for(j in i)
+  {
+    printed_results = rbind(printed_results, j[1:5])
+  }
+}
+colnames(printed_results) = c("X1", "X2", "X3", "X4", "X5")
+rownames(printed_results) = rownames_rls
+print(printed_results)
+```
+
+SLOPE, in particular, shows a tendency to produce larger coefficients possibly because it assigns a different penalty to each coefficient, depending on its rank among the absolute values of coefficients. A larger coefficient in one model versus another could indicate a greater perceived importance of that predictor variable under certain regularization constraints.
+
+

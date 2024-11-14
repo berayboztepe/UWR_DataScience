@@ -1,0 +1,519 @@
+---
+title: "Assignment 2"
+author: "Emre Beray Boztepe"
+date: "30 04 2024"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(ellipse)
+```
+
+## Problem 1
+
+### Option 1
+
+A chi-squared random variable X with p degrees of freedom can be defined as:
+
+$X^2_p=\sum_{i=1}^p Z_i^2$
+
+A random variable $Y$ from the F distribution with $d_1$ and $d_2$ degrees of freedom can be defined as:
+
+$Y=\frac{\frac{1}{d_1}\sum_{i=1}^{d_1}Z_i^2}{\frac{1}{d_2}\sum_{i=d_1+1}^{d_1+d_2}Z_i^2}$
+
+### Option 2
+
+$F_{p,n−p}$ will approximately follow an F-distribution, as stated, with 4 and 996 degrees of freedom. However, with $n$ large, it also approximately follows a normal distribution due to the central limit theorem, especially since $n−p$ is much larger than $p$.
+
+### Option 3
+
+$n(\bar{X} - \mu)^T \quad Σ^{-1} (\bar{X} - \mu)$
+
+$= n(\bar{X} - \mu)^T (Σ^{\frac{1}{2}} Σ^{\frac{1}{2}})^{-1} (\bar{X} - \mu)$
+
+let $(\bar{X} - \mu) \rightarrow Z$
+
+$= n Z^T \quad (Σ^\frac{1}{2}Σ^\frac{1}{2})^{-1}Z$
+
+$= \sqrt{n}\sqrt{n} Z^T(Σ^\frac{1}{2}Σ^\frac{1}{2})^{-1}Z$
+
+$= (\sqrt{n} (Σ^\frac{1}{2})^{-1} Z)^T \quad (\sqrt{n} (Σ^\frac{1}{2})^{-1}Z) \sim X^2_p$
+
+As, $\sqrt{n} (\Sigma^\frac{1}{2})^{-1} Z \sim N_p(0, 1)$
+
+### Option 4
+
+#### (a)
+
+Under $H_0$: $\mu = \mu_0$, $T^2$ follows an F-distribution with $p$ and $n-p$ degrees of freedom:
+
+$T^2 \sim \frac{p(n-1)}{n-p} F_{p, n-p}$ 
+
+The test rejects $H_0$ if $T^2 > F_{p, n-p,a}$, the critical value at significance level $\alpha$
+
+#### (b)
+
+As n increases, $T^2$ tends to infinity under $H_1$ (non-central F-distribution), reducing the probability of Type II error, thus increasing power.
+
+#### (c)
+
+If $H_0$ is false, $T^2$ tends to infinity as $n$ increases, ensuring the probability of correctly rejecting $H_0$ approaches 1 (asymptotic consistency).
+
+## Problem 2
+
+In order to calculate p-values: For each component $Z_i$ we can calculate it as the probability of observing a value as extreme as $Z_i$ under the standard normal distribution. This means, we can use cumulative standard distribution (CDF). 
+
+$p-value = 2 × (1 - \Phi(|Z_i|))$ where $\Phi =$ CDF of standard normal distribution
+
+### Option 1
+
+The Bonferroni test statistics has the formula as follows:
+
+$T_{bonf} = min\{p_i\}$
+
+We reject the null hypothesis for small values of the test statistics: 
+
+$\varphi_{bonf} = T_{bonf}  < \frac \alpha n$
+
+* n: the size
+
+* $\alpha$: This is chosen as 0.05 (which is common value for $\alpha$)
+
+```{r, echo=FALSE}
+X = c(1.7, 1.6, 3.3, 2.7, -0.04, 0.35, -0.5, 1.0, 0.7, 0.8)
+
+p_values = 2*(1-pnorm(abs(X)))
+
+alpha = 0.05
+n = length(X)
+
+alpha_bonf = alpha/n
+
+would_reject = p_values <= alpha_bonf
+
+cat("p-values: ", p_values)
+print(would_reject)
+```
+
+So, when we calculate p values from given X vector, we would only reject one hypothesis (number 3) when we apply Bonferroni procedure.
+
+### Option 2
+
+Benjamini-Hochberg test statistics has the formula of:
+
+Reject $H_{0, (i)}$ if: 
+
+$\exists _{(j \geq i)}  \quad p_{(j)} <  \frac {j} {n} \alpha$
+
+* n: the size
+
+* $\alpha$: 0.05
+
+* j: index variable that corresponds to the rank of each p-value (ordered p-values)
+
+```{r, echo=FALSE}
+benjamini_hochberg_procedure = function(p_values, alpha = 0.05) {
+  n = length(p_values)
+  
+  ordered_p_values = order(p_values)
+  cat("indices of p_values after ordering: ", ordered_p_values)
+  perm_ordered_p_values = order(ordered_p_values)
+  
+  critical_values = (alpha * seq_len(n)) / n
+  rejected = p_values[ordered_p_values] <= critical_values
+  cat("\nrejected p_values: ", rejected)
+  
+  sapply(seq_len(n), function(i) any(rejected[i:n]))[perm_ordered_p_values] 
+}
+
+would_reject_bh = benjamini_hochberg_procedure(p_values)
+print(would_reject_bh)
+```
+
+When applying the Benjamini-Hochberg procedure, we observe that we reject hypotheses until the third one after ordering, as its p-value is lower than its corresponding critical value. However, we do not reject any hypotheses beyond the third one.  
+
+### Option 3
+
+For Bonferroni: Only the third hypothesis is rejected and we assume that only the first three coordinates of $\mu$ are different from zero (from the question). So, the hypothesis rejection is correct (true positive) and there are no false positives.
+
+Bonferroni: $FDP:\frac{FP}{FP + TP}$ = $\frac{0}{1 + 0} = 0$
+
+For BH: Third and fourth hypotheses are rejected. So, we have 1 true positive because 3rd hypothesis is rejected and we have 1 false positive as we reject fourth hypothesis.
+
+BH: $FDP:\frac{FP}{FP + TP}$ = $\frac{1}{1 + 1} = \frac{1}{2}$
+So, FDP for BH would be %50.
+
+
+## Project 2
+
+1-)  Load the data, produce scatter plots and qq-plots of the data and discuss validity of the assumption that the data are from a multivariate normal distribution.
+
+```{r, echo=FALSE}
+data = read.table("~/Scripts/R-Scripts/Statistical_Learning/Assignment_2/BankGenuine.txt", header = FALSE)
+colnames(data) = c("Length", "Height_L", "Height_R", "Distance_Bottom", "Distance_Top", "Length_Diagonal")
+
+histogram_plot = function(sample, data_name) {
+  hist(sample, breaks=100, density=20, prob=TRUE, main=paste("Histogram", 
+                                                             data_name))
+  curve(dnorm(x, mean=mean(sample), sd=sqrt(var(sample))), col="darkred", 
+        lwd=3, add=TRUE)
+}
+
+qq_plot = function(sample, data_name) {
+  qqnorm(sample, col = rgb(red = 0, green = 0, blue = 0, alpha = 0.1), main=paste("Q-Q Plot", data_name))
+  qqline(sample, col="darkred", lwd=3)
+}
+
+histogram_plot(data$Length, "Length")
+histogram_plot(data$Height_L, "Height_L")
+histogram_plot(data$Height_R, "Height_R")
+histogram_plot(data$Distance_Bottom, "Distance_Bottom")
+histogram_plot(data$Distance_Top, "Distance_Top")
+histogram_plot(data$Length_Diagonal, "Length_Diagonal")
+
+qq_plot(data$Length, "Length")
+qq_plot(data$Height_L, "Height_L")
+qq_plot(data$Height_R, "Height_R")
+qq_plot(data$Distance_Bottom, "Distance_Bottom")
+qq_plot(data$Distance_Top, "Distance_Top")
+qq_plot(data$Length_Diagonal, "Length_Diagonal")
+```
+
+The histograms provided show some asymmetry and variability from the bell curve, especially for the "Height_L" and "Distance_Bottom" variables, which could suggest deviations from normality.
+
+If the data are normally distributed, the points should lie approximately along the 45-degree reference line. In the plots we have, the points largely follow the line, but there are some deviations, especially in the tails.
+
+2-) Evaluate estimators of the vector of means and the covariance matrix.
+
+```{r, echo=FALSE}
+means = colMeans(data)
+cov = cov(data)
+cov_matrix = data.frame(cov)
+
+cat(
+  "Mean:", means,
+  "\nCovariance Matrix: "
+)
+
+print(cov_matrix)
+```
+
+3-) Write an R function that is verifying if a point lies inside of the six dimensional ellipsoid that serve as the 95% confidence region for the mean value of bank notes based on the Hotelling’s $T^2$ statistics.
+
+Hotteling Statistic: $n(\overline{X} - \mu)'S^{-1}(\overline{X} - \mu) \leq \frac{(n-1)p}{n-p} F_{p, n-p}(a)$
+
+```{r, echo=TRUE}
+check_hotelling = function(sample_data, mean, cov_matrix, new_point) {
+  n = nrow(sample_data)
+  p = ncol(sample_data)
+
+  T2 = n * (new_point - mean) %*% solve(cov_matrix) %*% (new_point - mean)
+  
+  F_critical = qf(0.95, p, n - p)
+  T2_critical = (p * (n - 1) / (n - p)) * F_critical
+  
+  return(T2 <= T2_critical)
+}
+```
+
+4-)  A new production line that will be replacing the old one for printing the bank notes is tested and one of the requirements is that the average dimensions of the bank notes are comparable to these represented in the provided sample of the original bank notes. After printing a very long series of bank notes in the new production line, it was found that the mean values of the dimensions are
+
+m0 LENGTH LEFT RIGHT BOTTOM TOP DIAGONAL
+
+[1,] 214.97 130 129.67 8.3 10.16 141.52
+
+(Since the number of bank notes printed out for this purpose was very large so the error of for the obtained mean values is negligible). Check if the obtained mean values are within the Hotelling’s confidence region that was obtained based on the original sample of bank notes.
+
+```{r, echo=FALSE}
+new_point = c(214.97, 130, 129.67, 8.3, 10.16, 141.52)
+result = check_hotelling(data, means, cov_matrix, new_point)
+print(result)
+```
+
+Hotelling's $T^2$ is a multivariate test that checks if there is a significant difference between the mean vector of a sample and a hypothesized mean vector. FALSE indicates that suggests that the new data point significantly deviates from the expected mean values of the dataset. 
+
+5-) Check if the new mean vector falls within the Bonferroni’s confidence rectangular region for the mean value of the old bank note dimensions.
+
+Bonferroni Interval: $\overline{X} (+-) t_{n-1}(\frac{\alpha_i}{2})\sqrt{\frac{s_i^2}{n}}$
+
+where $\sum_{i=1}^p \alpha_i = \alpha$
+
+```{r, echo=FALSE}
+computeBonferroniConfidenceRegions = function (dataset, confidenceLevel=0.05) {
+  adjustedConfidenceLevel = confidenceLevel / ncol(dataset)
+  computeConfidenceInterval = function (sample){
+    mu = mean(sample)
+    t = qt(adjustedConfidenceLevel / 2, df=length(sample) - 1) * sqrt(var(sample) / length(sample))
+    return(c(mu - t, mu + t))
+  }
+  
+  confidenceIntervals = apply(dataset, 2, computeConfidenceInterval)
+  return (confidenceIntervals)
+}
+
+testBonferroniConfidenceRegions = function(dataset, expectedMeans, confidenceLevel=0.05) {
+  confidenceIntervals = computeBonferroniConfidenceRegions(dataset, confidenceLevel=confidenceLevel)
+  return( all(apply(t(confidenceIntervals) - expectedMeans, 1, prod) < 0) )
+}
+
+new_point = c(214.97, 130, 129.67, 8.3, 10.16, 141.52)
+testBonferroniConfidenceRegions(data, new_point)[1]
+```
+
+TRUE means our new point fall within its respective Bonferroni confidence interval. 
+
+```{r, echo=FALSE}
+bonferroni_region = computeBonferroniConfidenceRegions(data)
+print("Bonferroni Region: ")
+for(i in 1:nrow(bonferroni_region))
+{
+  print(bonferroni_region[i, ])
+}
+```
+
+6-) Plot the projection of both confidence regions to the one-dimensional spaces marked by the axes: $X_i, i = 1, . . . 6$. Mark the projection of the vector of means on the obtained confidence intervals. Comment what you observed.
+
+For this plot, blue line represents Bonferroni Confidence Interval, red line represents Hotteling $T^2$ interval and black circle is means for each variable.
+
+```{r, echo=FALSE}
+line_projection = function(means, cov, m, data, which=1) {
+  bonf_region = t.test(data[,which], conf.level=0.95)$conf.int
+  
+  n = nrow(data)
+  t_val = qt(0.975, df=n-1)
+  std_error = sqrt(cov[which, which] / n)
+  hotelling_region = c(m[which] - t_val * std_error, m[which] + t_val * std_error)
+  
+  plot(c(min(bonf_region[1], hotelling_region[1]), max(bonf_region[2], hotelling_region[2])), 
+       c(0, 0), type = "n", xlab = "", ylab = "", main = colnames(data)[which])
+  
+  segments(bonf_region[1], 0, bonf_region[2], 0, lwd = 2, col = "blue")
+  
+  segments(hotelling_region[1], -0.1, hotelling_region[2], -0.1, lwd = 2, col = "red")
+  
+  points(m[which], 0, pch = 19, col = "black", cex=2)
+}
+
+plot_intervals = function(means, cov, m, data) {
+  par(mfrow = c(2, 3), mar=c(4.1, 4.1, 4.1, 4.1), yaxt = "n", pty = "s", bty = "n")
+  options(repr.plot.width=18, repr.plot.height=10)
+  for (i in 1:6) {
+    line_projection(means, cov, m, data, which=i)
+  }
+}
+
+plot_intervals(means, cov, new_point, data)
+```
+
+For the plot, we can say that there is a consistency in the closeness of the measured means to the center of the confidence intervals in each variable. The close proximity of the measured means to the center of both confidence intervals across all variables suggests that there are no significant deviations from expected values. Also, the confidence intervals are quite narrow across all variables, which suggests high precision in the measurements.
+
+7-) Plot the projection of both confidence regions to the two-dimensional spaces marked by the pairs of axes: $X_i, X_j, i \neq j$. Mark the projection of the vector of means. Comment what you observed. Hint: Use package ellipse.
+
+```{r, echo=FALSE}
+library(ellipse)
+library(ggplot2)
+library(gridExtra)
+library(mvtnorm)
+
+calculateBoundaryStatistic = function(sampleSize, dimensionCount, confidenceLevel) {
+  dimensionCount * (sampleSize - 1) / (sampleSize - dimensionCount) * qf(confidenceLevel, dimensionCount, sampleSize - dimensionCount) / sampleSize
+}
+
+
+drawConfidenceEllipse = function(meanValues, covarianceMatrix, dimensions = c(1, 2), confidenceLevel = 0.95, equalScaling = TRUE, sampleSize = nrow(data)) {
+  plotBase = ggplot() + geom_path() + theme_bw()
+  
+  if (!equalScaling) {
+    plotBase = plotBase + coord_equal()
+  }
+  
+  ellipseData = ellipse(x = covarianceMatrix, centre = meanValues[dimensions], which = dimensions, t = sqrt(calculateBoundaryStatistic(sampleSize, 2, confidenceLevel)))
+  ellipseData = as.data.frame(ellipseData)
+  colnames(ellipseData) = c("x", "y")
+  
+  plotBase = plotBase + geom_path(data = ellipseData, aes(x, y), color = "black", alpha = sqrt(1 - confidenceLevel))
+  
+  return(plotBase)
+}
+
+projectPlane = function(meanVector, covarianceMatrix, pointVector, dataset, dimensionIndices = c(2, 3)) {
+  pointDataFrame = data.frame(t(pointVector[dimensionIndices]))
+  colnames(pointDataFrame) = c("x", "y")
+  
+  confidenceRegions = computeBonferroniConfidenceRegions(dataset[, dimensionIndices])
+  
+  drawConfidenceEllipse(meanVector, covarianceMatrix, dimensionIndices) +
+    theme(axis.title.x = element_blank(), axis.title.y = element_blank()) +
+    geom_point(data = pointDataFrame, aes(x, y), size = 3, alpha = 0.8, pch = 19, color = "darkred") +
+    geom_rect(aes(
+      xmin = confidenceRegions[1, 1],
+      xmax = confidenceRegions[2, 1],
+      ymin = confidenceRegions[1, 2],
+      ymax = confidenceRegions[2, 2]
+    ), alpha = 0, color = "grey")
+}
+
+displayAllProjections = function(point, dataset, meanVector, covarianceMatrix) {
+  options(repr.plot.width = 24, repr.plot.height = 20)
+  
+  numVariables = length(meanVector)
+  for (i in 1:numVariables) {
+    plots = vector('list', numVariables - 1)
+    plotIndex = 1
+    
+    for (j in 1:numVariables) {
+      if (i != j) {
+        plots[[plotIndex]] = projectPlane(meanVector, covarianceMatrix, point, dataset, dimensionIndices = c(j, i)) +
+          coord_fixed(ratio = 1) +
+          theme(text = element_text(size = 12),
+                axis.title.x = element_text(vjust = -0.5),
+                axis.title.y = element_text(angle = 90, vjust = -1.5)) +
+          xlab(sprintf(colnames(dataset)[j])) +
+               ylab(sprintf(colnames(dataset)[i]))
+        
+        plotIndex = plotIndex + 1
+      }
+    }
+    
+    plotRow = do.call(gridExtra::grid.arrange, c(plots, ncol = numVariables - 1))
+  }
+}
+
+displayAllProjections(new_point, data, means, cov)
+```
+
+Looks like new means (red circle) lie inside both Bonferroni Confidence Region (rectangle area) and Hotelling’s T^2 region (ellipse area) for almost all pairs of axes. Only, in pair Height L and Height R, we can see that the new means lie inside Bonferroni, but it is outside of Hotelling’s $T^2$ region. Also, the same thing can be said for vice versa.
+
+
+8-) Interpret geometrically the fact that the mean values of the bank note dimensions from the new production line fail to belong to the Hotelling’s confidence region. Relate to the previously created graphs.
+
+Let's interpret some pairs of first row (pairs of Length with other attributes):
+
+Height_L vs. Length: If the red circle is mostly centered but slightly to the upper or lower of the center within the ellipse, it indicates slight deviations in height or length, but still within the acceptable range.
+
+Height_R vs. Length: Similar analysis as with Height_L vs. Length. The proximity of the red circle to the center suggests minimal deviation.
+
+Distance_Botton vs. Length: If the red circle is central or slightly off-center, it indicates that the distance from the bottom measurement aligns well with the length, adhering closely to expected values.
+
+And for Height_L and Height_R, which the pair where the new mean lies outside of Hotteling's $T^2$ region, geometrically, the red dot being outside this oval suggests that the mean dimensions of the banknotes from the new production line are statistically significantly different from the expected mean dimensions, assuming the confidence region was constructed based on dimensions from a standard or previous production line. This deviation can be interpreted as evidence that the new production process might not be conforming to the established specifications or that it has introduced a significant change in the dimensionality of the banknotes.
+
+9-) It has been decided that the settings of the production line needs to be tuned better to match original dimensions of banknotes. After such tuning, another test has been carried out and the resulting means were
+
+m1 LENGTH LEFT RIGHT BOTTOM TOP DIAGONAL
+
+[1,] 214.99 129.95 129.73 8.51 9.96 141.55
+
+Check if the vector of means are within: a) Hotelling’s confidence region; b) Bonferroni’s confidence region. Comment your findings.
+
+```{r, echo=FALSE}
+m1 = c(LENGTH = 214.99, LEFT = 129.95, RIGHT = 129.73, BOTTOM = 8.51, TOP = 9.96, DIAGONAL = 141.55)
+
+result_m1_hotteling = check_hotelling(data, means, cov_matrix, m1)
+cat("Hotteling m1: ", result_m1_hotteling)
+
+testBonferroniConfidenceRegions(data, m1)[1]
+```
+
+It shows differing results between the Hotelling's $T^2$ test and the Bonferroni confidence regions method for our new mean vector. While the Hotelling's $T^2$ test indicates no significant multivariate difference between the sample means and the population means, the Bonferroni method suggests that at least one of the individual mean estimates falls outside the adjusted confidence intervals.
+
+10-) After yet another tuning, the vector of means was
+
+m2 LENGTH LEFT RIGHT BOTTOM TOP DIAGONAL
+
+[1,] 214.9473 129.9243 129.6709 8.3254 10.0389 141.4954
+
+Is this value acceptable based on the original sample of the bank notes, or the production line still needs some tuning? Explain your answer
+
+```{r, echo=FALSE}
+m2 = c(LENGTH = 214.9473, LEFT = 129.9243, RIGHT = 129.6709, BOTTOM = 8.3254, TOP = 10.0389, DIAGONAL = 141.4954)
+
+result_m2_hotteling = check_hotelling(data, means, cov_matrix, m2)
+cat("Hotteling m2: ", result_m2_hotteling)
+
+testBonferroniConfidenceRegions(data, m2)[1]
+```
+
+For Hotteling, TRUE suggests that, there is no significant multivariate difference between the two mean vectors.
+
+Bonferroni confidence regions test: TRUE result indicates that all individual means in our mean are within their respective confidence intervals, after adjustment for multiple comparisons.
+
+The consistency of last mean provided with the population means, as verified by both tests, implies that the production line is currently operating correctly and producing bank notes whose characteristics align well with those of the original sample. There appears to be no need for further tuning of the production line based on this statistical evidence.
+
+## Simulation 1
+
+```{r, echo=FALSE}
+library(knitr)
+set.seed(2021)
+
+all_mus = function(p){
+  return(list(
+    c(rep(sqrt(2*log(p)), 10), rep(0, p-10)),
+    c(rep(sqrt(2*log(p)), 500), rep(0, p-500))
+  ))
+}
+
+bonferroni_procedure = function(p_values, alpha=0.05){
+  n = length(p_values)
+  return(p_values <= (alpha / n))
+}
+
+benjamini_hochberg_procedure = function(p_values, alpha=0.05){
+  n = length(p_values)
+  
+  ordered_p_values = order(p_values)
+  perm_ordered_p_values = order(ordered_p_values)
+  
+  benjamini_hochberg_procedure_formula = (p_values[ordered_p_values] <=
+                                            (alpha * seq(n) / n))
+  sapply(1:n, function(i) 
+    any(benjamini_hochberg_procedure_formula[i:n]))[perm_ordered_p_values]
+}
+
+FWER = function(true_values, test_results) { 
+  return(as.integer(any(test_results[which(!true_values)])))
+}
+
+FDR = function(true_values, test_results) {
+  return(sum(test_results[which(!true_values)]) / max(sum(test_results), 1))
+}
+
+power = function(true_values, test_results) {
+  return(mean(test_results[which(true_values)]))
+}
+
+simulate_tests = function(mu){
+  n = length(mu)
+  X = rnorm(n, mu)
+  p_values = 2*(1 - pnorm(abs(X)))
+  
+  test_results = list(bonferroni_procedure = bonferroni_procedure(p_values),
+                      benjamini_hochberg_procedure(p_values))
+  
+  results = sapply(test_results, function(test_result) list(FWER = FWER(mu > 0, test_result),
+                                                            FDR = FDR(mu > 0, test_result),
+                                                            power = power(mu > 0, test_result)))
+  return(results)
+}
+
+start_simulating = function(replicate_count, mu)
+{
+  simulation = replicate(replicate_count, simulate_tests(mu))
+  apply(simulation, c(1, 2), function(x) mean(as.numeric(x)))
+}
+
+p = 5000
+replicate_count = 1000
+
+mu_values = all_mus(p)
+kable(start_simulating(replicate_count, mu_values[[1]]), digits=3, caption = "Simulation mu-10", 
+      col.names = c("Bonferroni's", "Benjamini-Hochberg's"))
+
+kable(start_simulating(replicate_count, mu_values[[2]]), digits=3, caption = "Simulation mu-500", 
+      col.names = c("Bonferroni's", "Benjamini-Hochberg's"))
+```
+
+The Bonferroni method is consistently conservative, with low FWER and FDR across both scenarios. This conservatism is beneficial for controlling Type I errors but it has really low power for the test. The BH procedure controls the FDR effectively while having a much higher power, especially when the number of true alternatives is large. However, its FWER is not as well controlled as Bonferroni's. To make a choice, whether avoiding Type I errors is paramount (favoring Bonferroni) or maximizing the power to detect true effects is more important (favoring BH)
+

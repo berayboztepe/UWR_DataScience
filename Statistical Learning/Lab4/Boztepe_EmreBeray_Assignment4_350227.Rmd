@@ -1,0 +1,483 @@
+---
+title: "Assignment 4"
+author: "Emre Beray Boztepe"
+date: "07 06 2024"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Exercises
+
+1-) Assume the linear model:
+
+Y = Xβ + ϵ
+
+where $X'X = I$ and $e \sim N(0, \sigma^2I)$ Find the numerical solution for the elastic net in the form:
+
+$\hat{\beta_{en}} = argmin_b \frac{1}{2}||Y-Xb||_2^2 + \lambda (\frac{1}{2}(1 - \alpha)||b||^2_2 + \alpha\sum_{i=1}^p|b_i|)$
+
+a-) What would be the value of the elastic net estimator with λ = 1 and α =0.5 if $\hat{β}_{OLS} = 3$?
+
+We can use this formula:
+
+$\hat{\beta}_{en} = \frac{\hat\beta_{OLS}}{1 + \lambda(1-\alpha)}$
+
+When we substitute with what we have in the question:
+
+$\frac{3}{1 + 1(1-0.5)}$ = $\frac{3}{1.5} = 2$
+
+b-) How does the number of discoveries depend on the parameter α?
+
+As $\alpha$ increases, lasso component increases (L1 penalty), potentially reducing the number of non-zero coefficients.
+
+As $\alpha$ decreases, the ridge component (L2 penalty) becomes dominant, generally leading to more non-zero coefficients though they may be small in magnitude.
+
+c-) Provide the numerical value for the expected number of false discoveries when n = p = 1000, p0 = 950, σ = 1, and λ = 2, and the power of detection of X1 when β1 = 3.
+
+p - p0 = 1000 - 50 = 50, which is the number of non-null predictors.
+
+Proportion of FD = $\frac{FD}{TD}$
+
+* TD: Total discoveries which is $\geq 1$
+
+$Power = P(Reject H_0 | \beta_1 \neq 0)$
+
+* $H_0$: null hypothesis states that there is no effect of $X_1$
+
+```{r, echo=FALSE}
+if (!require(glmnet)) install.packages("glmnet", dependencies = TRUE)
+library(glmnet)
+
+n = 1000 
+p = 1000
+p0 = 950
+sigma = 1
+beta = rep(0, p)
+beta[1:50] = 3
+lambda = 2
+alpha = 0.5
+
+set.seed(123)
+X = matrix(rnorm(n * p), n, p)
+Y = X %*% beta + rnorm(n, sd = sigma)
+
+fit = glmnet(X, Y, alpha = alpha, lambda = lambda)
+
+coef_est = as.vector(coef(fit))
+signif_indices = which(coef_est != 0)
+
+false_discoveries = sum(signif_indices > 50)
+total_discoveries = length(signif_indices)
+
+cat("Number of False Discoveries: ", false_discoveries, "\n")
+cat("Total Discoveries: ", total_discoveries, "\n")
+cat("Proportion of False Discoveries: ", false_discoveries / max(total_discoveries, 1), "\n")
+
+power_X1 <- as.integer(abs(coef_est[2]) > 0)
+cat("Power of detection for X1: ", power_X1, "\n")
+```
+
+2-)  Why do the LASSO, SLOPE, and elastic net perform variable selection, while ridge regression does not?
+
+LASSO uses an L1 penalty ($\lambda \sum|\beta_i|$) and this promotes sparsity in the coefficient estimates. When $\lambda$ incsreases, L1 penalty can drive some coefficients exactly to 0.  
+
+SLOPE applies a sequence of penalties to the sorted absolute values of coefficients. These sequence of penalties often becomes increasingly stringent and may help control the false discovery rate in variable selection. It also can drive certain coefficients to zero (it depends on their size relative to their assigned penalty)
+
+Elastic net, combines L1 and L2 penalties. L1 component of the penalty induces sparsity by enabling coefficients to shrink to zero. L2 component helps handle situations where there are highly correlated variables or more variables than observations
+
+Ridge uses L2 penalty $\lambda \sum\beta_i^2$. L2 minimizes the square of coefficients but ensures that none of the coefficients can actually zero.
+
+So, as a summary, methods incorporating an L1 component are capable of variable selection, making them useful in scenarios where feature selection is crucial.
+
+3-) Formulate the identifiability condition for LASSO. What does it guarantee in terms of model selection? How does it compare to the irrepresentability condition?
+
+The identifiability condition refers to the conditions under which the LASSO solution is guaranteed to correctly identify the true model (the correct set of non-zero coefficients)
+
+Formula:
+
+$$|X_{null}^T X_{signal} (X_{signal}^TX_{signal})^{-1} sgn(\beta_{signal})| \leq \alpha$$
+
+* $X_{signal}$: columns of X corresponding to the non-zero coefficients.
+
+* $\beta_{signal}$: non-zero coefficients.
+
+* $X_{null}$: columns of X corresponding to the zero coefficients.
+
+* $sgn(\beta_{signal})$: sign vector of the non-zero coefficients.
+
+* $\alpha$: some constant which $\alpha \in (0, 1]$
+
+When the irrepresentable condition is met, LASSO is guaranteed to consistently select the correct model as the sample size goes to infinity. It can be said that it will correctly identify all and only the relevant predictors as having non-zero coefficients. This guarantee is under the assumption of sufficient regularization and certain conditions on the design matrix X (ex. having more observations than predictors)
+
+The identifiability in a more general sense refers to the unique determination of model parameters from the observed data. For LASSO, this goes beyond mere consistency and touches on the uniqueness of the solution and this is not always guaranteed like where the predictors are highly correlated.
+
+4-) Define SLOPE. How is it different from LASSO in terms of formulations and properties?
+
+SLOPE (Sorted L-One Penalized Estimation) is a regularization technique designed for linear regression that adapts and extends the ideas from LASSO. It aims to control FDR in variable selection and makes it particularly suitable for scenarios with high-dimensional data where multiple hypothesis testing becomes an issue.
+
+$\hat{\beta}_{SLOPE} = argmin_b(\frac{1}{2}||Y - Xb||_2^2 + \sum_{i=1}^p\lambda_i |\beta|_{(i)})$
+
+* $|\beta|_{(i)}$: i-th largest absolute value of the coefficient vector $\beta$
+
+* $\lambda_i$: non-negative constants sorted in non-increasing order ($\lambda_1 \geq \lambda_2 \geq ... \geq \lambda_p$)
+
+LASSO applies a uniform penalty $(λ∑|β_i|)$ across all coefficients, promoting overall sparsity by potentially shrinking all coefficients to zero. Thus, emphasizes regularization and simplicity. SLOPE assigns a sequence of penalties based on the rank of the absolute values of coefficients, targeting a structured sparsity by imposing stronger penalties on larger coefficients. 
+
+LASSO is well-documented in its consistency and sparsity (under conditions like the irrepresentable condition), SLOPE outclasses in controlling the FDR under a wider range of conditions and adapts to unknown sparsity patterns of coefficients. 
+LASSO is favored for its efficiency through algorithms like coordinate descent, suitable for large datasets. SLOPE, due to its sorted penalty structure, requires more sophisticated algorithms to manage the complexity introduced by this ordering. IT makes it essential in applications where controlling false discoveries is critical.
+
+5-) What are knockoffs?
+
+Knockoffs method used for variable selection that controls the false discovery rate (FDR). This technique was developed to address the challenges of multiple hypothesis testing in scenarios where there are many potential predictors by creating fake or "knockoff" versions of each variable. These knockoff variables serve as a control group to test which of the original variables have a true association with the response, as opposed to correlations arising by chance.
+
+Knockoff methods are particularly useful in settings where variables are highly correlated. They can be applied in conjunction with any feature selection method that provides importance measures (LASSO, ridge etc.) and the method provides theoretical guarantees for FDR control under fairly general conditions.
+
+6-) The vector of W statistics for the knockoffs procedure is equal to:
+
+W =(8,−4,−2,2,−1.2,−0.6,10,12,1,5,6,7).
+
+Which variables would be considered important if we use knockoffs at the false discovery rate (FDR) level q = 0.4?
+
+First, we solve W in descending order:
+
+$W_{sorted}$: (12,10,8,7,6,5,2,1,−0.6,−1.2,−2,−4)
+
+Then, we can use this formula:
+
+$T = min \{t \in W: \frac{1 + \#\{j: W_j \leq -t\}}{\#\{j: W_j \geq t\} \lor 1}\leq q\}$
+
+Simulation: 
+
+```{r, echo=FALSE}
+W = c(8, -4, -2, 2, -1.2, -0.6, 10, 12, 1, 5, 6, 7)
+q = 0.4
+
+threshold = function(W, q) {
+  sorted_W = sort(abs(W), decreasing = TRUE)
+
+  ratios = sapply(sorted_W, function(t) {
+    nom = sum(W <= -t)
+    denom = sum(W >= t)
+    ratio = (1 + nom) / max(denom, 1)
+    return(ratio)
+  })
+  
+  T_candidates = sorted_W[ratios <= q]
+  if (length(T_candidates) == 0) {
+    return(Inf)
+  } else {
+    return(min(T_candidates))
+  }
+}
+
+T = threshold(W, q)
+
+important_indices = which(W >= T)
+important_variables = W[important_indices]
+
+cat("Threshold T:", T, "\n")
+cat("Important variables:", important_variables,"\n")
+```
+
+7-) Show that ridge regression can be viewed as the Maximum A Posteriori (MAP) Bayes rule with a multivariate normal prior on regression coefficients.
+
+Ridge can be interpreted within Bayesian frameworks where the prior distribution over the regression coefficients is assumed to be multivariate normal.
+
+Ridge Regression:
+
+$$\hat{\beta}_{ridge} = argmin_{\beta} (\sum_{i=1}^n (y_i - x^T_i \beta)^2 + \lambda ||\beta||_2^2)$$
+
+* y: observed outputs
+
+* $x_i$: feature vectors
+
+* $\beta$: coefficients to be estimated
+
+* $\lambda$: regularization parameter
+
+Bayesian Interpretation:
+
+Assuming a linear model with Gaussian noise
+
+$$p(y|X, \beta) \propto exp(-\frac{1}{2 \sigma^2}||y - X\beta||^2)$$
+
+* the likelihood of observing y given X
+
+* X: design matrix
+
+* $\beta$: coefficient vector
+
+* $\sigma^2$: variance of the Gaussian noise
+
+In the Bayesian context, ridge regression assumes a multivariate normal prior on the regression coefficients $\beta$
+
+$$p(\beta) \propto exp (-\frac{1}{2\tau^2} ||\beta||^2)$$
+
+* $\tau^2$: variance of the prior distribution (smaller $\tau^2$ leads to greater shrinkage)
+
+According to Bayes' rule, the posterior distribution of $\beta$ given the observed data y and X is proportional to the product of the likelihood
+
+$$p(\beta|y, X) \propto p(y|X, \beta)p(\beta)$$
+Substituting the expressions for the likelihood and the prior
+
+$$p(\beta|y, X) \propto exp(-\frac{1}{2 \sigma^2}||y - X\beta||^2 - -\frac{1}{2\tau^2} ||\beta||^2)$$
+To find the MAP estimate, we can minimize the negative log of the posterior:
+
+$$\hat{\beta}_{MAP} = argmin_{\beta}(\frac{1}{2\sigma^2}||y-X\beta||^2 + \frac{1}{2\tau^2}||\beta||^2)$$
+When we set $\lambda=\frac{\sigma^2}{\tau^2}$:
+
+$$\hat{\beta}_{ridge} = argmin_{\beta} (||y - X\beta||^2 + \lambda||\beta||^2)$$
+
+So, we show that ridge regression is equivalent to the MAP estimation under a Bayesian framework where the prior distribution over the coefficients is a multivariate normal distribution.
+
+## Computer project
+
+Generate the design matrix $X_{500×450}$ such that its elements are independent and identically distributed (iid) random variables from $N(0,σ = \sqrt{\frac{1}{n}})$. Then generate the vector of the response variable according to the model:
+
+Y = Xβ + ϵ
+
+where $\epsilon \sim 2N(0, I)$, $\beta_i = 10$ for $i \in (1, ..., k)$, $\beta_i = 0$ for $i \in (k+1, ..., 450)$, and $k \in (5, 20, 50)$ 
+
+For 100 replications of the above experiments, estimate the regression coefficients and/or identify important variables using:
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(gridExtra)
+library(mvtnorm)
+library(dplyr)
+library(lemon)
+library(mvtnorm)
+library(tidyr)
+library(reshape2)
+library(parallel)
+library(bigstep)
+library(glmnet)
+library(SLOPE)
+library(knockoff)
+options(scipen = 1, digits = 2)
+by_Row = 1
+by_Col = 2
+numCores  = round(parallel::detectCores() * .70)
+
+if (!requireNamespace("kableExtra", quietly = TRUE)) {
+  install.packages("kableExtra")
+}
+library(kableExtra)
+
+set.seed(123)
+n = 500
+p = 450
+ks = c(5, 20, 50)
+
+n_rep = 100
+
+generate_random = function(n, p)
+{
+  require(mvtnorm)
+  cov_matrix = matrix(0, nrow = p, ncol = p)
+  diag(cov_matrix) = 1/sqrt(n)
+  X = rmvnorm(n = n, mean = rep(0, p), sigma = cov_matrix)
+}
+```
+
+i) Least squares
+
+```{r, echo=FALSE}
+calculate_OLS = function(X, y){
+  Beta_OLS = coef( lm(y ~ X - 1) )
+  return(Beta_OLS)
+}
+```
+
+ii) Ridge regression and LASSO with the tuning parameters selected by cross validation.
+
+```{r, echo=FALSE}
+calculate_ridge = function(X, y){
+  lambda_ridge = cv.glmnet(X, y, alpha = 0, standardize = F, intercept=F)
+  model_ridge = glmnet(X, y, standardize = F, intercept=F, alpha=0, lambda = lambda_ridge$lambda.min)
+  Beta_ridge = coef(model_ridge)[-1]
+  return(Beta_ridge)
+}
+
+calculate_lasso = function(X, y){
+  lambda_lasso = cv.glmnet(X, y, alpha = 1, standardize = F, intercept=F)
+  model_lasso = glmnet(X, y, standardize = F, intercept=F, alpha=1, lambda = lambda_lasso$lambda.min)
+  Beta_lasso = coef(model_lasso)[-1]
+  return(Beta_lasso)
+}
+```
+
+iii) Knockoffs with ridge and LASSO at the nominal false discovery rate (FDR) equal to 0.2.
+
+```{r, echo=FALSE}
+apply_knockoff_lasso = function(X, y, beta_true, knockOff){
+  
+  knockoff_lasso =  knockoff.filter(X, y, knockoffs = knockOff, statistic = stat.glmnet_coefdiff, fdr=0.2)
+  selected_by_knockoff = rep(0, length(beta_true))
+  selected_by_knockoff[knockoff_lasso$selected] = TRUE
+  discoveries_knockoff_lasso = get_FDP_and_TPP(beta_hat = selected_by_knockoff, beta_true = beta_true)
+  return(list(FDP = discoveries_knockoff_lasso$FDP, TPP = discoveries_knockoff_lasso$TPP))
+}
+
+apply_knockoff_ridge = function(X, y, beta_true, knockOff){
+  k_stat_ridge = function(X, Xk, y) stat.glmnet_coefdiff(X, Xk, y, alpha = 0)
+  
+  knockoff_ridge =  knockoff.filter(X, y, knockoffs = knockOff, statistic = k_stat_ridge, fdr=0.2)
+  selected_by_knockoff = rep(0, length(beta_true))
+  selected_by_knockoff[knockoff_ridge$selected] = TRUE
+  discoveries_knockoff_ridge = get_FDP_and_TPP(beta_hat = selected_by_knockoff, beta_true = beta_true)
+  return(list(FDP = discoveries_knockoff_ridge$FDP, TPP = discoveries_knockoff_ridge$TPP))
+}
+```
+
+Perform the following analyses:
+
+a) Estimate the false discovery rate (FDR) and the power of the cross validated LASSO and the knockoffs with ridge and LASSO.
+
+```{r, echo=FALSE}
+get_FDP_and_TPP = function(beta_hat, beta_true)
+{
+  FP=sum(beta_hat & (beta_true == 0))
+  FN=sum(!beta_hat & (beta_true > 0))
+  TP=sum(beta_hat & (beta_true > 0))
+  
+  TrueCount=sum(beta_true > 0)
+  Reject=sum(beta_hat != 0)
+  
+  FDP = FP/(max(Reject, 1))
+  TPP = TP/ sum(beta_true > 0)
+  return(list(FDP = FDP, TPP=TPP))
+}
+```
+
+b) For all three methods in i) and ii), estimate the mean square errors of the estimators of β and µ = Xβ.
+
+```{r, echo=FALSE}
+calculate_mse_distance = function(beta_true, beta_ols, beta_ridge, beta_lasso){
+  MSE_OLS = sum((beta_true - beta_ols)^2)
+  MSE_ridge = sum((beta_true - beta_ridge)^2)
+  MSE_lasso = sum((beta_true - beta_lasso)^2)
+  
+  return(list(MSE_OLS=MSE_OLS, MSE_Ridge=MSE_ridge, MSE_LASSO=MSE_lasso))
+}
+
+calculate_mse_mean_distance = function(X, beta_true, beta_ols, beta_ridge, beta_lasso){
+  XB = X%*%beta_true
+  
+  MSE_mean_OLS = sum((XB - X%*%beta_ols)^2)
+  MSE_mean_ridge = sum((XB - X%*%beta_ridge)^2)
+  MSE_mean_lasso = sum((XB - X%*%beta_lasso)^2)
+  
+  return(list(MSE_mean_OLS=MSE_mean_OLS, MSE_mean_Ridge=MSE_mean_ridge, MSE_mean_LASSO=MSE_mean_lasso))
+}
+```
+
+```{r, echo=FALSE}
+perform_simulation = function(n, p, k)
+{
+  X = generate_random(n, p)
+  Beta_true = c(rep.int(10, k), rep.int(0, p-k))
+  y = X%*%Beta_true + rnorm(n, mean = 0, sd = 2)
+  
+  beta_ols = calculate_OLS(X, y)
+  beta_ridge = calculate_ridge(X, y)
+  beta_lasso = calculate_lasso(X, y)
+  
+  cov_matrix = matrix(0, nrow = p, ncol = p)
+  diag(cov_matrix) = 1/sqrt(n)
+  knockOff = function(X) create.gaussian(X, mu = rep(0, length(Beta_true)), Sigma = cov_matrix)
+  
+  knockoff_lasso = apply_knockoff_lasso(X, y, Beta_true, knockOff)
+  knockoff_ridge = apply_knockoff_ridge(X, y, Beta_true, knockOff)
+  
+  mse_values = calculate_mse_distance(Beta_true, beta_ols, beta_ridge, beta_lasso)
+  mse_mean_values = calculate_mse_mean_distance(X, Beta_true, beta_ols, beta_ridge, beta_lasso)
+  
+  discoveries_Lasso = get_FDP_and_TPP(beta_hat = beta_lasso, beta_true = Beta_true)
+  
+  
+  return(c(mse_values$MSE_OLS, mse_values$MSE_Ridge, mse_values$MSE_LASSO, 
+          mse_mean_values$MSE_mean_OLS, mse_mean_values$MSE_mean_Ridge, mse_mean_values$MSE_mean_LASSO,
+           discoveries_Lasso$FDP, discoveries_Lasso$TPP, knockoff_lasso$FDP, knockoff_lasso$TPP,
+          knockoff_ridge$FDP, knockoff_ridge$TPP))
+}
+
+functions_list = c("n_rep", "n", "p", "perform_simulation", "generate_random", "get_FDP_and_TPP", "calculate_OLS", "apply_knockoff_lasso", "calculate_ridge", "calculate_lasso", "apply_knockoff_ridge", "calculate_mse_distance", "calculate_mse_mean_distance")
+
+results = data.frame()
+for (k in ks) {
+  cluster = makeCluster(numCores)
+  clusterExport(cluster, c("k", functions_list))
+  
+  clusterEvalQ(cluster, library(glmnet))
+  clusterEvalQ(cluster, library(knockoff))
+  
+  result = parSapply(cluster, 1:n_rep, function(i,...) {perform_simulation(n, p, k)})
+  result = data.frame(t(result))
+  results = rbind(results, result)
+  
+  stopCluster(cluster)
+}
+
+colnames = c("MSE_OLS", "MSE_ridge", "MSE_lasso", "MSE_mean_OLS", "MSE_mean_ridge", "MSE_mean_lasso", rep(c("FDR", "Power"), 3))
+names(results) = colnames
+means_all = data.frame()
+
+for (i in seq(from=1, to=(n_rep*3), by=n_rep)) {
+  means_all = rbind(means_all, data.frame(t(colMeans(results[i:(i+1), ]))))
+}
+
+rownames(means_all) = ks
+results_mse = means_all[, 1:6]
+results_discoveries = means_all[, 7:dim(means_all)[2]]
+
+kbl(results_discoveries, booktabs = T, caption = "FDR and Powers.")%>%
+  kable_styling(latex_options = c("HOLD_position"))%>%
+  add_header_above(c(" ", "Lasso" = 2, "Knockoff with Lasso" = 2, "Knockoff with Ridge" = 2))
+
+kbl(results_mse, booktabs = T, caption = "Mean Calculations")%>%
+  kable_styling(latex_options = c("HOLD_position"))%>%
+  add_header_above(c(" ", "MSE" = 3, "MSE MEAN" = 3))
+```
+
+### Comments:
+
+Lasso:
+
+FDR: The False Discovery Rate is quite high across all scenarios, ranging from 0.90 to 0.67 as k increases. This indicates that Lasso, while powerful, tends to include a significant number of false positives, especially when fewer predictors are truly non-null (k=5).
+
+Power: Remains constant at 1 across all k values, suggesting that Lasso is consistently effective at identifying all true non-null predictors.
+
+Knockoff with Lasso:
+
+FDR: Shows a lower FDR compared to traditional Lasso, ranging from 0.17 to 0.24. This substantial reduction underscores the effectiveness of the Knockoff method in controlling false discoveries.
+
+Power: Maintains a power of 1 across all settings, indicating that the Knockoff method does not sacrifice the ability to detect true effects when improving control over false discoveries.
+
+Knockoff with Ridge:
+
+FDR: Exhibits a relatively low FDR, although generally higher than Knockoff with Lasso. It varies from 0.14 to 0.28, increasing with the number of non-null predictors (k).
+
+Power: The power is very high, at or near 1 for all k settings, with a slight decrease to 0.94 at k = 50. This indicates strong effectiveness in identifying true predictors, though there's a slight reduction in power as the complexity (number of true predictors) increases.
+
+While traditional Lasso is very powerful, its high FDR can be problematic in settings where the cost of false positives is significant. In contrast, Knockoff techniques, especially with Lasso, provide much better control over false discoveries without compromising on the ability to detect true effects.
+
+Both Knockoff with Lasso and Knockoff with Ridge demonstrate their effectiveness in managing the FDR more stringently than Lasso alone. The choice between using Knockoff with Lasso or Ridge should consider other factors such as the model assumptions, the nature of the data, and specific analytical needs.
+
+### Means
+
+OLS:
+
+MSE increases with the number of non-null predictors, suggesting that as the complexity of the model increases, OLS's performance degrades, likely due to overfitting or inability to manage higher dimensional data effectively. The mean MSE significantly increases with k, highlighting potential variability and stability issues in higher-dimensional settings.
+
+Ridge:
+
+Shows a less steep increase in MSE compared to OLS as k increases, indicating better handling of more complex models, likely due to its regularization nature which helps manage multicollinearity and overfitting. The mean MSE also increases with k, but the pattern suggests that while Ridge manages complexity better than OLS, it still struggles as the number of true predictors grows.
+
+Lasso:
+
+Exhibits the lowest MSE across all k values, significantly outperforming OLS and Ridge. This demonstrates Lasso's effectiveness in not only handling sparsity but also in feature selection, effectively zeroing out many irrelevant features. The mean MSE remains much lower than the other two methods across all k values, suggesting that Lasso maintains good performance and stability even as the complexity of the model increases.

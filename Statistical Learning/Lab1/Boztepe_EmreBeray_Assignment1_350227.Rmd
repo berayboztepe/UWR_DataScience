@@ -1,0 +1,657 @@
+---
+title: "Assignment 1"
+author: "Emre Beray Boztepe"
+date: "19 03 2024"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ellipse)
+```
+
+## Problem 1
+
+\[ A = \begin{bmatrix}
+3 & -1 \\
+-1 & 3
+\end{bmatrix} \]
+
+1-) The rule for a symmetric matrix is that its transpose is equal to the original matrix. Since $A^{T} = A$ holds true, A is symmetric.
+
+2-) After solving $det(A - λI) = 0$, we find the eigenvalues to be $λ_1 = 2$ and $λ_2 = 4$, along with their corresponding eigenvectors $v_1 = \begin{bmatrix}1\\1\end{bmatrix}$ and $v_2 = \begin{bmatrix}1\\-1\end{bmatrix}$.
+
+Thus, the matrix can be decomposed as $P = \frac{1}{\sqrt{2}}\begin{bmatrix}v_1 & v_2\end{bmatrix}$, and $Λ = diag(λ_1, λ_2)$.
+
+3-) \[A = \begin{bmatrix} 
+1 & 1\\
+1 & 1
+\end{bmatrix} + \begin{bmatrix}2 & -2\\-2 & 2\end{bmatrix} \]
+
+the first matrix corresponds to the eigenvector $e_1$ scaled by $\lambda_1$ and the second matrix corresponds to the eigenvector $e_2$ scaled by $\lambda_2$.
+
+4-) $\sqrt{A} = \sqrt{{\lambda_1 e_1 {e_1}^T} + {\lambda_2 e_2 {e_2}^T}}$
+
+The property: $(XY)^{1/2} = X^{1/2} Y^{1/2}$
+
+$\sqrt{{\lambda_1 e_1 {e_1}^T}} = \sqrt{\lambda_1} e_1 {e_1}^T$
+
+$\sqrt{{\lambda_2 e_2 {e_2}^T}} = \sqrt{\lambda_2} e_2 {e_2}^T$
+
+\[\sqrt{A} = \frac{1}{2}\begin{bmatrix}
+\sqrt{2}+2 & \sqrt{2}-2\\
+\sqrt{2}-2 & \sqrt{2}+2
+\end{bmatrix}\]
+
+This matrix satisfies $\sqrt{A} \sqrt{A}=A$, verifying the result.
+
+## Problem 2
+
+Consider the spectral decomposition of a positive definite matrix as given in Lecture 1:
+
+$A = PΛP^T$
+
+The columns of $P$ are made of eigenvectors $e_i, i = 1, . . . , n$ and they are orthonormalized, i.e. their lengths are one and they are orthogonal (peripendicular) one to another. The diagonal matrix $Λ$ has the corresponding (positive) eigenvalues on the diagonal. Provide argument for the following
+
+1-) $P^T = P^{-1}$
+
+Since, ${e_i}^T e_i = 1$ and ${e_i}^T e_j = 0$ for $i \neq j$
+
+\[P^TP = \begin{bmatrix}
+{e_1}^T \\
+- \\
+... \\
+- \\
+{e_n}^T
+\end{bmatrix} \] $[e_1 \quad | \quad ... \quad | \quad e_n]$ \[ = \begin{bmatrix}
+{e_1}^T e_1 && ... && {e_1}^T e_n \\
+... && ... && ... \\
+{e_n}^T e_1 && ... && {e_n}^T e_n
+\end{bmatrix} = I \]
+
+Each column of P represents an eigenvector, and the dot product of any two distinct eigenvectors is zero, while the dot product of an eigenvector with itself is one
+
+2-) We can establish this by mathematical induction.Let's Assume that for an $n × n$ matrix $Λ_n$, $det(Λ_n) = \prod_{i=1}^n{λ_i}$. Now, we aim to demonstrate that this holds true for an $(n+1)×(n+1)$ matrix as well. To do so, we'll utilize Laplace expansion on the (n+1)-th row: 
+
+$$det(Λ_{n+1}) = det(Λ_n) * λ_{n+1} + 0 + ... + 0$$ 
+Thus, by our inductive hypothesis, $det(Λ_{n+1}) = \prod_{i=1}^{n+1}{λ_i}$. This confirms the validity of the proposition for matrices of size $(n+1)×(n+1)$
+
+
+3-) Utilizing property 2 and the condition $det(P) = det(P^T) = ±1$ we can deduce: 
+
+$\det(A) = \det(PΛP^T) = \det(P) \det(Λ) \det(P^T) = \det(Λ)$
+
+the determinant of a positive definite matrix $A$ equals the determinant of its diagonal matrix $Λ$. This implies that the determinant of $A$ is the product of its eigenvalues.
+
+4-) Let's assume that $Λ = diag(λ_1, λ_2, ... , λ_n)$ then:
+
+$Λ^{-1} = \text{diag}(λ_1^{-1}, λ_2^{-1}, \ldots, λ_n^{-1})$
+
+This process simplifies finding the inverse of diagonal matrices, requiring only the computation of reciprocals without complex matrix operations.
+
+5-) Demonstrating that $AA^{-1} = I$ is sufficient:
+
+$AA^{-1} = (PΛP^T)(PΛ^{-1}P^T) = PΛΛ^{-1}P^T = PP^T = I$
+
+6-) Demonstration in R
+
+```{r, echo=TRUE}
+# Print eigenvalues and eigenvectors of matrix A
+A = matrix(c(3, -1, -1, 3), nrow = 2)
+eigen_A = eigen(A)
+
+# Calculate P * P^T
+cat("P * P^T =\n")
+print(round(eigen_A$vectors %*% t(eigen_A$vectors), 16))
+
+# Calculate determinant of A and product of eigenvalues
+cat("\ndet(A) = ", det(A), "\n")
+cat("Π(λi) = ", prod(eigen_A$values), "\n\n")
+
+# Calculate determinant of Λ
+cat("det(Λ) = ", det(diag(eigen_A$values)))
+
+# Test the inverse
+cat("\nTest the inverse:\n")
+print(round(A %*% eigen_A$vectors %*% diag(1 / eigen_A$values) %*% t(eigen_A$vectors), 16))
+
+```
+
+## Problem 3
+
+In a medical study, length L and weight W of newborn children is considered. It was assumed that (L, W) will be modeled through a bivariate normal distribution. The following information has been known: the mean weight is 3343[g], with the standard deviation of 528[g], while the mean length is 49.8[cm], with the standard deviation of 2.5[cm]. Additionally the correlation between the length and the weight has been established and equal to 0.75. The joint distribution of (W, L) is bivariate normal, i.e. (W, L) ∼ N(µ, Σ). Perform the following tasks and answer the questions:
+
+1-) Covariance matrix (Σ) = \[ \begin{bmatrix}
+\sigma^2_W && P \sigma_W \sigma_L \\
+P \sigma_W \sigma_L && \sigma^2_L
+\end{bmatrix} \]
+
+Parameter $\mu = [3343, 49.8]$ 
+
+Parameter \[ Σ = \begin{bmatrix}
+528^2 && 0.75 \quad 528 \quad 2.5 \\
+0.75 \quad 528 \quad 2.5 && (2.5)^2
+\end{bmatrix} \]
+
+\[= \begin{bmatrix}
+278794 && 990 \\
+990 && 6.25
+\end{bmatrix} \]
+
+2-) $f(\mathbf{x} | \boldsymbol{\mu}, \boldsymbol{\Sigma}) = \frac{1}{\sqrt{(2\pi)^p |\boldsymbol{\Sigma}|}} \exp\left( -\frac{1}{2} (\mathbf{x} - \boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu}) \right)$
+
+where:
+
+* |Σ| = determinant of covariance matrix
+* x = vector of random variables
+* $\mu$ = mean vector
+
+3-) Eigenvalues and eigenvectors:
+
+
+```{r, echo=FALSE}
+mean_vector = c(3343, 49.8)
+covariance_matrix = matrix(c(528**2, 990, 990, 2.5**2), nrow=2)
+eigen_values = eigen(covariance_matrix)$values
+eigen_vectors = eigen(covariance_matrix)$vectors
+
+cat("Eigen Values: ", eigen_values)
+cat("Eigen Vectors: ", eigen_vectors)
+```
+
+Plotting the ellipse and adding eigenvectors
+```{r, echo=FALSE}
+plot(ellipse(covariance_matrix, centre = mean_vector, level = 0.95),
+     type = "l", xlab = "Weight (g)", ylab = "Length (cm)", 
+     main = "Bivariate Normal Distribution")
+
+arrows(3343, 49.8, 
+       3343 + sqrt(eigen_values[1]) * eigen_vectors[1, 1], 
+       49.8 + sqrt(eigen_values[1]) * eigen_vectors[2, 1],
+       col = "blue", length = 0.1)
+arrows(3343, 49.8, 
+       3343 + sqrt(eigen_values[2]) * eigen_vectors[1, 2], 
+       49.8 + sqrt(eigen_values[2]) * eigen_vectors[2, 2],
+       col = "red", length = 0.1)
+```
+
+4-) For bivariate normal distribution, we have $\mu_w, \mu_l, \sigma_w, \sigma_l, p$; for p-dimensional normal distribution:
+
+* p means: $\mu_1, \mu_2, ... \mu_p$
+* p standard deviations: $\sigma_1, \sigma_2, ..., \sigma_p$
+* $\frac{p(p-1)}{2}$ correlation coefficients (covariance matrix which has $\frac{p(p+1)}{2}$ unique elements)
+
+So, for a p-dimensional normal distribution, we'd have total: $2p + \frac{p(p-1)}{2}$ parameters.
+
+5-) The distribution of L is a normal distribution. The parameters of the normal distribution are its mean $\mu_L = 49.8$ and its standard deviation $\sigma_L = 2.5$
+
+Therefore, the distribution of L can be denoted as $L ∼ N(49.8,2.5)$ This information characterizes the distribution of L, providing its name (normal distribution) and its parameters (mean and standard deviation).
+
+6-) The 3-σ rule states that approximately 99.7% of the data lies within three standard deviations of the mean in a normal distribution. The best guess for the length of the newborn child would be the mean of the distribution $\mu = 49.8$ 
+
+To find lower and upper bounds $= \mu_L \quad (+-) \quad 3 × \sigma_L$
+
+* The upper bound would be $49.8+3×2.5=57.3$
+
+* The lower bound would be $49.8−3×2.5=42.3$
+
+So:
+
+* Approximately 68% of the data falls within one standard deviation (σ) of the mean.
+* Approximately 95% of the data falls within two standard deviations (2σ) of the mean.
+* Approximately 99.7% of the data falls within three standard deviations (3σ) of the mean.
+
+## Problem 4
+
+In the setup of the previous problem, assume that it was reported by the mother of the child that weight was 4025[g].
+
+1-)  The conditional distribution of L given = W=w in a bivariate normal distribution can be represented as:
+
+$L|W=w \sim \mathcal{N}(\mu_L + \rho\frac{\sigma_L}{\sigma_W}(w - \mu_W), \sigma_L^2(1 - \rho^2))$
+
+* $\mu_L$ and $\mu_W$ are the mean lengths and mean weights
+* $\sigma_L$ and $\sigma_W$ are the standard deviations of lengths and weights
+* w is the specific value of the weight (which is 4025g for this question)
+
+when we apply the formula: 
+
+```{r, echo=FALSE}
+cat("mean = ", 49.8 + 0.75*2.5/528*(4025 - 3343), " var = ", (2.5**2) * (1 - 0.75**2))
+```
+
+```{r, echo=FALSE}
+cat("standard dev = ", sqrt((2.5**2) * (1 - 0.75**2)))
+```
+
+2-) $L\sim N(52.22187, 2.734375)$. The best guess for the length of the newborn child would be the mean of the distribution $\mu = 52.22187$ 
+
+
+* The upper bound would be $52.22+3×1.65=57.18044$
+* The lower bound would be $52.22−3×1.65=47.2633$
+
+3-) With a 68% confidence level, we can expect the prediction error to fall within approximately 1.65 cm, representing one standard deviation. Notably, this standard deviation is smaller compared to our previous estimate, indicating a higher level of accuracy in our prediction.
+
+## Problem 5
+
+Let $X1$, $X2$, and $X3$ be independent $N (µ, Σ)$ random vectors of a dimension p.
+
+1-) Given that $X_1$, $X_2$, $X_3$ are independent multivariate normal random vectors, and $v_1$ and $v_2$ are linear combinations of them: 
+
+$v_1 = \frac{1}{4}x_1 - \frac{1}{2}x_2 + \frac{1}{4}x_3$
+
+$E(v_1) = \frac{1}{4}E(x_1) - \frac{1}{2}E(x_2) + \frac{1}{4}E(x_3)$
+
+$= \frac{1}{4}\mu - \frac{1}{2}\mu + \frac{1}{4}\mu = 0$
+
+$var(v_1) = var(\frac{1}{4}x_1 - \frac{1}{2}x_2 + \frac{1}{4}x_3)$
+
+$= \frac{1}{4^2}var{(x_1)} + \frac{1}{2^2}var{(x_2)} + \frac{1}{4^2}var{(x_3)}$
+
+$= \frac{3}{8}Σ$
+
+$V_1 \sim N(0, \frac{3}{8}Σ)$
+
+* Same for $v_2$: 
+
+$v_2 = \frac{1}{4}x_1 - \frac{1}{2}x_2 - \frac{1}{4}x_3$
+
+$E(v_2) = \frac{1}{4}E(x_1) - \frac{1}{2}E(x_2) - \frac{1}{4}E(x_3)$
+
+$= -\frac{1}{2}\mu$
+
+$var(v_2) = var(\frac{1}{4}x_1 - \frac{1}{2}x_2 - \frac{1}{4}x_3)$
+
+$= \frac{1}{4^2}var{(x_1)} + \frac{1}{2^2}var{(x_2)} + \frac{1}{4^2}var{(x_3)}$
+
+$= \frac{3}{8}Σ$
+
+$V_2 \sim N(-\frac{1}{2}\mu, \frac{3}{8}Σ)$
+
+2-) Calculating the covariance between the linear combinations. $X \sim N (µ, Σ)$ $AX \sim N (A_{\mu}, AΣA')$
+
+$V = AX$
+
+\[V = \begin{bmatrix}
+V_1 \\
+V_2
+\end{bmatrix} = \begin{bmatrix}
+\frac{1}{4}I && -\frac{1}{2}I && \frac{1}{4}I \\
+\frac{1}{4}I && -\frac{1}{2}I && -\frac{1}{4}I
+\end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}\]
+
+\[E(V) = A_{\mu} = \begin{bmatrix}
+\frac{1}{4}I && -\frac{1}{2}I && \frac{1}{4}I \\
+\frac{1}{4}I && -\frac{1}{2}I && -\frac{1}{4}I
+\end{bmatrix} \begin{bmatrix} \mu \\ \mu \\ \mu \end{bmatrix} = \begin{bmatrix} 0 \\ -\frac{1}{2}\mu \end{bmatrix}\]
+
+\[ var(v) = AΣA' = \begin{bmatrix} \frac{1}{4}I && -\frac{1}{2}I && \frac{1}{4}I \\
+\frac{1}{4}I && -\frac{1}{2}I && -\frac{1}{4}I \end{bmatrix} \begin{bmatrix} Σ && 0 && 0 \\ 
+0 && Σ && 0 \\
+0 && 0 && Σ \end{bmatrix} \begin{bmatrix} \frac{1}{4}I && \frac{1}{4}I \\
+-\frac{1}{2}I && -\frac{1}{2}I \\
+\frac{1}{4}I && -\frac{1}{4}I\end{bmatrix}\]
+
+
+\[ = \begin{bmatrix} \frac{3}{8}Σ && \frac{1}{4}Σ \\
+\frac{1}{4}Σ && \frac{3}{8}Σ\end{bmatrix}\]
+
+Joint Distribution of \[v_1, v_2 \sim N(\begin{bmatrix} 0 \\ -\frac{1}{2}\mu \end{bmatrix}, \begin{bmatrix} \frac{3}{8}Σ && \frac{1}{4}Σ \\
+\frac{1}{4}Σ && \frac{3}{8}Σ\end{bmatrix})\]
+
+## Project 1: Weight and length of newborn children
+
+Health services and health insurance companies are interested in determining what kind of medical examinations and diagnostic procedures should be administered to a newborn child. In one approach, there is a score system based on which it is determined when a child is healthy and does not require any special attention or when he/she is not in which case a series additional medical tests are performed.
+
+Weight and length of a newborn child are most standard indicators of the health of a child. In order to decide on the score the following procedure is considered. If the weight and length fall outside 95% of the typical values for the population, the score of zero is given. If the measurements are falling in the category between 75% and 95% the score is one. In all other cases the score of two is assigned.
+
+A random sample of records for 736 recently born children (singleton and not prematurely born) has been considered from hospital across a certain region. The records contain a large variety of information but extraction of weight and height data are given in the file WeightHeight.txt.
+
+### Part One
+
+1-)  Using the date estimate the mean and the covariance for the length and the weight of children.
+```{r, echo=FALSE}
+data = read.table("~/Scripts/R-Scripts/Statistical_Learning/Assignment_1/WeightLength.txt", header = TRUE, sep = "\t")
+
+mean_weight = mean(data$Weight)
+mean_length = mean(data$Length)
+var_weight = var(data$Weight)
+var_length = var(data$Length)
+covariance = cov(data$Weight, data$Length)
+
+
+cat(
+  "mean_weight: ", mean_weight,
+  "\nmean_length: ", mean_length,
+  "\ncovariance: ", covariance
+)
+```
+
+2-) Verify graphically normal distribution of the data. Use a scatterplot and qq-plots for the marginal distributions.
+
+```{r, echo=FALSE}
+histogram_plot = function(sample, data_name) {
+  hist(sample, breaks=100, density=20, prob=TRUE, main=paste("Histogram", data_name))
+  curve(dnorm(x, mean=mean(sample), sd=sqrt(var(sample))), col="darkred", lwd=3, add=TRUE)
+}
+
+qq_plot = function(sample, data_name) {
+  qqnorm(sample, col = rgb(red = 0, green = 0, blue = 0, alpha = 0.1), main=paste("Q-Q Plot", data_name))
+  qqline(sample, col="darkred", lwd=3)
+}
+
+histogram_plot(data$Weight, "Weight")
+histogram_plot(data$Length, "Length")
+
+qq_plot(data$Weight, "Weight")
+qq_plot(data$Length, "Length")
+```
+
+3-) Find the ellipsoids that would serve classification regions for scores as described above.
+
+```{r, echo=FALSE}
+mu = c(mean_weight, mean_length)
+covariance_matrix = matrix(cov(data), nrow=2)
+
+eigen_all = eigen(covariance_matrix)
+
+eigen_values = eigen_all$values
+eigen_vectors = eigen_all$vectors
+
+plot(ellipse(covariance_matrix, centre = mu, level = 0.95),
+     type = "l", xlab = "Weight (g)", ylab = "Length (cm)")
+grid()
+
+arrows(mu[1], mu[2], 
+       mu[1] + sqrt(eigen_values[1]) * eigen_vectors[1, 1], 
+       mu[2] + sqrt(eigen_values[1]) * eigen_vectors[2, 1],
+       col = "blue", length = 0.1)
+arrows(mu[1], mu[2], 
+       mu[1] + sqrt(eigen_values[2]) * eigen_vectors[1, 2], 
+       mu[2] + sqrt(eigen_values[2]) * eigen_vectors[2, 2],
+       col = "red", length = 0.1)
+```
+
+4-) How many children would score zero, one, and two, respectively? Illustrate this classification on the graphs.
+
+```{r, echo=FALSE}
+data_df = data.frame(data)
+
+for (level in list(0.75, 0.95)) {
+  # Compute critical value
+  critical_value = qchisq(level, df = 2)
+  
+  # Compute scores
+  scores = apply(data, 1, function(point) {
+    # Compute Mahalanobis distance
+    mahalanobis_distance = t(point - mu) %*% solve(covariance_matrix) %*% (point - mu)
+    
+    # Check if the Mahalanobis distance is less than or equal to the critical value
+    mahalanobis_distance <= critical_value
+  })
+  
+  # Assign scores to corresponding column
+  data_df[[paste("Confidence_", level)]] = scores
+}
+
+# Compute total score for each data point
+data_df$Total_Score = rowSums(data_df[, grep("Confidence_", names(data_df))])
+
+score_freq = table(data_df$Total_Score)
+score_df = as.data.frame(score_freq)
+names(score_df) = c("Total_Score", "Frequency")
+print(score_df)
+```
+
+```{r, echo=FALSE}
+barplot(score_df$Frequency, names.arg = score_df$Total_Score, 
+        xlab = "Total Score", ylab = "Frequency",
+        main = "Frequency of Total Scores")
+```
+
+```{r, echo=FALSE}
+class_colors = c("blue", "red", "green")
+
+plot(ellipse(covariance_matrix, centre = mu, level = 0.95),
+     type = "l", xlab = "Weight (g)", ylab = "Length (cm)")
+points(data_df$Weight, data_df$Length, col = class_colors[data_df$Total_Score + 1], cex = 0.5)
+grid()
+
+arrows(mu[1], mu[2], 
+       mu[1] + sqrt(eigen_values[1]) * eigen_vectors[1, 1], 
+       mu[2] + sqrt(eigen_values[1]) * eigen_vectors[2, 1],
+       col = "blue", length = 0.1)
+arrows(mu[1], mu[2], 
+       mu[1] + sqrt(eigen_values[2]) * eigen_vectors[1, 2], 
+       mu[2] + sqrt(eigen_values[2]) * eigen_vectors[2, 2],
+       col = "red", length = 0.1)
+
+legend("bottomright", legend = unique(data_df$Total_Score), col = class_colors, pch = 1)
+```
+
+5-) Find the spectral decomposition of the estimated covariance matrix
+
+```{r, echo=FALSE}
+Λ = diag(eigen_values)
+
+cat(
+  "decomposition:",
+  "\nP: ", eigen_vectors,
+  "\nΛ: ", Λ
+)
+```
+
+6-) Plot the data transformed according to $P^TX$, where $P$ is the matrix made of the eigenvectors standing as the columns. Interpret the transformed data.
+
+```{r, echo=FALSE}
+library("ggplot2")
+
+projected_data = as.data.frame(as.matrix(data) %*% t(eigen_vectors))
+colnames(projected_data) = c("Weight", "Length")
+
+ggplot(projected_data, aes(x=Weight, y=Length)) + geom_point()
+```
+
+### Part Two
+
+Additionally to weight and length of a child, also the height of parents is included in the records. In order to tune the procedure of scoring the height of parents can be also used. The ParentsWeightLength.txt file contains this information.
+
+1-) Using the data estimate the mean and the covariance for all four variables.
+
+```{r, echo=FALSE}
+data = read.table("~/Scripts/R-Scripts/Statistical_Learning/Assignment_1/ParentsWeightLength.txt", header = TRUE, sep = "\t")
+
+col_means = colMeans(data)
+covariance = cov(data)
+cov_df = data.frame(covariance)
+
+print(cov_df)
+cat("Mean = ", col_means)
+```
+
+2-) Verify graphically the normal distribution of the data. Use scatterplots and qq-plots for the marginal distributions.
+
+```{r, echo=FALSE}
+histogram_plot(data$FatherHeight, "FatherHeight")
+histogram_plot(data$MotherHeight, "MotherHeight")
+histogram_plot(data$Weight, "Weight")
+histogram_plot(data$Length, "Length")
+
+qq_plot(data$FatherHeight, "FatherHeight")
+qq_plot(data$MotherHeight, "MotherHeight")
+qq_plot(data$Weight, "Weight")
+qq_plot(data$Length, "Length")
+```
+
+3-) Identify the conditional distribution of the weight and length of a child given the heights of parents. Find an estimate of the covariance matrix of the conditional distribution and compare it with the original unconditional covariance.
+
+Conditional distribution of two bivariate normal distributions
+
+$L,W|F=f,M=m \sim \mathcal{N}(\mu_{WL} + \sum_{FMWL}\sum_{FM}^{-1}(\begin{bmatrix} f \\ m \end{bmatrix} - \mu_{FM}, \sum_{FMWL}\sum_{FM}^{-1}\sum_{WLFM})$
+
+where: 
+
+* $\mu_{WL}$ mean vector of join distribution of weight and length
+* $\mu_{FM}$ mean vector of join distribution of mother and father heights
+* $Σ_{FMWL}$ the covariance matrix of the joint distribution of all
+* $Σ_{FM}$ the covariance matrix of the joint distribution of father's and mother's heights
+
+```{r, echo=FALSE}
+mean_WL = col_means[3:4]
+mean_FM = col_means[1:2]
+
+Sigma_WL = covariance[3:4, 3:4]
+Sigma_FM = covariance[1:2, 1:2]
+Sigma_WLFM = covariance[1:2, 3:4]
+Sigma_FMWL = covariance[3:4, 1:2]
+
+mu = function(fm){
+  mean_WL + Sigma_FMWL %*% solve(Sigma_FM) %*% (fm - mean_FM)
+}
+
+Sigma = Sigma_WL - (Sigma_FMWL %*% solve(Sigma_FM) %*% Sigma_WLFM)
+
+cat("Sigma: ", Sigma)
+```
+
+Variances in both Length and Weight has decreased significantly in conditional distribution. This indicates a reduction in uncertainty about both Weight and Length when conditioned on FatherHeight and MotherHeight and a weaker linear relationship between Weight and Length when conditioned on FatherHeight and MotherHeight. 
+
+4-) How the ellipsoids based on the conditional distribution will look like?
+
+```{r, echo=FALSE}
+eigen_all = eigen(Sigma)
+
+eigen_values = eigen_all$values
+eigen_vectors = eigen_all$vectors
+
+mu_center = c(0, 0)
+
+plot(ellipse(Sigma, centre = mu_center, level = 0.95),
+     type = "l", xlab = "Weight (g)", ylab = "Length (cm)",)
+grid()
+
+arrows(mu_center[1], mu_center[2], 
+       mu_center[1] + sqrt(eigen_values[1]) * eigen_vectors[1, 1], 
+       mu_center[2] + sqrt(eigen_values[1]) * eigen_vectors[2, 1],
+       col = "blue", length = 0.1)
+arrows(mu_center[1], mu_center[2], 
+       mu_center[1] + sqrt(eigen_values[2]) * eigen_vectors[1, 2], 
+       mu_center[2] + sqrt(eigen_values[2]) * eigen_vectors[2, 2],
+       col = "red", length = 0.1)
+```
+
+
+5-) How many children would score zero, one, and two, respectively? Illustrate this classification on the graph and compare with the one obtained without considering the heights of parents.
+
+```{r, echo=FALSE}
+conditional_ellipse_check = function (datarow, level) {
+  wl = datarow[c("Weight", "Length")]
+  mf = datarow[c("FatherHeight", "MotherHeight")]
+  critical_value = qchisq(level, df = 2)
+  mahalanobis_distance = t(wl - mu(mf)) %*% solve(Sigma) %*% (wl - mu(mf))
+  ellipse_result = mahalanobis_distance <= critical_value
+  return(ellipse_result)
+}
+
+df = data.frame(data)
+for (level in list(0.75, 0.95)) {
+  df[[paste(level)]] = apply(data, 1, function(x) conditional_ellipse_check(x, level))
+}
+df$Score = rowSums(df[, (ncol(df) - length(list(0.75, 0.95)) + 1):ncol(df)])
+
+score_freq = table(df$Score)
+score_df = as.data.frame(score_freq)
+names(score_df) = c("Total_Score", "Frequency")
+print(score_df)
+```
+
+```{r, echo=FALSE}
+barplot(score_df$Frequency, names.arg = score_df$Total_Score, 
+        xlab = "Total Score", ylab = "Frequency",
+        main = "Frequency of Total Scores")
+```
+
+```{r, echo=FALSE}
+eigen_all_wl = eigen(Sigma_WL)
+
+eigen_values_wl = eigen_all_wl$values
+eigen_vectors_wl = eigen_all_wl$vectors
+
+class_colors = c("blue", "red", "green")
+
+plot(ellipse(Sigma_WL, centre = mean_WL, level = 0.95),
+     type = "l", xlab = "Weight (g)", ylab = "Length (cm)")
+points(df$Weight, df$Length, col = class_colors[df$Score + 1], cex = 0.5)
+grid()
+
+arrows(mean_WL[1], mean_WL[2], 
+       mean_WL[1] + sqrt(eigen_values_wl[1]) * eigen_vectors_wl[1, 1], 
+       mean_WL[2] + sqrt(eigen_values_wl[1]) * eigen_vectors_wl[2, 1],
+       col = "blue", length = 0.1)
+arrows(mean_WL[1], mean_WL[2], 
+       mean_WL[1] + sqrt(eigen_values_wl[2]) * eigen_vectors_wl[1, 2], 
+       mean_WL[2] + sqrt(eigen_values_wl[2]) * eigen_vectors_wl[2, 2],
+       col = "red", length = 0.1)
+
+legend("bottomright", legend = unique(df$Score), col = class_colors, pch = 1)
+```
+
+When we compare the results, we can see that frequency of class 2 has significantly increased whilst class 1 frequency significantly decreased. We can also say that class 0 is increased a little bit.
+
+6-) Suppose that the father of a child is 185[cm] tall and mother is 178[cm] tall. Plot the classification ellipsoids for their child.
+
+```{r, echo=FALSE}
+mu_ex = mean_WL + Sigma_FMWL %*% solve(Sigma_FM) %*% (c(185, 178) - mean_FM)
+Sigma_ex = Sigma_WL - (Sigma_FMWL %*% solve(Sigma_FM) %*% Sigma_WLFM)
+cat("Example Mu: ", mu_ex)
+```
+
+```{r, echo=FALSE}
+eigen_all_ex = eigen(Sigma_ex)
+
+eigen_values_ex = eigen_all_ex$values
+eigen_vectors_ex = eigen_all_ex$vectors
+
+plot(ellipse(Sigma_ex, centre = mu_ex, level = 0.95),
+     type = "l", xlab = "Weight (g)", ylab = "Length (cm)",)
+grid()
+
+arrows(mu_ex[1], mu_ex[2], 
+       mu_ex[1] + sqrt(eigen_values_ex[1]) * eigen_vectors_ex[1, 1], 
+       mu_ex[2] + sqrt(eigen_values_ex[1]) * eigen_vectors_ex[2, 1],
+       col = "blue", length = 0.1)
+arrows(mu_ex[1], mu_ex[2], 
+       mu_ex[1] + sqrt(eigen_values_ex[2]) * eigen_vectors_ex[1, 2], 
+       mu_ex[2] + sqrt(eigen_values_ex[2]) * eigen_vectors_ex[2, 2],
+       col = "red", length = 0.1)
+```
+
+
+7-) Find spectral decomposition of the estimated covariance matrix for the complete set of the data.
+
+```{r, echo=FALSE}
+P = eigen_vectors
+A = diag(eigen_values)
+
+cat(
+  "decomposition:",
+  "\nP: ", P,
+  "\nΛ: ", A
+)
+```
+
+
+8-) Transform the data the according to $P^TX$. Plot scatter plots of the transformed data.
+
+```{r, echo=FALSE}
+projected_data = as.matrix(data[c("Weight", "Length")]) %*% t(P)
+colnames(projected_data) = c("Weight", "Length")
+df_projected_data = as.data.frame(projected_data)
+
+ggplot(df_projected_data, aes(x=Weight, y=Length)) + geom_point()
+```
+
+
+
+

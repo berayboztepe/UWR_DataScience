@@ -1,0 +1,630 @@
+---
+title: "Assignment 5"
+author: "Emre Beray Boztepe"
+date: "26 01 2024"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+## Question 1:
+
+Let $X_{ij}$, j = 1, . . . , m, be iid random variables from the exponential distribution with the expected value $\mu_i = E(X_{ij})$. Construct a test for testing the hypothesis:
+$H_{0i}: \mu_i = 3$ vs $H_{Ai} : \mu_i > 3$.
+
+Let us construct the structure and make it ready for applying the likelihood ratio
+$H_{0i}: \mu_i = 3$ -> $\lambda_i = \frac{1}{3}$ and $H_{Ai} : \mu_i > 3$ -> $\lambda_i < \frac{1}{3}$
+
+Let us apply likelihood ratio by considering $\lambda_1  < \lambda_2 \in \Theta$,  $\lambda_i =  \frac 1 {\mu_i}$
+
+Formula for likelihood ratio:
+$$L(X) =  
+\frac{\prod_{j=1}^m f(x_j, \lambda_2)} {\prod_{j=1}^m f(x_j, \lambda_1)} = 
+\frac {\prod_{j=1}^m \lambda_2 e^{-x_j \lambda_2}} {\prod_{j=1}^m \lambda_1 e^{-x_j \lambda_1}} = 
+\Big(\frac {\lambda_2} {\lambda_1}\Big)^m e ^{-(\lambda_2 - \lambda_1) \sum_{j=1}^m x_j}$$
+
+Let $T= \sum_{i=1}^n x_i$, then we can say that $$L(X) = \Big(\frac {\lambda_2} {\lambda_1}\Big) ^ n e ^{-(\lambda_2 - \lambda_1) T}$$ is a non-decreasing function of the statistic -T.
+
+We reject $H_{0, i}$ if -T < c,  for  T such that $\mathbb{E}_{\mu = 3}\Big[-T < c\Big] = \alpha$.
+
+We know that under $H_{0, i}$ $T \sim Gamma(n, \frac 1 3)$. So, $-c = F^{-1}_{Gamma(n, \frac 1 3)}(1 - \alpha)$.
+
+Finally, we can say that we reject $H_{0, i}$ if $T >  F^{-1}_{Gamma(n, \frac 1 3)}(1 - \alpha)$.
+
+The p-value of the test:
+
+$$p = \mathbb{P}_0(t > T) = 1 - F_{Gamma(n, \frac 1 3)}(T)$$
+## Question 2:
+
+For all combinations of parameters
+- $m ∈ [20, 100]$,
+- $n ∈ [200, 1000]$,
+- $\epsilon ∈ [0, 01; 0, 05; 0, 1; 0, 2]$
+consider the following mixture model:
+$\mu_i$ are iid random variables from the two-point distribution
+
+$P(\mu_i = 3) = 1 − \epsilon = 1 − P(\mu_i = 5, 5), i = 1, . . . , n$ and for j = 1 . . . m, $X_{ij}$ are iid $Exp(\mu_i)$.
+
+For each i = 1, . . . , n and $q ∈ [0, 1;0,1 \sqrt{\frac{200}{m}}]$ use test from the Problem 1 with the following multiple testing corrections
+
+i) Bonferroni procedure at the FWER level q,
+ii)  procedure controlling Bayesian FDR at the level q (find the respective critical values by using the command uniroot()),
+iii) classical BH procedure at the FDR level q.
+
+Use at least 1000 replicates to estimate FDR, Power (see, the List 4) and the expected value of the total experiment cost under the assumptions
+
+i) $c_0 = c_A = 1$ (note that in this case the expected cost is equal to the expected number of misclassifications),
+ii) $c_0 = 2, c_A = 1$,
+iii) $c_0 = 1, c_A = 2$,
+
+here $c_0$ is the cost for the type I error and $c_A$ is the cost for the type II error.
+For the Bonferroni procedure and the BFDR controlling procedure calculate the exact values of the Power and of the expected cost
+
+Import library and necessary definitions
+```{r, echo=TRUE}
+library(knitr)
+
+epsilons = c(0.01,  0.05,  0.1,  0.2)
+ns = c(200,  1000)
+ms = c(20, 100)
+costs = list(c(c0 = 1,  cA = 1),  
+              c(c0 = 2,  cA = 1), 
+              c(c0 = 1,  cA = 2))
+
+list_all_results = list()
+i = 1
+set.seed(2021)
+```
+Functions for applying needed procedures
+```{r, echo=TRUE}
+# function for applying bonferroni procedure
+bonferroni_procedure = function(p_values, alpha){
+  n = length(p_values)
+  return(p_values <= (alpha / n))
+}
+
+# function for applying benjamini-hochberg procedure
+benjamini_hochberg_procedure = function(p_values, alpha){
+  n = length(p_values)
+  ord = order(p_values)
+  ord2 = order(ord)
+  res = (p_values[ord] <= (alpha * seq(n) / n))
+  sapply(1:n, function(i) any(res[i:n]))[ord2]
+}
+```
+Functions for calculating Bayesian FDR
+```{r, echo=TRUE}
+# this F formula is for calculating Bayesian FDR threshold based on the formula given
+apply_F_formula = function(c, m, q, eps) {
+  (1 -  eps) * (1 - pgamma(c,  m, 1/3)) / (1 - (( 1 - eps) * pgamma(c, m, 1/3) + eps * pgamma(c, m,  1/5.5))) - q
+}
+
+# calculating the Bayesian FDR threshold for given parameters
+BFDR_threshold = function(eps, m, q=0.05) {
+  mm = if (m < 50) 200 else 600
+  uniroot(apply_F_formula, c(10e-10, mm), m, q, eps)$root
+}
+
+# function for given T and threshold to decide if we should reject H0 or not
+should_reject_H0 = function(T, threshold) {
+  return(T > threshold)
+}
+```
+Functions to calculate FDR, Power and Cost
+```{r, echo=TRUE}
+# Function to calculate False Discovery Rate
+FDR = function(true_values, test_results) {
+  fdr = sum(test_results[which(!true_values)]) / max(sum(test_results), 1)
+  if(is.na(fdr))
+    return(0)
+  else
+    return(fdr)
+}
+
+# Function to calculate Power
+power = function(true_values, test_results) {
+  pow = mean(test_results[which(true_values)])
+  if(is.na(pow))
+    return(0)
+  else
+    return(pow)
+}
+
+# Function to calculate the expected value of the total experiment cost under the assumptions
+cost = function(true_values, test_results, c0,  cA) {
+  cost_val = sum((true_values != test_results) * (c0 * true_values +  cA * test_results))
+  if(is.na(cost_val)) 
+    return(0)
+  else 
+    return(cost_val)
+}
+```
+Functions for calculating p_value and mu
+```{r, echo=TRUE}
+# Function to calculate p_value
+p_value = function(T_statistics, m) {
+  return(1 - pgamma(T_statistics, m, 1/3))
+}
+
+# Function to calculate mu_value
+mu_val = function(n, eps) {
+  return(1 / sample(c(3, 5.5), n, replace=T, prob=c(1 - eps, eps)))
+}
+```
+This function is where the simulation starts. Basically generates random data and gives it to the related functions to apply procedures and returns values based on these calculations
+```{r, echo=TRUE}
+simulate_tests = function(mu_vector, n, m, eps, q, bayesian_fdr_c) {
+  
+  data = array(replicate(m, rexp(n, mu_vector)), c(n,  m))
+  T_statistics = rowSums(data)
+  p_values = p_value(T_statistics, m)
+  
+  bonf = bonferroni_procedure(p_values, q)
+  bfdr = should_reject_H0(T_statistics, bayesian_fdr_c)
+  bh = benjamini_hochberg_procedure(p_values, q)
+  
+  array(c(bonferroni = bonf, BFDR = bfdr, benjamini_hochberg = bh),  c(n, 3))
+}
+```
+Function to start simulation with given replicate count and parameters for n, m, epsilon etc.
+```{r, echo=TRUE}
+start_simulating = function(mu_vector, repn, n, m, eps, q=0.05) {
+  bayesian_fdr_c = BFDR_threshold(eps, m)
+  array(replicate(repn, simulate_tests(mu_vector, n, m, eps, q, bayesian_fdr_c)),  c(n,  3, repn))
+}
+```
+Function that computes performance metrics (such as power, false discovery rate, and cost) based on the results of a simulation study
+```{r, echo=TRUE}
+evaluate_results = function(fun, result, mu_vector, c0=NULL,  cA=NULL) {
+  if (is.null(c0) ||  is.null(cA)) {
+    return(colMeans(array(sapply(1:(dim(result)[2]), function(test) sapply(1:(dim(result)[3]),
+                                  function(iter) fun(mu_vector < 1 / 3, result[,  test,  iter]))), dim(result)[3:2])))
+  }
+  else {
+    return(colMeans(array(sapply(1:(dim(result)[2]), function(test) sapply(1:(dim(result)[3]),
+                                  function(iter) fun(mu_vector < 1 / 3, result[,  test,  iter],c0, cA))), dim(result)[3:2])))
+  }
+}
+```
+Based on the evaluation, collect the results to a data frame and return it. Calculate all necessary assumptions
+```{r, echo=TRUE}
+collect_all_results = function(mu_vector, result, costs) {
+  power_values = evaluate_results(power, result, mu_vector)
+  
+  fdr_values = evaluate_results(FDR, result, mu_vector)
+  
+  cost_values_1 = evaluate_results(cost, result, mu_vector, costs[[1]]["c0"],  costs[[1]]["cA"])
+  
+  cost_values_2 = evaluate_results(cost, result, mu_vector, costs[[2]]["c0"],  costs[[2]]["cA"])
+  
+  cost_values_3 = evaluate_results(cost, result, mu_vector, costs[[3]]["c0"],  costs[[3]]["cA"])
+  
+  return(t(data.frame(power_values, fdr_values, cost_values_1, cost_values_2, cost_values_3)))
+}
+```
+Loop all epsilons; q, m and n values and write results as tables
+```{r, echo=TRUE}
+for (eps  in epsilons) {
+  for (m in ms) {
+    for (n in ns) {
+      mu_vector = mu_val(n, eps)
+      for (q in c(0.1, 0.1 * sqrt(200 / m))) {
+        all_results = start_simulating(mu_vector, 1000, n, m, eps, q)
+        results = data.frame(collect_all_results(mu_vector, all_results, costs))
+        colnames(results) = c("Bonferroni", "control BFDR", "Benjamini-Hochberg")
+        list_all_results[[i]] = list(eps=eps, m=m, n=n, res = results, q=q)
+        i = i+1
+        show(kable(results, caption = paste0("eps: ", eps, ", m: ",  m, ",  n: ",  n, ", q: ", round(q, 3)), digits = 3))
+      }
+    }
+  }
+}
+```
+
+## Comments:
+
+When we look into Table 5 and 6, when eps = 0.01, m = 100, n = 200, q = 0.1, we got power very close to 1 for all tests. When we change q into 0.141, we can see that the power results increases but not significantly there is a difference. But, that increase in q leads FDR and cost values to be higher. Also, for all tests, when m is 20, power values are so low no matter what the other values are. Increase in epsilon when m = 20 causes in cost values to be highest.
+
+As far as I see, Best-performed ones: 
+-Table 5, 
+-Table 6, 
+Only difference between these two tables is q = 0.1 for Table 5 and q = 0.141 for Table 6. As a difference, cost and FDR decreased for Bonferroni but increased for both BFDR and Benjamini-Hochberg.
+
+-Table 13,
+-Table 14,
+Only difference between these two tables is q = 0.1 for Table 13 and q = 0.141 for Table 14. As a difference, cost and FDR increased for Bonferroni and Benjamini-Hochberg but decreased for BFDR.
+
+-Table 21,
+-Table 22,
+Only difference between these two tables is q = 0.1 for Table 21 and q = 0.141 for Table 22. As a difference, cost and FDR increased for Bonferroni and Benjamini-Hochberg but decreased for BFDR.
+
+-Table 29,
+-Table 30. 
+Only difference between these two tables is q = 0.1 for Table 29 and q = 0.141 for Table 30. As a difference, cost and FDR decreased for Bonferroni and BFDR but increased  for Benjamini-Hochberg .
+
+## Question 3:
+
+For each of the above values of ε and combinations of c0 and cA derive the optimal Bayesian classifier and theoretically calculate its BFDR, Power and the expected value of the corresponding cost function.
+
+$$\frac {f(T|H_A)} {f(T|H_0)} = \Big(\frac {3} {5.5}\Big)^m e^{T \frac{5} {33}}  \geq \frac {c_0 \mathbb{P}(H_0)} {c_A \mathbb{P}(H_A)} = \frac{c_0 (1 - \epsilon)} {c_A \epsilon}$$
+
+$$T \geq \frac {33} {5} ln\Bigg(\Big(\frac{5.5}{3}\Big)^m \cdot \frac{c_0 (1 - \epsilon)} {c_A \epsilon} \Bigg) = \tau$$
+
+$$BFDR = \frac {(1 - F_{Gamma(m, \frac 1 3)} (\tau)) \cdot(1- \epsilon)} {(1 - F_{Gamma(m, \frac 1 3)} (\tau)) \cdot(1- \epsilon) + (1 - F_{Gamma(m, \frac 1 {5.5})} (\tau)) \cdot \epsilon}$$
+$$power = \mathbb{P}(rejected|H_1) = 1 - F_{Gamma(m, \frac 1 {5.5})} (\tau)$$
+Import library and necessary definitions
+```{r}
+library(knitr)
+
+epsilons = c(0.01,  0.05,  0.1,  0.2)
+ms = c(20, 100)
+costs = list(c(c0 = 1,  cA = 1),  
+             c(c0 = 2,  cA = 1), 
+             c(c0 = 1,  cA = 2))
+
+set.seed(2021)
+```
+Function for calculating Tau value by the formula
+```{r}
+calculate_tau = function(m, eps, c0, cA) {
+  33 / 5 * log( (5.5 / 3) ^ m * (c0 * (1 - eps)) / (cA * eps))
+}
+```
+Functions to calculate BFDR, Power, Cost by using calculated Tau value
+```{r}
+# Function for calculating Bayesian FDR by its formula using tau
+calculate_BFDR_tau = function(m, eps, c0, cA, tau_val) {
+  return((1 - pgamma(tau_val, m, 1/3)) * (1 - eps) / ((1 - pgamma(tau_val, m, 1/3) * (1 - eps)) + ((1 - pgamma(tau_val, m, 1 / 5.5)) * eps)))
+}
+
+# Function for calculating power value by its formula using tau
+calculate_power_tau = function(m, eps, c0, cA, tau_val) {
+  1 - pgamma(tau_val,  m, 1 / 5.5)
+}
+
+# Function for calculating cost value by its formula using tau
+calculate_cost_tau = function(m, eps, c0, cA, tau_val) {
+  c0 * (1 - eps) * (1 - pgamma(tau_val, m, 1/3)) + cA * eps * (1 - pgamma(tau_val, m, 1/5.5))
+}
+```
+Data frame for storing all results (power, cost, BFDR using tau)
+```{r}
+results = data.frame()
+```
+Loop all values and calculate BFDR, power, cost
+```{r}
+for (eps  in epsilons) {
+  for (m in ms) {
+    for (cs in costs) {
+      
+      tau_val = calculate_tau(m, eps, cs["c0"], cs["cA"])
+      results = rbind(results, 
+                    data.frame(eps = eps, m = m, c0 = cs["c0"], cA = cs["cA"], 
+                               tau = tau_val, 
+                               BFDR = calculate_BFDR_tau(m, eps, cs["c0"], cs["cA"], tau_val),
+                               power = calculate_power_tau(m, eps, cs["c0"], cs["cA"], tau_val), 
+                               cost = calculate_cost_tau(m, eps, cs["c0"], cs["cA"], tau_val)))
+    }
+  }
+}
+```
+Show table for the results
+```{r}
+kable(results, row.names = F, digits = 3)
+```
+
+## Comments:
+For eps = 0.01, m = 20, tau value is between 105-115 and got its best power value when c0 = 1 and cA = 2 by having 0.540. It can be said that when tau value decreases, power increases but in the meantime, FDR and cost become higher as well. Again, when m value is 100, power and tau value increases for all epsilon, c0 and cA values. Tau value is in 400s when m = 100 and that causes power value to become almost 1. When epsilon is 0.20 (m = 100), FDR value decreases to 0.001 and cost value decreases to 0.2-0.4 range.
+
+## Question 4:
+Assume that you do not know ε and µ. For each replicate of the whole experiment estimate ε and µ using Expectation Maximization algorithm. Evaluate the accuracy of your estimators: draw histograms, calculate the bias, the variance and the mean squared error.
+
+Likelihood for EM algorithm:
+
+$Z_i$ - latent indicators form binomial distribution ($\mathbb P (Z_i = 1) = \epsilon$)
+
+$$L(T, Z | \mu, \epsilon) = L(T|Z,\mu, \epsilon) \cdot L(Z|\epsilon) = \prod_{i=1}^{n} f_{Gamma(m, \frac 1 \mu)}(T)^{Z_i} \cdot \epsilon^{Z_i} \cdot f_{Gamma(m, \frac 1 3)} (T)^{1 -Z_i} \cdot (1-\epsilon)^{1 - Z_i}  $$
+
+$$L(T|Z,\mu, \epsilon) = \prod_{i=1}^{n} f_{Gamma(m, \frac 1 \mu)} (T)^{Z_i} \cdot f_{Gamma(m, \frac 1 3)} (T)^{1 - Z_i} = \prod_{i=1}^{n} \Bigg[\frac {(\frac {1} {\mu})^m} {\Gamma(m)} T_i^{m-1} e^{- \frac {1} {\mu} T_i}\Bigg]^{Z_i} \Bigg[ \frac {(\frac {1} {3})^m} {\Gamma(m)} T_i^{m-1} e^{- \frac {1} {3} T_i}\Bigg]^{1 - Z_i} $$
+
+$$l(T|Z,\mu, \epsilon) =  \sum_{i=1}^{n} Z_i \cdot ln(f_{Gamma(m, \frac 1 \mu)} (T)) + (1 - Z_i) \cdot ln(f_{Gamma(m, \frac 1 3)} (T))$$
+
+$$l(T, Z | \mu, \epsilon) = \sum_{i=1}^{n} Z_i \cdot (ln(f_{Gamma(m, \frac 1 \mu)} (T_i)) + ln(\epsilon)) + (1 - Z_i) \cdot (ln(f_{Gamma(m, \frac 1 3)} (T_i)) + ln(1 - \epsilon))$$
+
+Expectation step:
+
+Replace $\epsilon$ with estimator
+
+$$\pi_i^k = \mathbb E(Z_i | T, \mu_{k}) = \mathbb P (Z_i = 1 |T, \mu_k)$$
+
+$$\pi_i^k = \frac {f_{Gamma(m, \frac {1} {\mu_k})} (T_i) \cdot \epsilon_k}  {f_{Gamma(m, \frac {1} {\mu_k})} (T_i) \cdot \epsilon_k + f_{Gamma(m, \frac {1} {3})} (T_i) \cdot (1 - \epsilon_k)}$$
+$$Q(\mu, \epsilon | \mu_k, \epsilon_k) = \mathbb E _{Z|T, \mu_k, \epsilon_k} log(L(T, Z | \mu, \epsilon))$$
+$$Q(\mu, \epsilon | \mu_k, \epsilon_k) =  \sum_{i=1}^{n} \pi_i^k \cdot (ln(f_{Gamma(m, \frac 1 \mu)} (T_i)) + ln(\epsilon)) + (1 - \pi_i^k) \cdot (ln(f_{Gamma(m, \frac 1 3)} (T_i)) + ln(1 - \epsilon))$$
+
+Maximization step
+
+$$Q_{k+1} = argmax_{\mu, \epsilon} Q(\mu, \epsilon | \mu_k, \epsilon_k)$$
+Libraries
+```{r, echo=TRUE}
+library(knitr)
+library(dplyr)
+```
+Parameters
+```{r, echo=TRUE}
+epsilon_values = c(0.01,  0.05,  0.1,  0.2)
+ns = c(200,  1000)
+ms = c(20, 100)
+costs = list(c(c0 = 1,  cA = 1),  
+             c(c0 = 2,  cA = 1), 
+             c(c0 = 1,  cA = 2))
+set.seed(2023)
+```
+Function to generate true values of mu
+```{r, echo=TRUE}
+generate_mu = function(n, eps) {
+  1 / sample(c(3, 5.5), n, replace=T, prob=c(1 - eps, eps))
+}
+```
+Function for calculating the conditional probabilities pi_k
+```{r, echo=TRUE}
+calculate_pi_k = function(T_val, eps_k, mu_k) {
+  dgamma(T_val, m, 1 / mu_k) * eps_k / (dgamma(T_val, m, 1 / mu_k) * eps_k + dgamma(T_val, m, 1 / 3) * (1 - eps_k))
+}
+```
+Function for the Q step in the EM algorithm
+```{r, echo=TRUE}
+calculate_Q = function(Q_init, pik, T_val, m) {
+  mu_val = Q_init["mu"]; eps = Q_init["eps"]
+  sum((pik) * (log(dgamma(T_val, m, 1/mu_val)) + log(eps)) + (1 - pik) * (log(dgamma(T_val, m, 1/3)) + log(1 - eps)))
+}
+```
+Function for the maximization step in the EM algorithm
+```{r, echo=TRUE}
+maximize_Q = function(T_val, eps_k, mu_k, m) {
+  pik = calculate_pi_k(T_val, eps_k, mu_k)
+  optim(c(mu = 5.5, eps = .5), calculate_Q, pik = pik, m=m, T_val = T_val, control = list(fnscale = -1))$par
+}
+```
+EM algorithm function
+```{r, echo=TRUE}
+expectation_maximization = function(T_val, m, Q_init=NULL, i=0) {
+  if (is.null(Q_init)) {
+    Q_val = maximize_Q(T_val, .5, mean(T_val), m)
+    expectation_maximization(T_val, m, Q_val, i+1)
+  } else {
+    Q_val = maximize_Q(T_val, Q_init["eps"], Q_init["mu"], m)
+    if (all(Q_val - Q_init < 0.05) | (i > 10e4)) {
+      c(Q_val["mu"], Q_val["eps"])
+    } else {
+      expectation_maximization(T_val, m, Q_val, i+1)
+    }
+  }
+}
+```
+Main function for one experiment
+```{r, echo=TRUE}
+perform_experiment = function(eps, m, n)  {
+  mu_vec = generate_mu(n, eps)
+  T_val = rowSums(array(replicate(m, rexp(n, mu_vec)), c(n,  m)))
+  expectation_maximization(T_val, m)
+}
+```
+List to store results
+```{r, echo=TRUE}
+results_list = list()
+experiment_count = 1
+```
+Loop through different combinations of parameters
+```{r, echo=TRUE}
+for (eps  in epsilon_values) {
+  for (m in ms) {
+    for (n in ns) {
+      results_list[[experiment_count]] = list(eps = eps, m = m, n = n, res = replicate(100, perform_experiment(eps, m, n)))
+      experiment_count = experiment_count+1
+    }
+  }
+}
+```
+Loop through the results and display information
+```{r, echo=TRUE}
+for (element in results_list) {
+  bias = rowMeans(element$res - t(array(c(rep(5.5, 100), rep(element$eps, 100)), c(100, 2))))
+  mse = c(mean((element$res["mu", ] - 5.5)^2), mean((element$res["eps", ] - element$eps)^2))
+  vars = c(var(element$res["mu", ]), var(element$res["eps", ]))
+  
+  # Calculate accuracy
+  accuracy_mu = 1 - mean(abs(element$res["mu", ] - 5.5) > 0.5)
+  accuracy_eps = 1 - mean(abs(element$res["eps", ] - element$eps) > 0.1)
+  
+  kable(t(data.frame(bias, mse, vars, accuracy_mu, accuracy_eps)), 
+        caption=paste0("epsilon: ", element$eps, ", m: ", element$m, ", n: ", element$n), 
+        digits = 4) %>% show()
+  
+  # Plot histograms
+  par(mfrow=c(1,2))
+  hist(element$res["mu", ], main="Histogram of mu", xlab="Value of mu", col="lightblue", border="black")
+  hist(element$res["eps", ], main="Histogram of epsilon", xlab="Value of epsilon", col="lightgreen", border="black")
+  par(mfrow=c(1,1))
+}
+
+```
+
+## Comments:
+- The bias values for mu estimation are generally small, indicating that, on average, the estimated mu values are relatively close to the true values.
+- MSE values for mu are generally moderate, suggesting some variability in the accuracy of mu estimation across different settings.
+- The variance of the estimated mu values provides insights into the spread or variability of the estimates. Larger variance values indicate greater variability in the accuracy of mu estimation.
+- The accuracy in mu estimation is generally low, ranging from 0% to 45%. This suggests that the algorithm may struggle to precisely estimate mu within a certain threshold, especially for larger n.
+- The accuracy in epsilon estimation is consistently high, being 100% in most cases. This suggests that the algorithm performs well in estimating epsilon within a certain threshold.
+
+## Question 5:
+
+Given the above estimates
+
+i) for each of the above values of ε and combinations of c0 and cA construct a plug-in Bayesian classifier (based on estimated values of ε and µ) and estimate its Power, FDR and the expected value of the corresponding cost function;
+
+ii) For each of the above values of ε and q construct the plug-in version of the rule controlling BFDR (based on estimated values of ε and µ) and the modified version of BH (define $i_0 = max \{i: p(i) ≤ \frac {iq} {(1- \epsilon) n} \}$ and reject all hypothesis with p-values smaller or equal then p(i0)). Estimate Power, FDR and the expected values of the above cost functions for these modifications of the BFDR controlling rule and of BH.
+
+Define a function for modified Benjamini-Hochberg procedure
+```{r, echo=TRUE}
+mod_benjamini_hochberg = function(pvals, alpha, eps) {
+  n = length(pvals)
+  ord = order(pvals)
+  ord2 = order(ord)
+  # Apply the modified Benjamini-Hochberg procedure
+  res =( pvals[ord] <= ((alpha * seq(n) / n / (1 - eps))))
+  sapply(1:n, function(i) any(res[i:n]))[ord2]
+}
+```
+Define a function for simulation
+```{r, echo=TRUE}
+simulation = function(mu_vec, n, m, eps, q, c_bfdr, tau_val_1, tau_val_2, tau_val_3) {
+  
+  # Generate data for each replication
+  X = array(replicate(m, rexp(n, mu_vec)), c(n,  m))
+  T_stat = rowSums(X)
+  p_vals = p_value(T_stat, m)
+  
+  # Decide whether to reject H0 for different procedures
+  bayes1 =should_reject_H0(T_stat, tau_val_1)
+  bayes2 =should_reject_H0(T_stat, tau_val_2)
+  bayes3 =should_reject_H0(T_stat, tau_val_3)
+  bfdr = should_reject_H0(T_stat, c_bfdr)
+  bh = mod_benjamini_hochberg(p_vals, q, eps)
+  
+  # Combine the results into an array
+  array(c(bayes1 = bayes1, bayes2 = bayes2, bayes3 = bayes3, BFDR = bfdr, mod_benjamini_hochberg = bh),  c(n, 5))
+}
+```
+Define a function for conducting the simulation
+```{r, echo=TRUE}
+start_simulation = function(mu_vec, repn, n, m, eps, q=0.05) {
+  # Calculate the BFDR threshold and tau values
+  c_bfdr = BFDR_threshold(eps, m)
+  tau_val_1 = calculate_tau(m, eps, 1, 1)
+  tau_val_2 = calculate_tau(m, eps, 2, 1)
+  tau_val_3 = calculate_tau(m, eps, 1, 2)
+  
+  # Run the simulation for multiple replications
+  array(replicate(repn, simulation(mu_vec, n, m, eps, q, c_bfdr, tau_val_1, tau_val_2, tau_val_3)),  c(n,  5, repn)) # [i, test, replication]
+}
+```
+Initialize a list to store all results
+```{r, echo=TRUE}
+all_res_plugin = list()
+i = 1
+```
+Loop through different parameter settings
+```{r, echo=TRUE}
+for (element in results_list) {
+  
+  # Extract parameters
+  m = element$m
+  n = element$n
+  mu_A = mean(element$res["mu", ])
+  eps =  mean(element$res["eps", ])
+  mu_vec = 1 / sample(c(3, mu_A), n, replace=T, prob=c(1 - eps, eps))
+  
+  # Loop through different q values
+  for (q in c(0.1, 0.1 * sqrt(200 / m))) {
+    # Run the simulation
+    all_results = start_simulation(mu_vec, 1000, n, m, eps, q)
+    results = data.frame(collect_all_results(mu_vec, all_results, costs))
+    colnames(results) = c("Bayes c0=cA=1", "Bayes c0=2, cA=1", "Bayes c0=1, cA=2", "plug-in control BFDR", "modified Benjamini-Hochberg")
+    all_res_plugin[[i]] = list(eps=eps, m=m, n=n, res=results, q=q) 
+    i = i+1
+    show(kable(results, caption = paste0("eps: ", eps, ", m: ",  m, ",  n: ",  n, ", q: ", round(q, 3)), digits = 3))
+  }
+}
+```
+
+## Comments:
+- As epsilon increases, the power of the tests generally increases across different scenarios. This is expected, as a larger epsilon allows for a wider range of true positives to be identified. Conversely, the false discovery rate (FDR) tends to decrease with higher epsilon values, indicating a better control over false positives.
+- Power increases as both sample size (n) and group size (m) increase. This is consistent with statistical intuition, where larger sample sizes provide more information, leading to better detection of true positives. Similarly, FDR tends to decrease with larger sample sizes and group sizes, indicating better control over false discoveries.
+- The different methods for controlling the False Discovery Rate (plug-in control BFDR, modified Benjamini-Hochberg) show varying performance across scenarios. The modified Benjamini-Hochberg method tends to have higher power compared to plug-in control BFDR, especially as the threshold (q) increases. However, this improvement in power often comes at the cost of a higher FDR.
+- The cost values provide a comprehensive evaluation, considering both power and FDR. It appears that, in some scenarios, modified Benjamini-Hochberg achieves higher power at the expense of increased costs, especially as q increases.
+- Generally, the trends observed across different scenarios are consistent. Higher epsilon, larger sample sizes, and group sizes contribute to increased power and improved control over false discoveries.
+
+## Question 6:
+
+Present values of each of the above characteristics (FDR, Power, expected cost) as a function of ε. Compare results of direct and plug-in procedures on the same graph.
+
+```{r, echo=TRUE}
+# Load required libraries
+library(reshape2)
+library(ggplot2)
+library(stringr)
+
+# Initialize an empty data frame for direct power
+direct_power = data.frame()
+
+# Loop through the list of all results
+for (i in seq(length(list_all_results))) {
+  # Extract the relevant data from the list
+  tmp = list_all_results[[i]][[4]]
+  
+  # Add a new column 'metric' with row names
+  tmp$metric = row.names(tmp)
+  
+  # Combine and append the data to the direct power data frame
+  direct_power = rbind(direct_power, cbind(data.frame(list_all_results[[i]][1:3]), tmp))
+}
+
+# Initialize an empty data frame for plugin power
+plugin_power = data.frame()
+
+# Loop through the list of plugin results
+for (i in seq(length(list_all_results))) {
+  # Set the 'eps' column for each plugin result
+  all_res_plugin[[i]]$eps = results_list[[ceiling(i/2)]]$eps
+  
+  # Extract the relevant data from the plugin result
+  tmp = all_res_plugin[[i]][[4]]
+  
+  # Add a new column 'metric' with row names
+  tmp$metric = row.names(tmp)
+  
+  # Combine and append the data to the plugin power data frame
+  plugin_power = rbind(plugin_power, cbind(data.frame(all_res_plugin[[i]][c(1:3, 5)]), tmp))
+}
+
+# Set 'q' column for direct power equal to the 'q' column in plugin power
+direct_power$q = plugin_power$q
+
+# Merge the direct power and plugin power data frames
+data = plyr::join(direct_power, plugin_power, by=c("m", "n", "eps", "q", "eps", "metric"))
+
+# Order the combined data frame
+data = data[with(data, order(m, n, q, metric, eps)), ]
+
+# Create plots for each combination of parameters
+for (i in seq(40)) {
+  # Extract data for the current combination
+  tmp = data[((i-1)*4 + 1): (i*4), ]
+  
+  # Extract specific values for the plot title
+  m = tmp[1, "m"]
+  n = tmp[1, "n"]
+  q = tmp[1, "q"]
+  metric = tmp[1, "metric"]
+  
+  # Reshape the data for plotting
+  tmp = melt(tmp, "eps", c("Bonferroni", "control BFDR", "Benjamini-Hochberg", 
+                            "Bayes c0=cA=1", "Bayes c0=2, cA=1", "Bayes c0=1, cA=2",
+                            "control BFDR", "modified Benjamini-Hochberg"))
+  
+  # Display the plot using ggplot
+  show(ggplot(tmp, aes(x=eps, y=value, color=variable)) + 
+         geom_line() + 
+         labs(title = str_c(metric, ". m= ", m, "n: ", n, ", q: ", round(q, 4))) 
+  )
+}
+
+```
+
+## Comments:
+- According to the graphs, cost values (1, 2, 3) Bonferroni has the highest value and BFDR, BH follows it. Value also increases when q, m and n increase.
+- FDR for Bonferroni decreases and gets the lowest when epsilon increases. BH and BH mod have the highest value for FDR and the value gets higher a bit every time epsilon increases. Also, BH-mod value decreases a bit. It is the same for every q, n, m values.
+- Power for Bonferroni is the lowest. For all bayes values, power value increases when epsilon increases and they have the highest values. For higher q, n, m values, all bayes values starts to decrease when epsilon increases.

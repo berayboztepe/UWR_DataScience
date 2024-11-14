@@ -1,0 +1,496 @@
+---
+title: "Assignment 1"
+author: "Emre Beray Boztepe"
+date: "26 10 2023"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(include = TRUE)
+```
+## Question 1:
+
+1-) Let X1, . . . , Xn be the simple random sample from the distribution with the density $f(x, a) = (a + 1)x^a, for x ∈ (0, 1), a > −1$.
+
+## Option D:
+Fix a = 5 and generate one random sample of the size n = 20. Calculate both estimators and the respective values of $a − a and (a − a)^2$. Which estimator is more accurate?
+
+Load required libraries
+```{r, echo=TRUE}
+library(ggplot2)
+library(stringr)
+library(gridExtra)
+```
+Set seed for reproducibility
+```{r, echo=TRUE}
+set.seed(1998)
+```
+Maximum Likelihood Estimator (MLE) function for beta distribution
+```{r, echo=TRUE}
+calculate_mle_of_beta = function(X) {
+  n = length(X)
+  return((-1) * n / sum(sapply(X, log)) - 1)
+}
+```
+Moment estimator function for beta distribution
+```{r, echo=TRUE}
+calculate_moment_estimator_of_beta = function(X) {
+  u = mean(X)
+  return((1 - 2 * u) / (u - 1))
+}
+```
+Function to provide different estimators for beta distribution
+```{r, echo=TRUE}
+provide_estimators_1 = function(a, n) {
+  X = rbeta(n, a + 1, 1)
+  mle = calculate_mle_of_beta(X)
+  mom = calculate_moment_estimator_of_beta(X)
+  return(array(c(mle, mom, mle - a, mom - a, (mle - a) ^ 2, (mom - a) ^ 2), c(2, 3)))
+}
+
+result=provide_estimators_1(5, 20)
+cat("MLE Estimator (α̂_MLE): ", result[1], "\n", "Moment Estimator (α̂_Moment): ", result[2], "\n",
+"α - α̂_MLE: ", result[3], "\n", "(α - α̂_MLE)^2: ", result[5], "\n", "α - α̂_Moment: ", result[4], "\n",
+"(α - α̂_Moment)^2: ", result[6], "\n")
+```
+
+## Comments:
+According to the results, even though they are really close to each other, MOM estimator seems to be more accurate by having values closer to 0.
+
+## Option E-F:
+Generate 1000 samples of the size n = 20, for n = 200 and compare the results:
+i) draw histograms, box-plots and q-q plots for both estimators;
+
+Function to calculate confidence intervals for bias
+```{r, echo=TRUE}
+calculate_conf_int_bias = function(a_vec, a, m, alph = 0.05) {
+  bs = a_vec - a
+  b = mean(bs)
+  b_sd = sd(bs)
+  return (list(conf_int_lower = b - qnorm(1 - alph / 2) * b_sd / sqrt(m),
+               conf_int_upper = b + qnorm(1 - alph / 2) * b_sd / sqrt(m), 
+               est = b))
+}
+```
+Function to calculate confidence intervals for Mean Squared Error (MSE)
+```{r, echo=TRUE}
+calculate_conf_int_mse = function(a_vec, a, m, alph = 0.05) {
+  mses = (a_vec - a) ^ 2
+  mse = mean(mses)
+  mse_sd = sd(mses)
+  return (list(conf_int_lower = mse - qnorm(1 - alph / 2) * mse_sd / sqrt(m), 
+               conf_int_upper = mse + qnorm(1 - alph / 2) * mse_sd / sqrt(m), 
+               est = mse))
+}
+```
+Function to calculate confidence intervals for variance
+```{r, echo=TRUE}
+calculate_conf_int_var = function(a_vec, a, m, alph = 0.05) {
+  v = var(a_vec)
+  return (list(conf_int_lower = (m - 1) * v / qchisq(1 - alph / 2, m - 1), 
+               conf_int_upper = (m - 1) * v / qchisq(alph / 2, m - 1), 
+               est = v))
+}
+```
+Simulation function for different sample sizes and number of iterations
+```{r, echo=TRUE}
+run_simulation_1 = function(a, n, m) {
+  replicate(m, provide_estimators_1(a, n))
+}
+```
+Run simulations for sample sizes n=20 and n=200
+```{r, echo=TRUE}
+sim_1_20 = run_simulation_1(5, 20,  1000)
+sim_1_200 = run_simulation_1(5, 200,  1000)
+```
+Convert simulation results to data frames
+```{r, echo=TRUE}
+estimators_20 = as.data.frame.array(t(sim_1_20[,  1, ]))
+colnames(estimators_20) = c("mle",  "mom")
+estimators_200 = as.data.frame.array(t(sim_1_200[,  1, ]))
+colnames(estimators_200) = c("mle",  "mom")
+```
+Plot histograms for MLE and moment estimator for n=20 and n=200
+```{r, echo=TRUE}
+p1 = ggplot(estimators_20,  aes(x=mle)) + 
+  geom_histogram(aes(y=..density..), bins=25)  + 
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(estimators_20[["mle"]]), 
+                            sd = sd(estimators_20[["mle"]])), n=1000, color="green") +
+  xlim(1, 12) + ylim(0, 1) + 
+  labs(title="MLE estimator for n = 20") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+
+p2 = ggplot(estimators_20,  aes(x=mom)) + 
+  geom_histogram(aes(y=..density..), bins=25)  + 
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(estimators_20[["mom"]]), 
+                            sd = sd(estimators_20[["mom"]])), n=1000, color="green") +
+  xlim(1, 12) + ylim(0, 1) + 
+  labs(title="Moment estimator for n = 20") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+
+p3 = ggplot(estimators_200,  aes(x=mle)) + 
+  geom_histogram(aes(y=..density..), bins=25)  + 
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(estimators_200[["mle"]]), 
+                            sd = sd(estimators_200[["mle"]])), n=1000, color="green") +
+  xlim(1, 12) + ylim(0, 1) + 
+  labs(title="MLE estimator for n = 200") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+
+p4 = ggplot(estimators_200,  aes(x=mom)) + 
+  geom_histogram(aes(y=..density..), bins=25)  + 
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(estimators_200[["mom"]]), 
+                            sd = sd(estimators_200[["mom"]])), n=1000, color="green") +
+  xlim(1, 12)  + ylim(0, 1) + 
+  labs(title="Moment estimator for n = 200") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+```
+Arrange histograms in a grid
+```{r, echo=TRUE}
+grid.arrange(p1, p2, p3, p4, ncol=2, 
+             left="density", bottom="value", top="Estimator histograms")
+```
+Boxplots for MLE and moment estimator for n=20 and n=200
+```{r, echo=TRUE}
+p1 = ggplot(estimators_20,  aes(x=mle)) + geom_boxplot() +
+  xlim(1, 12) + 
+  labs(title="MLE boxplot for n = 20") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12), 
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
+p2 = ggplot(estimators_20,  aes(x=mom)) + geom_boxplot() +
+  xlim(1, 12) + 
+  labs(title="Moment estimator boxplot for n = 20") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12), 
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
+p3 = ggplot(estimators_200,  aes(x=mle)) + geom_boxplot() +
+  xlim(1, 12) + 
+  labs(title="MLE boxplot for n = 200") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12), 
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
+p4 = ggplot(estimators_200,  aes(x=mom)) + geom_boxplot() +
+  xlim(1, 12) + 
+  labs(title="Moment estimator boxplot for n = 200") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12), 
+        axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+Arrange boxplots in a grid
+```{r, echo=TRUE}
+grid.arrange(p1, p2, p3, p4, ncol=2, 
+             bottom="value", top="Estimator boxplots")
+```
+QQ-plots for MLE and moment estimator for n=20 and n=200
+```{r, echo=TRUE}
+par(mfrow=c(2,2))
+p1 = ggplot(estimators_20,  aes(sample=mle)) + geom_qq(size=0.1) +
+  stat_qq_line(color="green") + 
+  labs(title="MLE QQ-plot for n = 20") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+p2 = ggplot(estimators_20,  aes(sample=mom)) + geom_qq(size=0.1) + 
+  stat_qq_line(color="green") +
+  labs(title="Moment estimator QQ-plot for n = 20") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+p3 = ggplot(estimators_200,  aes(sample=mle)) + geom_qq(size=0.1) + 
+  stat_qq_line(color="green") +
+  labs(title="MLE QQ-plot for n = 200") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+p4 = ggplot(estimators_200,  aes(sample=mom)) + geom_qq(size=0.1) + 
+  stat_qq_line(color="green") +
+  labs(title="Moment estimator QQ-plot for n = 200") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+```
+Arrange QQ-plots in a grid
+```{r, echo=TRUE}
+grid.arrange(p1, p2, p3, p4, ncol=2, 
+             top="Estimator QQplots")
+```
+
+ii) estimate the bias, the variance and the mean-squared error of both estimators and construct approximate 95% confidence intervals for these parameters. In case of MLE compare the values of these parameters to the values provided by the asymptotic distribution of $a_{MLE}$.
+
+Bias, Variance, and MSE analysis for n=20 and n=200
+Bias analysis
+```{r, echo=TRUE}
+cat("**Bias For n = 20: **\n\n")
+
+int_b20_mle = calculate_conf_int_bias(estimators_20[["mle"]], 5, 1000)
+cat(str_c("Estimated value of bias for MLE:   ", round(int_b20_mle[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for MLE: (", 
+          round(int_b20_mle[["conf_int_lower"]], 3),  ", ", 
+          round(int_b20_mle[["conf_int_upper"]], 3), ")\n\n"))
+
+int_b20_mom = calculate_conf_int_bias(estimators_20[["mom"]], 5, 1000)
+cat(str_c("Estimated value of bias for moment estimator:   ", round(int_b20_mom[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for moment estimator: (", 
+          round(int_b20_mom[["conf_int_lower"]], 3),  ", ", 
+          round(int_b20_mom[["conf_int_upper"]], 3), ")\n\n"))
+
+cat("**For n = 200: **\n\n")
+
+int_b200_mle = calculate_conf_int_bias(estimators_200[["mle"]], 5, 1000)
+cat(str_c("Estimated value of bias for MLE:   ", round(int_b200_mle[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for MLE: (", 
+          round(int_b200_mle[["conf_int_lower"]], 3),  ", ", 
+          round(int_b200_mle[["conf_int_upper"]], 3), ")\n\n"))
+
+int_b200_mom = calculate_conf_int_bias(estimators_200[["mom"]], 5, 1000)
+cat(str_c("Estimated value of bias for moment estimator:   ", round(int_b200_mom[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for moment estimator: (", 
+          round(int_b200_mom[["conf_int_lower"]], 3),  ", ", 
+          round(int_b200_mom[["conf_int_upper"]], 3), ")\n\n"))
+```
+
+Variance analysis
+```{r, echo=TRUE}
+cat("**Variance For n = 20: **\n\n")
+
+int_v20_mle = calculate_conf_int_var(estimators_20[["mle"]], 5, 1000)
+cat(str_c("Estimated value of variance for MLE:   ", round(int_v20_mle[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for MLE: (", 
+          round(int_v20_mle[["conf_int_lower"]], 3),  ", ", 
+          round(int_v20_mle[["conf_int_upper"]], 3), ")\n\n"))
+
+int_v20_mom = calculate_conf_int_var(estimators_20[["mom"]], 5, 1000)
+cat(str_c("Estimated value of variance for moment estimator:   ", round(int_v20_mom[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for moment estimator: (", 
+          round(int_v20_mom[["conf_int_lower"]], 3),  ", ", 
+          round(int_v20_mom[["conf_int_upper"]], 3), ")\n\n"))
+
+cat("**For n = 200: **\n\n")
+
+int_v200_mle = calculate_conf_int_var(estimators_200[["mle"]], 5, 1000)
+cat(str_c("Estimated value of variance for MLE:   ", round(int_v200_mle[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for MLE: (", 
+          round(int_v200_mle[["conf_int_lower"]], 3),  ", ", 
+          round(int_v200_mle[["conf_int_upper"]], 3), ")\n\n"))
+
+int_v200_mom = calculate_conf_int_var(estimators_200[["mom"]], 5, 1000)
+cat(str_c("Estimated value of variance for moment estimator:   ", round(int_v200_mom[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for moment estimator: (", 
+          round(int_v200_mom[["conf_int_lower"]], 3),  ", ", 
+          round(int_v200_mom[["conf_int_upper"]], 3), ")\n\n"))
+```
+
+MSE analysis
+```{r, echo=TRUE}
+cat("**MSE For n = 20: **\n\n")
+
+int_m20_mle = calculate_conf_int_mse(estimators_20[["mle"]], 5, 1000)
+cat(str_c("Estimated value of MSE for MLE:   ", round(int_m20_mle[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for MLE: (", 
+          round(int_m20_mle[["conf_int_lower"]], 3),  ", ", 
+          round(int_m20_mle[["conf_int_upper"]], 3), ")\n\n"))
+
+int_m20_mom = calculate_conf_int_mse(estimators_20[["mom"]], 5, 1000)
+cat(str_c("Estimated value of MSE for moment estimator:   ", round(int_m20_mom[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for moment estimator: (", 
+          round(int_m20_mom[["conf_int_lower"]], 3),  ", ", 
+          round(int_m20_mom[["conf_int_upper"]], 3), ")\n\n"))
+
+cat("**For n = 200: **\n\n")
+
+int_m200_mle = calculate_conf_int_mse(estimators_200[["mle"]], 5, 1000)
+cat(str_c("Estimated value of MSE for MLE:   ", round(int_m200_mle[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for MLE: (", 
+          round(int_m200_mle[["conf_int_lower"]], 3),  ", ", 
+          round(int_m200_mle[["conf_int_upper"]], 3), ")\n\n"))
+
+int_m200_mom = calculate_conf_int_mse(estimators_200[["mom"]], 5, 1000)
+cat(str_c("Estimated value of MSE for moment estimator:   ", round(int_m200_mom[["est"]], 3), "\n\n"))
+cat(str_c("Confidence intervals for moment estimator: (", 
+          round(int_m200_mom[["conf_int_lower"]], 3),  ", ", 
+          round(int_m200_mom[["conf_int_upper"]], 3), ")\n\n"))
+```
+## Comments: 
+As we would expect, the bias converges to zero with n. For the bigger sample size, both estimators have much better results. 
+
+Both MLE and moment estimator have very similar results. For both sample sizes, the MLE has slightly greater bias and smaller variance. To combine those insights, we can look at the MSE. As we can see, the MLE performs a little better. Both estimators have MSE greater then expected for n=20 and MSE rougly equal to expected value for n=200. 
+
+Resuming: for most cases, MLE is the best choice. If we want to ensure the smallest bias, we can decide to use the moment estimator. Both estimator behave very similar, so the moment estimator is a good choice, when the MLE can by analitycaly derived. 
+
+## Question 2:
+
+Let X1, . . . , Xn be the simple random sample from the distribution with the density f(x, λ) = $λe^−λx$, for x > 0, λ > 0. Find the uniformly most powerful test at the level α = 0.05 for testing the hypothesis H0 : λ = 5 against H1 : λ = 3.
+
+## Option C:
+Provide the formula for the p-value for a given random sample. For n = 20 generate one random sample from H0 and one random sample from H1 and the respective p-values. What conclusions can be drawn based on the p-values?
+
+Load necessary libraries
+```{r, echo=TRUE}
+library(ggplot2)
+library(stringr)
+library(gridExtra)
+
+# Set seed for reproducibility
+set.seed(1998)
+```
+Function to provide estimators
+```{r, echo=TRUE}
+calculate_p_values = function(n, lambda) {
+  X = rexp(n, lambda)
+  T_stat = sum(X)
+  p_value = 1 - pgamma(T_stat, n, 5)
+  return(p_value)
+}
+```
+Function to calculate confidence intervals
+```{r, echo=TRUE}
+calculate_conf_int = function(p, alph) {
+  p_est = mean(p < alph)
+  return(list(est = p_est, 
+              conf_int_lower = p_est - qnorm(1 - alph / 2) * sqrt(p_est * (1 - p_est) / length(p)),
+              conf_int_upper = p_est + qnorm(1 - alph / 2) * sqrt(p_est * (1 - p_est) / length(p))))
+}
+
+h0_p_value = calculate_p_values(20, 5)
+h1_p_value = calculate_p_values(20, 3)
+
+cat("p_value for H0: ", h0_p_value, "p_value for H1: ", h1_p_value)
+```
+
+## Comments: According to the results, it can be said that p_value for H0 is closer to alpha 
+
+## Option E-F-G:
+Generate 1000 samples of the size n = 20, 200 from H0, H1 and calculate respective p-values and compare them.
+i) Compare the distribution of these p-values to the distribution derived in d): draw a histogram and a respective q-q plot.
+
+ii) Use these simulations to construct the 95% condence interval for the
+type I error of the test.
+
+i) Compare the distribution of p-values under H0 and under H1.
+
+ii) Use these simulations to construct the 95% condence interval for the
+power of the test. Compare with the theoretically calculated power.
+
+Function for simulation
+```{r, echo=TRUE}
+run_simulation = function(lambda, n, m) {
+  return(replicate(m, calculate_p_values(n, lambda)))
+}
+```
+Run simulations for both null and alternative hypotheses
+```{r, echo=TRUE}
+sim_h0_20 = run_simulation(5, 20, 1000)
+sim_h0_200 = run_simulation(5, 200, 1000)
+sim_h1_20 = run_simulation(3, 20, 1000)
+sim_h1_200 = run_simulation(3, 200, 1000)
+```
+Convert simulation results to data frames
+```{r, echo=TRUE}
+sim_h0_20_df = as.data.frame.numeric(t(t(sim_h0_20)))
+colnames(sim_h0_20_df) = c("p_value")
+
+sim_h0_200_df = as.data.frame.numeric(t(t(sim_h0_200)))
+colnames(sim_h0_200_df) = c("p_value")
+```
+Plot histograms and QQ-plots for null hypothesis (n=20 and n=200)
+```{r, echo=TRUE}
+p1 = ggplot(sim_h0_20_df,  aes(x=p_value)) + 
+  geom_histogram(aes(y=..density..), bins=25)  + 
+  labs(title="Histogram for n=20") + xlab("") + ylab("") + 
+  stat_function(fun = dunif, args = list(min = min(sim_h0_20_df[["p_value"]]), 
+                                         max = max(sim_h0_20_df[["p_value"]])), n=1000) +
+  xlim(0, 1) + 
+  theme(plot.title = element_text(size=12))
+
+p2 = ggplot(sim_h0_20_df,  aes(sample=p_value)) + 
+  geom_qq(distribution = stats::qunif, size=0.5) + 
+  labs(title="QQ-plot for n=20") + xlab("") + ylab("") + 
+  stat_qq_line(distribution = stats::qunif, color="green") + 
+  theme(plot.title = element_text(size=12))
+
+p3 = ggplot(sim_h0_200_df,  aes(x=p_value)) + 
+  geom_histogram(aes(y=..density..), bins=25)  + 
+  labs(title="Histogram for n=200") + xlab("") + ylab("") + 
+  stat_function(fun = dunif, args = list(min = min(sim_h0_200_df[["p_value"]]), 
+                                         max = max(sim_h0_200_df[["p_value"]])), n=1000) +
+  xlim(0, 1) + 
+  theme(plot.title = element_text(size=12))
+
+p4 = ggplot(sim_h0_200_df,  aes(sample=p_value)) + 
+  geom_qq(distribution = stats::qunif, size=0.5) + 
+  labs(title="QQ-plot for n=200") + xlab("") + ylab("") + 
+  stat_qq_line(distribution = stats::qunif, color="green") + 
+  theme(plot.title = element_text(size=12))
+
+grid.arrange(p1, p2, p3, p4, ncol=2, 
+             bottom="value", top="p-values")
+```
+Confidence interval analysis for null hypothesis
+```{r, echo=TRUE}
+cat("**For n = 20: **\n\n")
+
+int_b20 = calculate_conf_int(sim_h0_20, 0.05)
+cat(str_c("Estimated value of Type I Error:   ", int_b20$est, "\n\n"))
+cat(str_c("Confidence intervals: (", 
+          round(int_b20[["conf_int_lower"]], 3),  ", ", 
+          round(int_b20[["conf_int_upper"]], 3), ")\n\n"))
+
+cat("**For n = 200: **\n\n")
+
+int_b200 = calculate_conf_int(sim_h0_200, 0.05)
+cat(str_c("Estimated value of Type I Error:   ", int_b200$est, "\n\n"))
+cat(str_c("Confidence intervals: (", 
+          round(int_b200[["conf_int_lower"]], 3),  ", ", 
+          round(int_b200[["conf_int_upper"]], 3), ")\n\n"))
+```
+Power analysis for alternative hypothesis
+```{r, echo=TRUE}
+sim_h1_20_df = as.data.frame.numeric(t(t(sim_h1_20)))
+colnames(sim_h1_20_df) = c("power")
+
+sim_h1_200_df = as.data.frame.numeric(t(t(sim_h1_200)))
+colnames(sim_h1_200_df) = c("power")
+```
+Plot histograms and QQ-plots for alternative hypothesis (n=20 and n=200)
+```{r, echo=TRUE}
+p1 = ggplot(sim_h1_20_df,  aes(x=power)) + 
+  geom_histogram(aes(y=..density..), bins=25)  + 
+  labs(title="Histogram for n=20") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+
+p2 = ggplot(sim_h1_20_df, aes(sample=power)) + 
+  geom_qq(distribution = stats::qunif, size=0.5) + 
+  labs(title="QQ-plot for n=20") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+
+p3 = ggplot(sim_h1_200_df,  aes(x=power)) + 
+  geom_histogram(aes(y=..density..), bins=25)  + 
+  labs(title="Histogram for n=200") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+
+p4 = ggplot(sim_h1_200_df,  aes(sample=power)) + 
+  geom_qq(distribution = stats::qunif, size=0.5) + 
+  labs(title="QQ-plot for n=200") + xlab("") + ylab("") + 
+  theme(plot.title = element_text(size=12))
+
+grid.arrange(p1, p2, p3, p4, ncol=2, 
+             bottom="value", top="Power")
+```
+Confidence interval analysis for alternative hypothesis
+```{r, echo=TRUE}
+cat("**For n = 20: **\n\n")
+
+int_b20 = calculate_conf_int(sim_h1_20, 0.05)
+cat(str_c("Estimated value of power:   ", int_b20$est, "\n\n"))
+cat(str_c("Confidence intervals: (", 
+          round(int_b20[["conf_int_lower"]], 3),  ", ", 
+          round(int_b20[["conf_int_upper"]], 3), ")\n\n"))
+
+cat("**For n = 200: **\n\n")
+
+int_b200 = calculate_conf_int(sim_h1_200, 0.05)
+cat(str_c("Estimated value of power:   ", int_b200$est, "\n\n"))
+cat(str_c("Confidence intervals: (", 
+          round(int_b200[["conf_int_lower"]], 3),  ", ", 
+          round(int_b200[["conf_int_upper"]], 3), ")\n\n"))
+```
+
+## Comments:
+The results of the simulations match the theoretical expectations. The p-values are uniformally distributed under $H_0$. The p-values under $H_0$ are close to $\alpha$. The power is not uniformly distributed under $H_1$, the mass is concentrated around 0. The value of power is close to the theoretically derived values. The bigger sample is considered, the better tests one can make. 

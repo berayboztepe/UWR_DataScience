@@ -32,4 +32,4 @@ Detailed list of topics:
 
 The final project presentation can be reached from [here](https://github.com/berayboztepe/UWR_DataScience/blob/main/Language%20Models/Project/Travel%20assistant.pptx)
 
-The final project for this course can be reach from [here](https://github.com/AnujJhunjhunwala/TravelAssistant)
+The final project for this course can be reach from [here](https://github.com/berayboztepe/TravelAssistant)

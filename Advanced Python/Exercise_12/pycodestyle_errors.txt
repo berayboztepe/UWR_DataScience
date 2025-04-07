@@ -1,0 +1,74 @@
+pycodestyle database.py flask_api.py main.py parser.py
+
+database.py:2:80: E501 line too long (82 > 79 characters)
+database.py:5:80: E501 line too long (88 > 79 characters)
+database.py:8:1: E302 expected 2 blank lines, found 1
+database.py:14:80: E501 line too long (81 > 79 characters)
+database.py:22:1: E302 expected 2 blank lines, found 1
+database.py:30:1: E302 expected 2 blank lines, found 1
+database.py:37:1: E302 expected 2 blank lines, found 1
+database.py:40:80: E501 line too long (89 > 79 characters)
+database.py:48:1: E305 expected 2 blank lines after class or function definition, found 1
+database.py:57:20: W292 no newline at end of file
+flask_api.py:7:80: E501 line too long (88 > 79 characters)
+flask_api.py:11:1: E302 expected 2 blank lines, found 1
+flask_api.py:14:80: E501 line too long (119 > 79 characters)
+flask_api.py:16:1: E302 expected 2 blank lines, found 1
+flask_api.py:20:80: E501 line too long (103 > 79 characters)
+flask_api.py:23:1: E302 expected 2 blank lines, found 1
+flask_api.py:26:80: E501 line too long (83 > 79 characters)
+flask_api.py:29:80: E501 line too long (84 > 79 characters)
+flask_api.py:31:1: E302 expected 2 blank lines, found 1
+flask_api.py:42:1: E302 expected 2 blank lines, found 1
+flask_api.py:51:1: E302 expected 2 blank lines, found 1
+flask_api.py:63:80: E501 line too long (119 > 79 characters)
+flask_api.py:64:1: W293 blank line contains whitespace
+flask_api.py:65:1: E305 expected 2 blank lines after class or function definition, found 1
+flask_api.py:66:14: W292 no newline at end of file
+main.py:24:1: W293 blank line contains whitespace
+main.py:28:1: W293 blank line contains whitespace
+main.py:31:1: W293 blank line contains whitespace
+main.py:55:1: W293 blank line contains whitespace
+main.py:87:1: W293 blank line contains whitespace
+main.py:115:1: W293 blank line contains whitespace
+main.py:118:1: W293 blank line contains whitespace
+main.py:125:14: W291 trailing whitespace
+main.py:126:80: E501 line too long (86 > 79 characters)
+main.py:127:80: E501 line too long (91 > 79 characters)
+main.py:134:80: E501 line too long (102 > 79 characters)
+main.py:137:80: E501 line too long (80 > 79 characters)
+main.py:139:4: W292 no newline at end of file
+main.py:139:80: E501 line too long (709 > 79 characters)
+parser.py:4:20: W291 trailing whitespace
+parser.py:10:80: E501 line too long (108 > 79 characters)
+parser.py:11:80: E501 line too long (95 > 79 characters)
+parser.py:12:80: E501 line too long (100 > 79 characters)
+parser.py:12:93: E261 at least two spaces before inline comment
+parser.py:15:80: E501 line too long (83 > 79 characters)
+parser.py:16:80: E501 line too long (116 > 79 characters)
+parser.py:17:80: E501 line too long (93 > 79 characters)
+parser.py:18:80: E501 line too long (105 > 79 characters)
+parser.py:18:98: E261 at least two spaces before inline comment
+parser.py:21:80: E501 line too long (82 > 79 characters)
+parser.py:22:80: E501 line too long (111 > 79 characters)
+parser.py:23:80: E501 line too long (93 > 79 characters)
+parser.py:24:80: E501 line too long (101 > 79 characters)
+parser.py:25:80: E501 line too long (105 > 79 characters)
+parser.py:25:98: E261 at least two spaces before inline comment
+parser.py:28:80: E501 line too long (85 > 79 characters)
+parser.py:29:80: E501 line too long (114 > 79 characters)
+parser.py:30:80: E501 line too long (105 > 79 characters)
+parser.py:31:80: E501 line too long (106 > 79 characters)
+parser.py:31:99: E261 at least two spaces before inline comment
+parser.py:33:27: W292 no newline at end of file
+tests/test_main.py:5:1: E302 expected 2 blank lines, found 1
+tests/test_main.py:24:80: E501 line too long (84 > 79 characters)
+tests/test_main.py:32:1: E305 expected 2 blank lines after class or function definition, found 1
+tests/test_main.py:34:1: E302 expected 2 blank lines, found 1
+tests/test_main.py:40:80: E501 line too long (97 > 79 characters)
+tests/test_main.py:50:5: E303 too many blank lines (2)
+tests/test_main.py:63:80: E501 line too long (81 > 79 characters)
+tests/test_main.py:67:80: E501 line too long (87 > 79 characters)
+tests/test_main.py:79:5: E303 too many blank lines (2)
+tests/test_main.py:87:1: E305 expected 2 blank lines after class or function definition, found 1
+tests/test_main.py:93:4: W292 no newline at end of file

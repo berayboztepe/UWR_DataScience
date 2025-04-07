@@ -1,0 +1,701 @@
+Prompt: 88 * 787 = 69256
+402 * 518 = 208236
+848 * 841 =
+Generated: 848 * 841 = 632
+Expected: 713168
+Correct: False
+
+Prompt: 579 * 55 = 31845
+450 * 575 = 258750
+307 * 512 =
+Generated: 307 * 512 = 178
+Expected: 157184
+Correct: False
+
+Prompt: 877 * 785 = 688445
+26 * 771 = 20046
+645 * 278 =
+Generated: 645 * 278 = 162
+Expected: 179310
+Correct: False
+
+Prompt: 900 * 141 = 126900
+111 * 284 = 31524
+440 * 152 =
+Generated: 440 * 152 = 600
+Expected: 66880
+Correct: False
+
+Prompt: 87 * 352 = 30624
+762 * 884 = 673608
+954 * 621 =
+Generated: 954 * 621 = 610
+Expected: 592434
+Correct: False
+
+Prompt: 791 * 543 = 429513
+681 * 527 = 358887
+658 * 670 =
+Generated: 658 * 670 = 428
+Expected: 440860
+Correct: False
+
+Prompt: 708 * 365 = 258420
+606 * 511 = 309666
+163 * 649 =
+Generated: 163 * 649 = 102
+Expected: 105787
+Correct: False
+
+Prompt: 829 * 835 = 692215
+775 * 725 = 561875
+831 * 379 =
+Generated: 831 * 379 = 310
+Expected: 314949
+Correct: False
+
+Prompt: 788 * 788 = 620944
+788 * 37 = 29156
+843 * 203 =
+Generated: 843 * 203 = 203
+Expected: 171129
+Correct: False
+
+Prompt: 14 * 577 = 8078
+364 * 991 = 360724
+377 * 573 =
+Generated: 377 * 573 = 194
+Expected: 216021
+Correct: False
+
+Prompt: 452 * 507 = 229164
+64 * 911 = 58304
+558 * 924 =
+Generated: 558 * 924 = 499
+Expected: 515592
+Correct: False
+
+Prompt: 351 * 718 = 252018
+29 * 661 = 19169
+820 * 422 =
+Generated: 820 * 422 = 364
+Expected: 346040
+Correct: False
+
+Prompt: 972 * 784 = 762048
+100 * 384 = 38400
+936 * 393 =
+Generated: 936 * 393 = 393
+Expected: 367848
+Correct: False
+
+Prompt: 829 * 168 = 139272
+956 * 288 = 275328
+1000 * 905 =
+Generated: 1000 * 905 = 905
+Expected: 905000
+Correct: False
+
+Prompt: 105 * 968 = 101640
+895 * 970 = 868150
+395 * 772 =
+Generated: 395 * 772 = 303
+Expected: 304940
+Correct: False
+
+Prompt: 755 * 137 = 103435
+174 * 331 = 57594
+622 * 950 =
+Generated: 622 * 950 = 590
+Expected: 590900
+Correct: False
+
+Prompt: 758 * 949 = 719342
+383 * 512 = 196096
+866 * 306 =
+Generated: 866 * 306 = 283
+Expected: 264996
+Correct: False
+
+Prompt: 875 * 552 = 483000
+957 * 323 = 309111
+382 * 306 =
+Generated: 382 * 306 = 108
+Expected: 116892
+Correct: False
+
+Prompt: 751 * 222 = 166722
+983 * 387 = 380421
+800 * 785 =
+Generated: 800 * 785 = 648
+Expected: 628000
+Correct: False
+
+Prompt: 574 * 834 = 478716
+682 * 306 = 208692
+291 * 561 =
+Generated: 291 * 561 = 144
+Expected: 163251
+Correct: False
+
+Prompt: 159 * 813 = 129267
+174 * 398 = 69252
+453 * 178 =
+Generated: 453 * 178 = 702
+Expected: 80634
+Correct: False
+
+Prompt: 737 * 547 = 403139
+227 * 32 = 7264
+345 * 244 =
+Generated: 345 * 244 = 100
+Expected: 84180
+Correct: False
+
+Prompt: 56 * 816 = 45696
+478 * 753 = 359934
+397 * 72 =
+Generated: 397 * 72 = 268
+Expected: 28584
+Correct: False
+
+Prompt: 561 * 337 = 189057
+969 * 327 = 316863
+614 * 399 =
+Generated: 614 * 399 = 230
+Expected: 244986
+Correct: False
+
+Prompt: 398 * 913 = 363374
+716 * 597 = 427452
+609 * 694 =
+Generated: 609 * 694 = 448
+Expected: 422646
+Correct: False
+
+Prompt: 224 * 630 = 141120
+686 * 619 = 424634
+861 * 919 =
+Generated: 861 * 919 = 718
+Expected: 791259
+Correct: False
+
+Prompt: 486 * 896 = 435456
+580 * 682 = 395560
+63 * 759 =
+Generated: 63 * 759 = 499
+Expected: 47817
+Correct: False
+
+Prompt: 534 * 974 = 520116
+894 * 76 = 67944
+665 * 771 =
+Generated: 665 * 771 = 520
+Expected: 512715
+Correct: False
+
+Prompt: 425 * 384 = 163200
+586 * 54 = 31644
+437 * 31 =
+Generated: 437 * 31 = 142
+Expected: 13547
+Correct: False
+
+Prompt: 235 * 77 = 18095
+804 * 360 = 289440
+17 * 803 =
+Generated: 17 * 803 = 108
+Expected: 13651
+Correct: False
+
+Prompt: 253 * 731 = 184943
+270 * 958 = 258660
+258 * 5 =
+Generated: 258 * 5 = 125
+Expected: 1290
+Correct: False
+
+Prompt: 889 * 535 = 475615
+770 * 881 = 678370
+678 * 195 =
+Generated: 678 * 195 = 106
+Expected: 132210
+Correct: False
+
+Prompt: 741 * 607 = 449787
+162 * 13 = 2106
+108 * 219 =
+Generated: 108 * 219 = 228
+Expected: 23652
+Correct: False
+
+Prompt: 579 * 656 = 379824
+566 * 684 = 387144
+554 * 810 =
+Generated: 554 * 810 = 410
+Expected: 448740
+Correct: False
+
+Prompt: 484 * 551 = 266684
+501 * 576 = 288576
+430 * 322 =
+Generated: 430 * 322 = 166
+Expected: 138460
+Correct: False
+
+Prompt: 112 * 912 = 102144
+536 * 982 = 526352
+797 * 188 =
+Generated: 797 * 188 = 108
+Expected: 149836
+Correct: False
+
+Prompt: 63 * 151 = 9513
+492 * 998 = 491016
+878 * 458 =
+Generated: 878 * 458 = 362
+Expected: 402124
+Correct: False
+
+Prompt: 865 * 599 = 518135
+830 * 892 = 740360
+796 * 552 =
+Generated: 796 * 552 = 490
+Expected: 439392
+Correct: False
+
+Prompt: 93 * 382 = 35526
+912 * 971 = 885552
+124 * 811 =
+Generated: 124 * 811 = 885
+Expected: 100564
+Correct: False
+
+Prompt: 375 * 355 = 133125
+363 * 198 = 71874
+706 * 600 =
+Generated: 706 * 600 = 420
+Expected: 423600
+Correct: False
+
+Prompt: 629 * 823 = 517667
+88 * 586 = 51568
+158 * 326 =
+Generated: 158 * 326 = 515
+Expected: 51508
+Correct: False
+
+Prompt: 531 * 674 = 357894
+196 * 695 = 136220
+382 * 120 =
+Generated: 382 * 120 = 382
+Expected: 45840
+Correct: False
+
+Prompt: 388 * 672 = 260736
+314 * 145 = 45530
+883 * 250 =
+Generated: 883 * 250 = 216
+Expected: 220750
+Correct: False
+
+Prompt: 540 * 817 = 441180
+300 * 139 = 41700
+500 * 645 =
+Generated: 500 * 645 = 360
+Expected: 322500
+Correct: False
+
+Prompt: 33 * 399 = 13167
+487 * 280 = 136360
+48 * 973 =
+Generated: 48 * 973 = 362
+Expected: 46704
+Correct: False
+
+Prompt: 328 * 209 = 68552
+501 * 877 = 439377
+224 * 716 =
+Generated: 224 * 716 = 144
+Expected: 160384
+Correct: False
+
+Prompt: 337 * 946 = 318802
+643 * 686 = 441098
+120 * 960 =
+Generated: 120 * 960 = 960
+Expected: 115200
+Correct: False
+
+Prompt: 749 * 441 = 330309
+173 * 763 = 131999
+564 * 186 =
+Generated: 564 * 186 = 942
+Expected: 104904
+Correct: False
+
+Prompt: 610 * 2 = 1220
+506 * 287 = 145222
+356 * 240 =
+Generated: 356 * 240 = 808
+Expected: 85440
+Correct: False
+
+Prompt: 390 * 698 = 272220
+693 * 173 = 119889
+394 * 862 =
+Generated: 394 * 862 = 284
+Expected: 339628
+Correct: False
+
+Prompt: 571 * 340 = 194140
+764 * 935 = 714340
+229 * 758 =
+Generated: 229 * 758 = 168
+Expected: 173582
+Correct: False
+
+Prompt: 271 * 811 = 219781
+444 * 912 = 404928
+830 * 613 =
+Generated: 830 * 613 = 486
+Expected: 508790
+Correct: False
+
+Prompt: 333 * 638 = 212454
+90 * 65 = 5850
+818 * 393 =
+Generated: 818 * 393 = 308
+Expected: 321474
+Correct: False
+
+Prompt: 337 * 994 = 334978
+785 * 674 = 529090
+660 * 905 =
+Generated: 660 * 905 = 590
+Expected: 597300
+Correct: False
+
+Prompt: 791 * 958 = 757778
+931 * 545 = 507395
+34 * 872 =
+Generated: 34 * 872 = 268
+Expected: 29648
+Correct: False
+
+Prompt: 337 * 169 = 56953
+8 * 131 = 1048
+597 * 629 =
+Generated: 597 * 629 = 362
+Expected: 375513
+Correct: False
+
+Prompt: 82 * 938 = 76916
+365 * 367 = 133955
+508 * 772 =
+Generated: 508 * 772 = 388
+Expected: 392176
+Correct: False
+
+Prompt: 757 * 873 = 660861
+145 * 903 = 130935
+848 * 922 =
+Generated: 848 * 922 = 784
+Expected: 781856
+Correct: False
+
+Prompt: 32 * 782 = 25024
+414 * 489 = 202446
+952 * 980 =
+Generated: 952 * 980 = 716
+Expected: 932960
+Correct: False
+
+Prompt: 946 * 746 = 705716
+369 * 312 = 115128
+987 * 832 =
+Generated: 987 * 832 = 748
+Expected: 821184
+Correct: False
+
+Prompt: 878 * 56 = 49168
+881 * 209 = 184129
+813 * 503 =
+Generated: 813 * 503 = 400
+Expected: 408939
+Correct: False
+
+Prompt: 48 * 331 = 15888
+247 * 239 = 59033
+434 * 279 =
+Generated: 434 * 279 = 110
+Expected: 121086
+Correct: False
+
+Prompt: 49 * 145 = 7105
+945 * 789 = 745605
+829 * 464 =
+Generated: 829 * 464 = 362
+Expected: 384656
+Correct: False
+
+Prompt: 75 * 258 = 19350
+750 * 612 = 459000
+626 * 915 =
+Generated: 626 * 915 = 599
+Expected: 572790
+Correct: False
+
+Prompt: 377 * 899 = 338923
+483 * 786 = 379638
+197 * 364 =
+Generated: 197 * 364 = 109
+Expected: 71708
+Correct: False
+
+Prompt: 189 * 216 = 40824
+174 * 885 = 153990
+53 * 686 =
+Generated: 53 * 686 = 394
+Expected: 36358
+Correct: False
+
+Prompt: 774 * 531 = 410994
+396 * 200 = 79200
+993 * 220 =
+Generated: 993 * 220 = 228
+Expected: 218460
+Correct: False
+
+Prompt: 806 * 580 = 467480
+498 * 607 = 302286
+223 * 792 =
+Generated: 223 * 792 = 182
+Expected: 176616
+Correct: False
+
+Prompt: 623 * 727 = 452921
+214 * 786 = 168204
+393 * 732 =
+Generated: 393 * 732 = 268
+Expected: 287676
+Correct: False
+
+Prompt: 193 * 300 = 57900
+151 * 452 = 68252
+317 * 985 =
+Generated: 317 * 985 = 308
+Expected: 312245
+Correct: False
+
+Prompt: 555 * 298 = 165390
+815 * 68 = 55420
+759 * 668 =
+Generated: 759 * 668 = 554
+Expected: 507012
+Correct: False
+
+Prompt: 526 * 199 = 104674
+691 * 890 = 614990
+782 * 755 =
+Generated: 782 * 755 = 597
+Expected: 590410
+Correct: False
+
+Prompt: 849 * 375 = 318375
+471 * 968 = 455928
+985 * 803 =
+Generated: 985 * 803 = 803
+Expected: 790955
+Correct: False
+
+Prompt: 544 * 64 = 34816
+603 * 153 = 92259
+272 * 621 =
+Generated: 272 * 621 = 144
+Expected: 168912
+Correct: False
+
+Prompt: 120 * 491 = 58920
+757 * 257 = 194549
+220 * 433 =
+Generated: 220 * 433 = 908
+Expected: 95260
+Correct: False
+
+Prompt: 205 * 167 = 34235
+200 * 978 = 195600
+465 * 729 =
+Generated: 465 * 729 = 328
+Expected: 338985
+Correct: False
+
+Prompt: 472 * 267 = 126024
+371 * 660 = 244860
+641 * 198 =
+Generated: 641 * 198 = 103
+Expected: 126918
+Correct: False
+
+Prompt: 424 * 817 = 346408
+34 * 482 = 16388
+127 * 561 =
+Generated: 127 * 561 = 648
+Expected: 71247
+Correct: False
+
+Prompt: 940 * 129 = 121260
+191 * 485 = 92635
+96 * 846 =
+Generated: 96 * 846 = 846
+Expected: 81216
+Correct: False
+
+Prompt: 326 * 342 = 111492
+912 * 855 = 779760
+164 * 165 =
+Generated: 164 * 165 = 240
+Expected: 27060
+Correct: False
+
+Prompt: 928 * 180 = 167040
+929 * 135 = 125415
+766 * 838 =
+Generated: 766 * 838 = 614
+Expected: 641908
+Correct: False
+
+Prompt: 164 * 903 = 148092
+219 * 877 = 192063
+661 * 442 =
+Generated: 661 * 442 = 300
+Expected: 292162
+Correct: False
+
+Prompt: 561 * 349 = 195789
+135 * 759 = 102465
+266 * 931 =
+Generated: 266 * 931 = 203
+Expected: 247646
+Correct: False
+
+Prompt: 355 * 349 = 123895
+645 * 151 = 97395
+101 * 907 =
+Generated: 101 * 907 = 907
+Expected: 91607
+Correct: False
+
+Prompt: 52 * 119 = 6188
+429 * 624 = 267696
+662 * 820 =
+Generated: 662 * 820 = 518
+Expected: 542840
+Correct: False
+
+Prompt: 957 * 337 = 322509
+351 * 363 = 127413
+427 * 996 =
+Generated: 427 * 996 = 398
+Expected: 425292
+Correct: False
+
+Prompt: 852 * 962 = 819624
+220 * 994 = 218680
+514 * 877 =
+Generated: 514 * 877 = 492
+Expected: 450778
+Correct: False
+
+Prompt: 568 * 866 = 491888
+329 * 75 = 24675
+478 * 425 =
+Generated: 478 * 425 = 292
+Expected: 203150
+Correct: False
+
+Prompt: 902 * 854 = 770308
+839 * 777 = 651903
+267 * 851 =
+Generated: 267 * 851 = 190
+Expected: 227217
+Correct: False
+
+Prompt: 608 * 486 = 295488
+636 * 127 = 80772
+776 * 54 =
+Generated: 776 * 54 = 412
+Expected: 41904
+Correct: False
+
+Prompt: 917 * 327 = 299859
+4 * 299 = 1196
+641 * 401 =
+Generated: 641 * 401 = 299
+Expected: 257041
+Correct: False
+
+Prompt: 478 * 193 = 92254
+953 * 189 = 180117
+674 * 280 =
+Generated: 674 * 280 = 180
+Expected: 188720
+Correct: False
+
+Prompt: 657 * 731 = 480267
+875 * 120 = 105000
+89 * 372 =
+Generated: 89 * 372 = 288
+Expected: 33108
+Correct: False
+
+Prompt: 630 * 443 = 279090
+746 * 136 = 101456
+381 * 553 =
+Generated: 381 * 553 = 197
+Expected: 210693
+Correct: False
+
+Prompt: 616 * 896 = 551936
+724 * 76 = 55024
+877 * 236 =
+Generated: 877 * 236 = 550
+Expected: 206972
+Correct: False
+
+Prompt: 177 * 480 = 84960
+218 * 799 = 174182
+659 * 147 =
+Generated: 659 * 147 = 898
+Expected: 96873
+Correct: False
+
+Prompt: 990 * 685 = 678150
+281 * 44 = 12364
+972 * 675 =
+Generated: 972 * 675 = 614
+Expected: 656100
+Correct: False
+
+Prompt: 346 * 905 = 313130
+220 * 361 = 79420
+577 * 782 =
+Generated: 577 * 782 = 414
+Expected: 451214
+Correct: False
+
+Prompt: 499 * 374 = 186626
+34 * 467 = 15878
+935 * 887 =
+Generated: 935 * 887 = 684
+Expected: 829345
+Correct: False
+
+Prompt: 279 * 824 = 229896
+331 * 875 = 289625
+61 * 378 =
+Generated: 61 * 378 = 230
+Expected: 23058
+Correct: False
+
+Accuracy for 3-digit numbers with 3 equations: 0.00

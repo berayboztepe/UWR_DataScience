@@ -1,0 +1,501 @@
+Prompt: 2 - 53 =
+Generated: 2 - 53 = 53
+Expected: -51
+Correct: False
+
+Prompt: 69 - 82 =
+Generated: 69 - 82 = 23
+Expected: -13
+Correct: False
+
+Prompt: 26 - 55 =
+Generated: 26 - 55 = 41
+Expected: -29
+Correct: False
+
+Prompt: 52 - 72 =
+Generated: 52 - 72 = 28
+Expected: -20
+Correct: False
+
+Prompt: 31 - 32 =
+Generated: 31 - 32 = 33
+Expected: -1
+Correct: False
+
+Prompt: 61 - 78 =
+Generated: 61 - 78 = 17
+Expected: -17
+Correct: False
+
+Prompt: 18 - 69 =
+Generated: 18 - 69 = 13
+Expected: -51
+Correct: False
+
+Prompt: 34 - 7 =
+Generated: 34 - 7 = 37
+Expected: 27
+Correct: False
+
+Prompt: 35 - 59 =
+Generated: 35 - 59 = 26
+Expected: -24
+Correct: False
+
+Prompt: 20 - 87 =
+Generated: 20 - 87 = 13
+Expected: -67
+Correct: False
+
+Prompt: 91 - 5 =
+Generated: 91 - 5 = 96
+Expected: 86
+Correct: False
+
+Prompt: 51 - 11 =
+Generated: 51 - 11 = 40
+Expected: 40
+Correct: True
+
+Prompt: 3 - 61 =
+Generated: 3 - 61 = 60
+Expected: -58
+Correct: False
+
+Prompt: 29 - 53 =
+Generated: 29 - 53 = 24
+Expected: -24
+Correct: False
+
+Prompt: 94 - 52 =
+Generated: 94 - 52 = 42
+Expected: 42
+Correct: True
+
+Prompt: 63 - 95 =
+Generated: 63 - 95 = 37
+Expected: -32
+Correct: False
+
+Prompt: 28 - 65 =
+Generated: 28 - 65 = 45
+Expected: -37
+Correct: False
+
+Prompt: 33 - 88 =
+Generated: 33 - 88 = 31
+Expected: -55
+Correct: False
+
+Prompt: 20 - 24 =
+Generated: 20 - 24 = 16
+Expected: -4
+Correct: False
+
+Prompt: 98 - 61 =
+Generated: 98 - 61 = 97
+Expected: 37
+Correct: False
+
+Prompt: 80 - 92 =
+Generated: 80 - 92 = 12
+Expected: -12
+Correct: False
+
+Prompt: 17 - 71 =
+Generated: 17 - 71 = 14
+Expected: -54
+Correct: False
+
+Prompt: 59 - 33 =
+Generated: 59 - 33 = 56
+Expected: 26
+Correct: False
+
+Prompt: 75 - 86 =
+Generated: 75 - 86 = 11
+Expected: -11
+Correct: False
+
+Prompt: 85 - 95 =
+Generated: 85 - 95 = 15
+Expected: -10
+Correct: False
+
+Prompt: 82 - 4 =
+Generated: 82 - 4 = 82
+Expected: 78
+Correct: False
+
+Prompt: 4 - 37 =
+Generated: 4 - 37 = 40
+Expected: -33
+Correct: False
+
+Prompt: 50 - 4 =
+Generated: 50 - 4 = 50
+Expected: 46
+Correct: False
+
+Prompt: 64 - 65 =
+Generated: 64 - 65 = 10
+Expected: -1
+Correct: False
+
+Prompt: 78 - 23 =
+Generated: 78 - 23 = 76
+Expected: 55
+Correct: False
+
+Prompt: 69 - 10 =
+Generated: 69 - 10 = 59
+Expected: 59
+Correct: True
+
+Prompt: 91 - 5 =
+Generated: 91 - 5 = 96
+Expected: 86
+Correct: False
+
+Prompt: 14 - 54 =
+Generated: 14 - 54 = 19
+Expected: -40
+Correct: False
+
+Prompt: 98 - 24 =
+Generated: 98 - 24 = 96
+Expected: 74
+Correct: False
+
+Prompt: 56 - 98 =
+Generated: 56 - 98 = 42
+Expected: -42
+Correct: False
+
+Prompt: 29 - 50 =
+Generated: 29 - 50 = 24
+Expected: -21
+Correct: False
+
+Prompt: 69 - 34 =
+Generated: 69 - 34 = 66
+Expected: 35
+Correct: False
+
+Prompt: 46 - 66 =
+Generated: 46 - 66 = 20
+Expected: -20
+Correct: False
+
+Prompt: 53 - 42 =
+Generated: 53 - 42 = 11
+Expected: 11
+Correct: True
+
+Prompt: 94 - 96 =
+Generated: 94 - 96 = 10
+Expected: -2
+Correct: False
+
+Prompt: 97 - 56 =
+Generated: 97 - 56 = 41
+Expected: 41
+Correct: True
+
+Prompt: 79 - 18 =
+Generated: 79 - 18 = 61
+Expected: 61
+Correct: True
+
+Prompt: 90 - 69 =
+Generated: 90 - 69 = 21
+Expected: 21
+Correct: True
+
+Prompt: 100 - 78 =
+Generated: 100 - 78 = 10
+Expected: 22
+Correct: False
+
+Prompt: 77 - 32 =
+Generated: 77 - 32 = 74
+Expected: 45
+Correct: False
+
+Prompt: 60 - 21 =
+Generated: 60 - 21 = 49
+Expected: 39
+Correct: False
+
+Prompt: 36 - 63 =
+Generated: 36 - 63 = 33
+Expected: -27
+Correct: False
+
+Prompt: 80 - 7 =
+Generated: 80 - 7 = 80
+Expected: 73
+Correct: False
+
+Prompt: 74 - 74 =
+Generated: 74 - 74 = 10
+Expected: 0
+Correct: False
+
+Prompt: 28 - 5 =
+Generated: 28 - 5 = 23
+Expected: 23
+Correct: True
+
+Prompt: 56 - 92 =
+Generated: 56 - 92 = 34
+Expected: -36
+Correct: False
+
+Prompt: 75 - 65 =
+Generated: 75 - 65 = 10
+Expected: 10
+Correct: True
+
+Prompt: 13 - 16 =
+Generated: 13 - 16 = 12
+Expected: -3
+Correct: False
+
+Prompt: 36 - 24 =
+Generated: 36 - 24 = 36
+Expected: 12
+Correct: False
+
+Prompt: 22 - 8 =
+Generated: 22 - 8 = 14
+Expected: 14
+Correct: True
+
+Prompt: 35 - 39 =
+Generated: 35 - 39 = 15
+Expected: -4
+Correct: False
+
+Prompt: 5 - 93 =
+Generated: 5 - 93 = 52
+Expected: -88
+Correct: False
+
+Prompt: 57 - 10 =
+Generated: 57 - 10 = 56
+Expected: 47
+Correct: False
+
+Prompt: 53 - 79 =
+Generated: 53 - 79 = 26
+Expected: -26
+Correct: False
+
+Prompt: 57 - 17 =
+Generated: 57 - 17 = 40
+Expected: 40
+Correct: True
+
+Prompt: 23 - 8 =
+Generated: 23 - 8 = 21
+Expected: 15
+Correct: False
+
+Prompt: 55 - 89 =
+Generated: 55 - 89 = 36
+Expected: -34
+Correct: False
+
+Prompt: 43 - 22 =
+Generated: 43 - 22 = 41
+Expected: 21
+Correct: False
+
+Prompt: 41 - 93 =
+Generated: 41 - 93 = 44
+Expected: -52
+Correct: False
+
+Prompt: 8 - 76 =
+Generated: 8 - 76 = 12
+Expected: -68
+Correct: False
+
+Prompt: 62 - 56 =
+Generated: 62 - 56 = 16
+Expected: 6
+Correct: False
+
+Prompt: 44 - 41 =
+Generated: 44 - 41 = 13
+Expected: 3
+Correct: False
+
+Prompt: 69 - 76 =
+Generated: 69 - 76 = 16
+Expected: -7
+Correct: False
+
+Prompt: 45 - 29 =
+Generated: 45 - 29 = 16
+Expected: 16
+Correct: True
+
+Prompt: 32 - 5 =
+Generated: 32 - 5 = 37
+Expected: 27
+Correct: False
+
+Prompt: 51 - 72 =
+Generated: 51 - 72 = 39
+Expected: -21
+Correct: False
+
+Prompt: 42 - 70 =
+Generated: 42 - 70 = 30
+Expected: -28
+Correct: False
+
+Prompt: 56 - 29 =
+Generated: 56 - 29 = 56
+Expected: 27
+Correct: False
+
+Prompt: 16 - 63 =
+Generated: 16 - 63 = 10
+Expected: -47
+Correct: False
+
+Prompt: 33 - 82 =
+Generated: 33 - 82 = 31
+Expected: -49
+Correct: False
+
+Prompt: 1 - 30 =
+Generated: 1 - 30 = 10
+Expected: -29
+Correct: False
+
+Prompt: 21 - 71 =
+Generated: 21 - 71 = 14
+Expected: -50
+Correct: False
+
+Prompt: 88 - 65 =
+Generated: 88 - 65 = 23
+Expected: 23
+Correct: True
+
+Prompt: 21 - 88 =
+Generated: 21 - 88 = 13
+Expected: -67
+Correct: False
+
+Prompt: 16 - 42 =
+Generated: 16 - 42 = 16
+Expected: -26
+Correct: False
+
+Prompt: 43 - 26 =
+Generated: 43 - 26 = 17
+Expected: 17
+Correct: True
+
+Prompt: 12 - 7 =
+Generated: 12 - 7 = 19
+Expected: 5
+Correct: False
+
+Prompt: 31 - 34 =
+Generated: 31 - 34 = 15
+Expected: -3
+Correct: False
+
+Prompt: 72 - 77 =
+Generated: 72 - 77 = 15
+Expected: -5
+Correct: False
+
+Prompt: 0 - 35 =
+Generated: 0 - 35 = 36
+Expected: -35
+Correct: False
+
+Prompt: 56 - 20 =
+Generated: 56 - 20 = 54
+Expected: 36
+Correct: False
+
+Prompt: 22 - 51 =
+Generated: 22 - 51 = 41
+Expected: -29
+Correct: False
+
+Prompt: 49 - 1 =
+Generated: 49 - 1 = 48
+Expected: 48
+Correct: True
+
+Prompt: 60 - 75 =
+Generated: 60 - 75 = 15
+Expected: -15
+Correct: False
+
+Prompt: 7 - 84 =
+Generated: 7 - 84 = 74
+Expected: -77
+Correct: False
+
+Prompt: 37 - 31 =
+Generated: 37 - 31 = 16
+Expected: 6
+Correct: False
+
+Prompt: 82 - 54 =
+Generated: 82 - 54 = 38
+Expected: 28
+Correct: False
+
+Prompt: 48 - 49 =
+Generated: 48 - 49 = 10
+Expected: -1
+Correct: False
+
+Prompt: 44 - 35 =
+Generated: 44 - 35 = 19
+Expected: 9
+Correct: False
+
+Prompt: 44 - 73 =
+Generated: 44 - 73 = 31
+Expected: -29
+Correct: False
+
+Prompt: 64 - 30 =
+Generated: 64 - 30 = 64
+Expected: 34
+Correct: False
+
+Prompt: 45 - 45 =
+Generated: 45 - 45 = 10
+Expected: 0
+Correct: False
+
+Prompt: 17 - 38 =
+Generated: 17 - 38 = 14
+Expected: -21
+Correct: False
+
+Prompt: 16 - 91 =
+Generated: 16 - 91 = 15
+Expected: -75
+Correct: False
+
+Prompt: 36 - 46 =
+Generated: 36 - 46 = 16
+Expected: -10
+Correct: False
+
+Accuracy for 2-digit numbers with 1 equations: 0.15

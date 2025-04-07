@@ -1,0 +1,18 @@
+{
+    "films": [
+      {"title": "Inception", "year_of_creation": 2010},
+      {"title": "Interstellar", "year_of_creation": 2014}
+    ],
+    "persons": [
+      {"name": "Christopher Nolan", "email": "nolan@example.com"},
+      {"name": "Hans Zimmer", "email": "zimmer@example.com"}
+    ],
+    "roles": [
+      {"role_name": "Director"},
+      {"role_name": "Composer"}
+    ],
+    "film_crew": [
+      {"film_id": 1, "person_id": 1, "role_id": 1},
+      {"film_id": 2, "person_id": 2, "role_id": 2}
+    ]
+  }

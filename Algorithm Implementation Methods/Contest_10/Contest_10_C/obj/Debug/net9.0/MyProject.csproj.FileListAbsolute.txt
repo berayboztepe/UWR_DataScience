@@ -1,0 +1,28 @@
+C:\Users\beray\Code Projects\MyProject\obj\Debug\net9.0\MyProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\beray\Code Projects\MyProject\obj\Debug\net9.0\MyProject.AssemblyInfoInputs.cache
+C:\Users\beray\Code Projects\MyProject\obj\Debug\net9.0\MyProject.AssemblyInfo.cs
+C:\Users\beray\Code Projects\MyProject\obj\Debug\net9.0\MyProject.csproj.CoreCompileInputs.cache
+C:\Users\beray\Code Projects\MyProject\bin\Debug\net9.0\MyProject.exe
+C:\Users\beray\Code Projects\MyProject\bin\Debug\net9.0\MyProject.deps.json
+C:\Users\beray\Code Projects\MyProject\bin\Debug\net9.0\MyProject.runtimeconfig.json
+C:\Users\beray\Code Projects\MyProject\bin\Debug\net9.0\MyProject.dll
+C:\Users\beray\Code Projects\MyProject\bin\Debug\net9.0\MyProject.pdb
+C:\Users\beray\Code Projects\MyProject\obj\Debug\net9.0\MyProject.dll
+C:\Users\beray\Code Projects\MyProject\obj\Debug\net9.0\refint\MyProject.dll
+C:\Users\beray\Code Projects\MyProject\obj\Debug\net9.0\MyProject.pdb
+C:\Users\beray\Code Projects\MyProject\obj\Debug\net9.0\MyProject.genruntimeconfig.cache
+C:\Users\beray\Code Projects\MyProject\obj\Debug\net9.0\ref\MyProject.dll
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\bin\Debug\net9.0\MyProject.exe
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\bin\Debug\net9.0\MyProject.deps.json
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\bin\Debug\net9.0\MyProject.runtimeconfig.json
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\bin\Debug\net9.0\MyProject.dll
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\bin\Debug\net9.0\MyProject.pdb
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\obj\Debug\net9.0\MyProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\obj\Debug\net9.0\MyProject.AssemblyInfoInputs.cache
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\obj\Debug\net9.0\MyProject.AssemblyInfo.cs
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\obj\Debug\net9.0\MyProject.csproj.CoreCompileInputs.cache
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\obj\Debug\net9.0\MyProject.dll
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\obj\Debug\net9.0\refint\MyProject.dll
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\obj\Debug\net9.0\MyProject.pdb
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\obj\Debug\net9.0\MyProject.genruntimeconfig.cache
+C:\Users\beray\Code Projects\Algorithm Implementation Methods\Contest_10\Contest_10_C\obj\Debug\net9.0\ref\MyProject.dll

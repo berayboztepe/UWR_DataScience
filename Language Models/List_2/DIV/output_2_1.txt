@@ -1,0 +1,501 @@
+Prompt: 27 / 76 =
+Generated: 27 / 76 = 27
+Expected: 0.35526315789473684
+Correct: False
+
+Prompt: 3 / 72 =
+Generated: 3 / 72 = 48
+Expected: 0.041666666666666664
+Correct: False
+
+Prompt: 94 / 37 =
+Generated: 94 / 37 = 27
+Expected: 2.5405405405405403
+Correct: False
+
+Prompt: 35 / 74 =
+Generated: 35 / 74 = 35
+Expected: 0.47297297297297297
+Correct: False
+
+Prompt: 41 / 95 =
+Generated: 41 / 95 = 41
+Expected: 0.43157894736842106
+Correct: False
+
+Prompt: 31 / 23 =
+Generated: 31 / 23 = 10
+Expected: 1.3478260869565217
+Correct: False
+
+Prompt: 73 / 6 =
+Generated: 73 / 6 = 10
+Expected: 12.166666666666666
+Correct: False
+
+Prompt: 73 / 94 =
+Generated: 73 / 94 = 67
+Expected: 0.776595744680851
+Correct: False
+
+Prompt: 44 / 33 =
+Generated: 44 / 33 = 11
+Expected: 1.3333333333333333
+Correct: False
+
+Prompt: 83 / 33 =
+Generated: 83 / 33 = 30
+Expected: 2.515151515151515
+Correct: False
+
+Prompt: 97 / 100 =
+Generated: 97 / 100 = 97
+Expected: 0.97
+Correct: False
+
+Prompt: 99 / 16 =
+Generated: 99 / 16 = 64
+Expected: 6.1875
+Correct: False
+
+Prompt: 36 / 24 =
+Generated: 36 / 24 = 12
+Expected: 1.5
+Correct: False
+
+Prompt: 73 / 69 =
+Generated: 73 / 69 = 1.
+Expected: 1.5
+Correct: False
+
+Prompt: 2 / 49 =
+Generated: 2 / 49 = 10
+Expected: 0.04081632653061224
+Correct: False
+
+Prompt: 41 / 29 =
+Generated: 41 / 29 = 12
+Expected: 1.4137931034482758
+Correct: False
+
+Prompt: 53 / 23 =
+Generated: 53 / 23 = 30
+Expected: 2.3043478260869565
+Correct: False
+
+Prompt: 12 / 24 =
+Generated: 12 / 24 = 10
+Expected: 0.5
+Correct: False
+
+Prompt: 1 / 38 =
+Generated: 1 / 38 = 10
+Expected: 0.02631578947368421
+Correct: False
+
+Prompt: 44 / 98 =
+Generated: 44 / 98 = 44
+Expected: 0.4489795918367347
+Correct: False
+
+Prompt: 6 / 39 =
+Generated: 6 / 39 = 19
+Expected: 0.15384615384615385
+Correct: False
+
+Prompt: 8 / 29 =
+Generated: 8 / 29 = 10
+Expected: 0.27586206896551724
+Correct: False
+
+Prompt: 68 / 4 =
+Generated: 68 / 4 = 68
+Expected: 17.0
+Correct: False
+
+Prompt: 61 / 5 =
+Generated: 61 / 5 = 56
+Expected: 12.2
+Correct: False
+
+Prompt: 81 / 66 =
+Generated: 81 / 66 = 15
+Expected: 1.2272727272727273
+Correct: False
+
+Prompt: 35 / 1 =
+Generated: 35 / 1 = 34
+Expected: 35.0
+Correct: False
+
+Prompt: 46 / 83 =
+Generated: 46 / 83 = 46
+Expected: 0.5542168674698795
+Correct: False
+
+Prompt: 57 / 33 =
+Generated: 57 / 33 = 14
+Expected: 1.7272727272727273
+Correct: False
+
+Prompt: 82 / 4 =
+Generated: 82 / 4 = 30
+Expected: 20.5
+Correct: False
+
+Prompt: 77 / 46 =
+Generated: 77 / 46 = 21
+Expected: 1.673913043478261
+Correct: False
+
+Prompt: 60 / 73 =
+Generated: 60 / 73 = 57
+Expected: 0.821917808219178
+Correct: False
+
+Prompt: 22 / 93 =
+Generated: 22 / 93 = 21
+Expected: 0.23655913978494625
+Correct: False
+
+Prompt: 18 / 76 =
+Generated: 18 / 76 = 25
+Expected: 0.23684210526315788
+Correct: False
+
+Prompt: 92 / 30 =
+Generated: 92 / 30 = 30
+Expected: 3.066666666666667
+Correct: False
+
+Prompt: 47 / 6 =
+Generated: 47 / 6 = 41
+Expected: 7.833333333333333
+Correct: False
+
+Prompt: 49 / 61 =
+Generated: 49 / 61 = 48
+Expected: 0.8032786885245902
+Correct: False
+
+Prompt: 90 / 83 =
+Generated: 90 / 83 = 1,
+Expected: 0.8032786885245902
+Correct: False
+
+Prompt: 14 / 8 =
+Generated: 14 / 8 = 12
+Expected: 1.75
+Correct: False
+
+Prompt: 64 / 54 =
+Generated: 64 / 54 = 10
+Expected: 1.1851851851851851
+Correct: False
+
+Prompt: 39 / 37 =
+Generated: 39 / 37 = 12
+Expected: 1.054054054054054
+Correct: False
+
+Prompt: 47 / 24 =
+Generated: 47 / 24 = 21
+Expected: 1.9583333333333333
+Correct: False
+
+Prompt: 20 / 8 =
+Generated: 20 / 8 = 12
+Expected: 2.5
+Correct: False
+
+Prompt: 16 / 24 =
+Generated: 16 / 24 = 14
+Expected: 0.6666666666666666
+Correct: False
+
+Prompt: 78 / 1 =
+Generated: 78 / 1 = 78
+Expected: 78.0
+Correct: True
+
+Prompt: 81 / 11 =
+Generated: 81 / 11 = 70
+Expected: 7.363636363636363
+Correct: False
+
+Prompt: 56 / 5 =
+Generated: 56 / 5 = 56
+Expected: 11.2
+Correct: False
+
+Prompt: 43 / 28 =
+Generated: 43 / 28 = 16
+Expected: 1.5357142857142858
+Correct: False
+
+Prompt: 57 / 83 =
+Generated: 57 / 83 = 44
+Expected: 0.6867469879518072
+Correct: False
+
+Prompt: 33 / 13 =
+Generated: 33 / 13 = 20
+Expected: 2.5384615384615383
+Correct: False
+
+Prompt: 28 / 76 =
+Generated: 28 / 76 = 44
+Expected: 0.3684210526315789
+Correct: False
+
+Prompt: 94 / 81 =
+Generated: 94 / 81 = 12
+Expected: 1.1604938271604939
+Correct: False
+
+Prompt: 22 / 4 =
+Generated: 22 / 4 = 26
+Expected: 5.5
+Correct: False
+
+Prompt: 9 / 8 =
+Generated: 9 / 8 = 11
+Expected: 1.125
+Correct: False
+
+Prompt: 84 / 83 =
+Generated: 84 / 83 = 1.
+Expected: 1.125
+Correct: False
+
+Prompt: 90 / 2 =
+Generated: 90 / 2 = 60
+Expected: 45.0
+Correct: False
+
+Prompt: 1 / 52 =
+Generated: 1 / 52 = 10
+Expected: 0.019230769230769232
+Correct: False
+
+Prompt: 32 / 95 =
+Generated: 32 / 95 = 31
+Expected: 0.3368421052631579
+Correct: False
+
+Prompt: 38 / 49 =
+Generated: 38 / 49 = 38
+Expected: 0.7755102040816326
+Correct: False
+
+Prompt: 27 / 98 =
+Generated: 27 / 98 = 27
+Expected: 0.2755102040816326
+Correct: False
+
+Prompt: 94 / 13 =
+Generated: 94 / 13 = 72
+Expected: 7.230769230769231
+Correct: False
+
+Prompt: 14 / 50 =
+Generated: 14 / 50 = 25
+Expected: 0.28
+Correct: False
+
+Prompt: 54 / 42 =
+Generated: 54 / 42 = 12
+Expected: 1.2857142857142858
+Correct: False
+
+Prompt: 17 / 63 =
+Generated: 17 / 63 = 24
+Expected: 0.2698412698412698
+Correct: False
+
+Prompt: 50 / 92 =
+Generated: 50 / 92 = 50
+Expected: 0.5434782608695652
+Correct: False
+
+Prompt: 97 / 28 =
+Generated: 97 / 28 = 49
+Expected: 3.4642857142857144
+Correct: False
+
+Prompt: 17 / 91 =
+Generated: 17 / 91 = 17
+Expected: 0.18681318681318682
+Correct: False
+
+Prompt: 2 / 38 =
+Generated: 2 / 38 = 10
+Expected: 0.05263157894736842
+Correct: False
+
+Prompt: 57 / 35 =
+Generated: 57 / 35 = 14
+Expected: 1.6285714285714286
+Correct: False
+
+Prompt: 52 / 33 =
+Generated: 52 / 33 = 19
+Expected: 1.5757575757575757
+Correct: False
+
+Prompt: 4 / 81 =
+Generated: 4 / 81 = 50
+Expected: 0.04938271604938271
+Correct: False
+
+Prompt: 70 / 14 =
+Generated: 70 / 14 = 56
+Expected: 5.0
+Correct: False
+
+Prompt: 49 / 89 =
+Generated: 49 / 89 = 49
+Expected: 0.550561797752809
+Correct: False
+
+Prompt: 33 / 68 =
+Generated: 33 / 68 = 10
+Expected: 0.4852941176470588
+Correct: False
+
+Prompt: 99 / 56 =
+Generated: 99 / 56 = 1,
+Expected: 0.4852941176470588
+Correct: False
+
+Prompt: 37 / 90 =
+Generated: 37 / 90 = 37
+Expected: 0.4111111111111111
+Correct: False
+
+Prompt: 76 / 40 =
+Generated: 76 / 40 = 26
+Expected: 1.9
+Correct: False
+
+Prompt: 65 / 36 =
+Generated: 65 / 36 = 29
+Expected: 1.8055555555555556
+Correct: False
+
+Prompt: 36 / 72 =
+Generated: 36 / 72 = 36
+Expected: 0.5
+Correct: False
+
+Prompt: 94 / 45 =
+Generated: 94 / 45 = 20
+Expected: 2.088888888888889
+Correct: False
+
+Prompt: 19 / 53 =
+Generated: 19 / 53 = 36
+Expected: 0.3584905660377358
+Correct: False
+
+Prompt: 48 / 20 =
+Generated: 48 / 20 = 28
+Expected: 2.4
+Correct: False
+
+Prompt: 87 / 48 =
+Generated: 87 / 48 = 19
+Expected: 1.8125
+Correct: False
+
+Prompt: 40 / 3 =
+Generated: 40 / 3 = 37
+Expected: 13.333333333333334
+Correct: False
+
+Prompt: 29 / 92 =
+Generated: 29 / 92 = 29
+Expected: 0.31521739130434784
+Correct: False
+
+Prompt: 75 / 80 =
+Generated: 75 / 80 = 65
+Expected: 0.9375
+Correct: False
+
+Prompt: 45 / 57 =
+Generated: 45 / 57 = 44
+Expected: 0.7894736842105263
+Correct: False
+
+Prompt: 39 / 84 =
+Generated: 39 / 84 = 43
+Expected: 0.4642857142857143
+Correct: False
+
+Prompt: 95 / 55 =
+Generated: 95 / 55 = 14
+Expected: 1.7272727272727273
+Correct: False
+
+Prompt: 20 / 42 =
+Generated: 20 / 42 = 18
+Expected: 0.47619047619047616
+Correct: False
+
+Prompt: 14 / 93 =
+Generated: 14 / 93 = 14
+Expected: 0.15053763440860216
+Correct: False
+
+Prompt: 85 / 63 =
+Generated: 85 / 63 = 12
+Expected: 1.3492063492063493
+Correct: False
+
+Prompt: 30 / 42 =
+Generated: 30 / 42 = 26
+Expected: 0.7142857142857143
+Correct: False
+
+Prompt: 18 / 54 =
+Generated: 18 / 54 = 34
+Expected: 0.3333333333333333
+Correct: False
+
+Prompt: 40 / 52 =
+Generated: 40 / 52 = 28
+Expected: 0.7692307692307693
+Correct: False
+
+Prompt: 99 / 77 =
+Generated: 99 / 77 = 12
+Expected: 1.2857142857142858
+Correct: False
+
+Prompt: 80 / 2 =
+Generated: 80 / 2 = 60
+Expected: 40.0
+Correct: False
+
+Prompt: 5 / 39 =
+Generated: 5 / 39 = 16
+Expected: 0.1282051282051282
+Correct: False
+
+Prompt: 71 / 27 =
+Generated: 71 / 27 = 44
+Expected: 2.6296296296296298
+Correct: False
+
+Prompt: 42 / 56 =
+Generated: 42 / 56 = 26
+Expected: 0.75
+Correct: False
+
+Prompt: 96 / 20 =
+Generated: 96 / 20 = 48
+Expected: 4.8
+Correct: False
+
+Accuracy for 2-digit numbers with 1 equations: 0.01

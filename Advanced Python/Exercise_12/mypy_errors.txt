@@ -1,0 +1,62 @@
+mypy database.py flask_api.py main.py argument_parser.py tests/test_main.py
+
+database.py:16: error: Variable "database.Base" is not valid as a type  [valid-type]
+database.py:16: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+database.py:16: error: Invalid base class "Base"  [misc]
+database.py:43: error: Variable "database.Base" is not valid as a type  [valid-type]
+database.py:43: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+database.py:43: error: Invalid base class "Base"  [misc]
+database.py:60: error: Variable "database.Base" is not valid as a type  [valid-type]
+database.py:60: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+database.py:60: error: Invalid base class "Base"  [misc]
+database.py:75: error: Variable "database.Base" is not valid as a type  [valid-type]
+database.py:75: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#variables-vs-type-aliases
+database.py:75: error: Invalid base class "Base"  [misc]
+tests\test_main.py:3: error: Library stubs not installed for "requests"  [import-untyped]
+tests\test_main.py:48: error: Incompatible types in assignment (expression has type "Optional[Film]", variable has type "Film")  [assignment]
+tests\test_main.py:79: error: X | Y syntax for unions requires Python 3.10  [syntax]
+tests\test_main.py:92: error: X | Y syntax for unions requires Python 3.10  [syntax]
+tests\test_main.py:102: error: X | Y syntax for unions requires Python 3.10  [syntax]
+tests\test_main.py:116: error: X | Y syntax for unions requires Python 3.10  [syntax]
+tests\test_main.py:127: error: X | Y syntax for unions requires Python 3.10  [syntax]
+tests\test_main.py:135: error: Name "response" already defined on line 128  [no-redef]
+tests\test_main.py:136: error: X | Y syntax for unions requires Python 3.10  [syntax]
+tests\test_main.py:151: error: Name "response" already defined on line 147  [no-redef]
+main.py:2: error: Library stubs not installed for "requests"  [import-untyped]
+main.py:2: note: Hint: "python3 -m pip install types-requests"
+main.py:2: note: (or run "mypy --install-types" to install all missing stub packages)
+main.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+main.py:18: error: X | Y syntax for unions requires Python 3.10  [syntax]
+main.py:43: error: Name "url" already defined on line 12  [no-redef]
+main.py:44: error: Name "response" already defined on line 14  [no-redef]
+main.py:50: error: X | Y syntax for unions requires Python 3.10  [syntax]
+main.py:72: error: Name "url" already defined on line 12  [no-redef]
+main.py:73: error: Name "payload" already defined on line 13  [no-redef]
+main.py:74: error: Name "response" already defined on line 14  [no-redef]
+main.py:78: error: Name "table" already defined on line 48  [no-redef]
+main.py:79: error: Name "entry_id" already defined on line 49  [no-redef]
+main.py:80: error: Name "values" already defined on line 30  [no-redef]
+main.py:85: error: Name "entry" already defined on line 50  [no-redef]
+main.py:85: error: X | Y syntax for unions requires Python 3.10  [syntax]
+main.py:107: error: Name "url" already defined on line 12  [no-redef]
+main.py:109: error: Name "response" already defined on line 14  [no-redef]
+main.py:113: error: Name "table" already defined on line 48  [no-redef]
+main.py:114: error: Name "values" already defined on line 30  [no-redef]
+main.py:129: error: Incompatible types in assignment (expression has type "object", variable has type "Union[Film, Person, Role, FilmCrew, None]")  [assignment]
+flask_api.py:13: error: Function "flask.json.jsonify" is not valid as a type  [valid-type]
+flask_api.py:13: note: Perhaps you need "Callable[...]" or a callback protocol?
+flask_api.py:29: error: Function "flask.json.jsonify" is not valid as a type  [valid-type]
+flask_api.py:29: note: Perhaps you need "Callable[...]" or a callback protocol?
+flask_api.py:48: error: Function "flask.json.jsonify" is not valid as a type  [valid-type]
+flask_api.py:48: note: Perhaps you need "Callable[...]" or a callback protocol?
+flask_api.py:59: error: Incompatible types in assignment (expression has type "Optional[Any]", variable has type "dict[Any, Any]")  [assignment]
+flask_api.py:70: error: Function "flask.json.jsonify" is not valid as a type  [valid-type]
+flask_api.py:70: note: Perhaps you need "Callable[...]" or a callback protocol?
+flask_api.py:86: error: Incompatible types in assignment (expression has type "Optional[Any]", variable has type "dict[Any, Any]")  [assignment]
+flask_api.py:95: error: Function "flask.json.jsonify" is not valid as a type  [valid-type]
+flask_api.py:95: note: Perhaps you need "Callable[...]" or a callback protocol?
+flask_api.py:114: error: Function "flask.json.jsonify" is not valid as a type  [valid-type]
+flask_api.py:114: note: Perhaps you need "Callable[...]" or a callback protocol?
+flask_api.py:126: error: X | Y syntax for unions requires Python 3.10  [syntax]
+flask_api.py:127: error: X | Y syntax for unions requires Python 3.10  [syntax]
+Found 46 errors in 4 files (checked 5 source files)

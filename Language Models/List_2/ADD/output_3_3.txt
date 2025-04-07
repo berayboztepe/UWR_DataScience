@@ -1,0 +1,701 @@
+Prompt: 601 + 819 = 1420
+589 + 328 = 917
+688 + 936 =
+Generated: 688 + 936 = 162
+Expected: 1624
+Correct: False
+
+Prompt: 377 + 529 = 906
+624 + 895 = 1519
+413 + 349 =
+Generated: 413 + 349 = 762
+Expected: 762
+Correct: True
+
+Prompt: 742 + 592 = 1334
+13 + 308 = 321
+317 + 412 =
+Generated: 317 + 412 = 729
+Expected: 729
+Correct: True
+
+Prompt: 743 + 933 = 1676
+585 + 719 = 1304
+141 + 970 =
+Generated: 141 + 970 = 231
+Expected: 1111
+Correct: False
+
+Prompt: 14 + 420 = 434
+199 + 230 = 429
+792 + 841 =
+Generated: 792 + 841 = 873
+Expected: 1633
+Correct: False
+
+Prompt: 679 + 283 = 962
+477 + 693 = 1170
+86 + 868 =
+Generated: 86 + 868 = 173
+Expected: 954
+Correct: False
+
+Prompt: 202 + 75 = 277
+675 + 437 = 1112
+768 + 61 =
+Generated: 768 + 61 = 839
+Expected: 829
+Correct: False
+
+Prompt: 571 + 506 = 1077
+434 + 642 = 1076
+964 + 221 =
+Generated: 964 + 221 = 109
+Expected: 1185
+Correct: False
+
+Prompt: 234 + 955 = 1189
+569 + 503 = 1072
+536 + 97 =
+Generated: 536 + 97 = 150
+Expected: 633
+Correct: False
+
+Prompt: 13 + 94 = 107
+761 + 102 = 863
+840 + 910 =
+Generated: 840 + 910 = 931
+Expected: 1750
+Correct: False
+
+Prompt: 510 + 964 = 1474
+88 + 171 = 259
+579 + 857 =
+Generated: 579 + 857 = 143
+Expected: 1436
+Correct: False
+
+Prompt: 911 + 346 = 1257
+179 + 729 = 908
+653 + 887 =
+Generated: 653 + 887 = 154
+Expected: 1540
+Correct: False
+
+Prompt: 351 + 318 = 669
+519 + 835 = 1354
+83 + 662 =
+Generated: 83 + 662 = 149
+Expected: 745
+Correct: False
+
+Prompt: 543 + 372 = 915
+192 + 578 = 770
+728 + 904 =
+Generated: 728 + 904 = 162
+Expected: 1632
+Correct: False
+
+Prompt: 682 + 751 = 1433
+942 + 922 = 1864
+731 + 672 =
+Generated: 731 + 672 = 130
+Expected: 1403
+Correct: False
+
+Prompt: 875 + 379 = 1254
+851 + 490 = 1341
+45 + 837 =
+Generated: 45 + 837 = 138
+Expected: 882
+Correct: False
+
+Prompt: 638 + 877 = 1515
+895 + 926 = 1821
+699 + 957 =
+Generated: 699 + 957 = 165
+Expected: 1656
+Correct: False
+
+Prompt: 63 + 333 = 396
+926 + 412 = 1338
+108 + 727 =
+Generated: 108 + 727 = 180
+Expected: 835
+Correct: False
+
+Prompt: 946 + 617 = 1563
+596 + 595 = 1191
+108 + 131 =
+Generated: 108 + 131 = 249
+Expected: 239
+Correct: False
+
+Prompt: 189 + 719 = 908
+574 + 736 = 1310
+544 + 403 =
+Generated: 544 + 403 = 947
+Expected: 947
+Correct: True
+
+Prompt: 830 + 685 = 1515
+551 + 570 = 1121
+388 + 545 =
+Generated: 388 + 545 = 833
+Expected: 933
+Correct: False
+
+Prompt: 42 + 482 = 524
+489 + 795 = 1284
+763 + 320 =
+Generated: 763 + 320 = 108
+Expected: 1083
+Correct: False
+
+Prompt: 150 + 892 = 1042
+988 + 682 = 1670
+610 + 473 =
+Generated: 610 + 473 = 108
+Expected: 1083
+Correct: False
+
+Prompt: 19 + 597 = 616
+925 + 77 = 1002
+413 + 290 =
+Generated: 413 + 290 = 603
+Expected: 703
+Correct: False
+
+Prompt: 906 + 188 = 1094
+132 + 310 = 442
+174 + 665 =
+Generated: 174 + 665 = 849
+Expected: 839
+Correct: False
+
+Prompt: 985 + 542 = 1527
+172 + 518 = 690
+478 + 980 =
+Generated: 478 + 980 = 566
+Expected: 1458
+Correct: False
+
+Prompt: 382 + 530 = 912
+536 + 515 = 1051
+511 + 850 =
+Generated: 511 + 850 = 136
+Expected: 1361
+Correct: False
+
+Prompt: 391 + 950 = 1341
+228 + 209 = 437
+689 + 480 =
+Generated: 689 + 480 = 116
+Expected: 1169
+Correct: False
+
+Prompt: 880 + 562 = 1442
+106 + 528 = 634
+850 + 615 =
+Generated: 850 + 615 = 146
+Expected: 1465
+Correct: False
+
+Prompt: 468 + 185 = 653
+86 + 827 = 913
+68 + 538 =
+Generated: 68 + 538 = 112
+Expected: 606
+Correct: False
+
+Prompt: 212 + 991 = 1203
+68 + 164 = 232
+875 + 742 =
+Generated: 875 + 742 = 151
+Expected: 1617
+Correct: False
+
+Prompt: 715 + 57 = 772
+27 + 489 = 516
+867 + 639 =
+Generated: 867 + 639 = 930
+Expected: 1506
+Correct: False
+
+Prompt: 903 + 924 = 1827
+919 + 177 = 1096
+770 + 504 =
+Generated: 770 + 504 = 127
+Expected: 1274
+Correct: False
+
+Prompt: 790 + 199 = 989
+582 + 34 = 616
+735 + 516 =
+Generated: 735 + 516 = 125
+Expected: 1251
+Correct: False
+
+Prompt: 636 + 495 = 1131
+184 + 186 = 370
+472 + 775 =
+Generated: 472 + 775 = 124
+Expected: 1247
+Correct: False
+
+Prompt: 994 + 927 = 1921
+248 + 480 = 728
+773 + 984 =
+Generated: 773 + 984 = 175
+Expected: 1757
+Correct: False
+
+Prompt: 799 + 525 = 1324
+730 + 536 = 1266
+230 + 888 =
+Generated: 230 + 888 = 112
+Expected: 1118
+Correct: False
+
+Prompt: 368 + 68 = 436
+31 + 122 = 153
+295 + 77 =
+Generated: 295 + 77 = 362
+Expected: 372
+Correct: False
+
+Prompt: 831 + 734 = 1565
+991 + 623 = 1614
+529 + 357 =
+Generated: 529 + 357 = 886
+Expected: 886
+Correct: True
+
+Prompt: 982 + 21 = 1003
+163 + 625 = 788
+124 + 605 =
+Generated: 124 + 605 = 729
+Expected: 729
+Correct: True
+
+Prompt: 3 + 322 = 325
+333 + 84 = 417
+388 + 224 =
+Generated: 388 + 224 = 512
+Expected: 612
+Correct: False
+
+Prompt: 203 + 370 = 573
+979 + 854 = 1833
+465 + 320 =
+Generated: 465 + 320 = 785
+Expected: 785
+Correct: True
+
+Prompt: 428 + 351 = 779
+679 + 631 = 1310
+634 + 733 =
+Generated: 634 + 733 = 136
+Expected: 1367
+Correct: False
+
+Prompt: 20 + 746 = 766
+298 + 697 = 995
+903 + 641 =
+Generated: 903 + 641 = 154
+Expected: 1544
+Correct: False
+
+Prompt: 226 + 982 = 1208
+408 + 375 = 783
+671 + 573 =
+Generated: 671 + 573 = 124
+Expected: 1244
+Correct: False
+
+Prompt: 151 + 925 = 1076
+51 + 681 = 732
+352 + 622 =
+Generated: 352 + 622 = 974
+Expected: 974
+Correct: True
+
+Prompt: 757 + 422 = 1179
+889 + 865 = 1754
+169 + 86 =
+Generated: 169 + 86 = 255
+Expected: 255
+Correct: True
+
+Prompt: 844 + 137 = 981
+809 + 82 = 891
+209 + 805 =
+Generated: 209 + 805 = 299
+Expected: 1014
+Correct: False
+
+Prompt: 1 + 566 = 567
+167 + 821 = 988
+296 + 475 =
+Generated: 296 + 475 = 861
+Expected: 771
+Correct: False
+
+Prompt: 846 + 899 = 1745
+751 + 152 = 903
+228 + 655 =
+Generated: 228 + 655 = 883
+Expected: 883
+Correct: True
+
+Prompt: 851 + 7 = 858
+961 + 136 = 1097
+834 + 975 =
+Generated: 834 + 975 = 921
+Expected: 1809
+Correct: False
+
+Prompt: 988 + 802 = 1790
+238 + 87 = 325
+203 + 226 =
+Generated: 203 + 226 = 439
+Expected: 429
+Correct: False
+
+Prompt: 989 + 947 = 1936
+300 + 764 = 1064
+763 + 168 =
+Generated: 763 + 168 = 931
+Expected: 931
+Correct: True
+
+Prompt: 588 + 860 = 1448
+706 + 201 = 907
+374 + 839 =
+Generated: 374 + 839 = 214
+Expected: 1213
+Correct: False
+
+Prompt: 38 + 2 = 40
+26 + 185 = 211
+197 + 825 =
+Generated: 197 + 825 = 279
+Expected: 1022
+Correct: False
+
+Prompt: 105 + 135 = 240
+576 + 7 = 583
+348 + 691 =
+Generated: 348 + 691 = 417
+Expected: 1039
+Correct: False
+
+Prompt: 579 + 538 = 1117
+378 + 635 = 1013
+342 + 117 =
+Generated: 342 + 117 = 459
+Expected: 459
+Correct: True
+
+Prompt: 782 + 337 = 1119
+847 + 907 = 1754
+106 + 378 =
+Generated: 106 + 378 = 144
+Expected: 484
+Correct: False
+
+Prompt: 618 + 738 = 1356
+251 + 697 = 948
+460 + 685 =
+Generated: 460 + 685 = 114
+Expected: 1145
+Correct: False
+
+Prompt: 652 + 716 = 1368
+778 + 934 = 1712
+462 + 421 =
+Generated: 462 + 421 = 883
+Expected: 883
+Correct: True
+
+Prompt: 201 + 581 = 782
+435 + 491 = 926
+791 + 133 =
+Generated: 791 + 133 = 924
+Expected: 924
+Correct: True
+
+Prompt: 445 + 561 = 1006
+814 + 512 = 1326
+908 + 805 =
+Generated: 908 + 805 = 170
+Expected: 1713
+Correct: False
+
+Prompt: 739 + 626 = 1365
+723 + 520 = 1243
+646 + 302 =
+Generated: 646 + 302 = 948
+Expected: 948
+Correct: True
+
+Prompt: 899 + 569 = 1468
+99 + 705 = 804
+327 + 553 =
+Generated: 327 + 553 = 870
+Expected: 880
+Correct: False
+
+Prompt: 378 + 160 = 538
+882 + 386 = 1268
+67 + 24 =
+Generated: 67 + 24 = 69
+Expected: 91
+Correct: False
+
+Prompt: 395 + 534 = 929
+719 + 685 = 1404
+503 + 121 =
+Generated: 503 + 121 = 624
+Expected: 624
+Correct: True
+
+Prompt: 647 + 25 = 672
+399 + 993 = 1392
+0 + 311 =
+Generated: 0 + 311 = 342
+Expected: 311
+Correct: False
+
+Prompt: 891 + 367 = 1258
+694 + 689 = 1383
+937 + 184 =
+Generated: 937 + 184 = 112
+Expected: 1121
+Correct: False
+
+Prompt: 793 + 669 = 1462
+483 + 685 = 1168
+655 + 645 =
+Generated: 655 + 645 = 120
+Expected: 1300
+Correct: False
+
+Prompt: 689 + 134 = 823
+563 + 947 = 1510
+915 + 279 =
+Generated: 915 + 279 = 129
+Expected: 1194
+Correct: False
+
+Prompt: 733 + 993 = 1726
+84 + 465 = 549
+571 + 428 =
+Generated: 571 + 428 = 999
+Expected: 999
+Correct: True
+
+Prompt: 212 + 585 = 797
+675 + 78 = 753
+670 + 564 =
+Generated: 670 + 564 = 123
+Expected: 1234
+Correct: False
+
+Prompt: 772 + 197 = 969
+467 + 573 = 1040
+392 + 224 =
+Generated: 392 + 224 = 516
+Expected: 616
+Correct: False
+
+Prompt: 780 + 857 = 1637
+778 + 657 = 1435
+385 + 581 =
+Generated: 385 + 581 = 866
+Expected: 966
+Correct: False
+
+Prompt: 203 + 213 = 416
+173 + 605 = 778
+913 + 728 =
+Generated: 913 + 728 = 164
+Expected: 1641
+Correct: False
+
+Prompt: 256 + 383 = 639
+938 + 868 = 1806
+545 + 100 =
+Generated: 545 + 100 = 545
+Expected: 645
+Correct: False
+
+Prompt: 239 + 397 = 636
+114 + 782 = 896
+994 + 315 =
+Generated: 994 + 315 = 102
+Expected: 1309
+Correct: False
+
+Prompt: 913 + 341 = 1254
+517 + 222 = 739
+718 + 445 =
+Generated: 718 + 445 = 126
+Expected: 1163
+Correct: False
+
+Prompt: 976 + 482 = 1458
+706 + 700 = 1406
+405 + 505 =
+Generated: 405 + 505 = 900
+Expected: 910
+Correct: False
+
+Prompt: 359 + 368 = 727
+3 + 482 = 485
+275 + 503 =
+Generated: 275 + 503 = 778
+Expected: 778
+Correct: True
+
+Prompt: 154 + 326 = 480
+949 + 949 = 1898
+510 + 822 =
+Generated: 510 + 822 = 133
+Expected: 1332
+Correct: False
+
+Prompt: 344 + 133 = 477
+677 + 12 = 689
+785 + 884 =
+Generated: 785 + 884 = 873
+Expected: 1669
+Correct: False
+
+Prompt: 397 + 966 = 1363
+942 + 203 = 1145
+841 + 525 =
+Generated: 841 + 525 = 136
+Expected: 1366
+Correct: False
+
+Prompt: 954 + 473 = 1427
+718 + 776 = 1494
+70 + 572 =
+Generated: 70 + 572 = 127
+Expected: 642
+Correct: False
+
+Prompt: 158 + 480 = 638
+150 + 63 = 213
+552 + 214 =
+Generated: 552 + 214 = 766
+Expected: 766
+Correct: True
+
+Prompt: 261 + 395 = 656
+371 + 390 = 761
+389 + 465 =
+Generated: 389 + 465 = 854
+Expected: 854
+Correct: True
+
+Prompt: 232 + 366 = 598
+6 + 280 = 286
+755 + 146 =
+Generated: 755 + 146 = 901
+Expected: 901
+Correct: True
+
+Prompt: 540 + 748 = 1288
+479 + 911 = 1390
+234 + 109 =
+Generated: 234 + 109 = 343
+Expected: 343
+Correct: True
+
+Prompt: 408 + 556 = 964
+706 + 873 = 1579
+180 + 331 =
+Generated: 180 + 331 = 411
+Expected: 511
+Correct: False
+
+Prompt: 486 + 68 = 554
+742 + 157 = 899
+901 + 315 =
+Generated: 901 + 315 = 121
+Expected: 1216
+Correct: False
+
+Prompt: 568 + 396 = 964
+803 + 920 = 1723
+474 + 633 =
+Generated: 474 + 633 = 100
+Expected: 1107
+Correct: False
+
+Prompt: 684 + 114 = 798
+685 + 882 = 1567
+950 + 936 =
+Generated: 950 + 936 = 104
+Expected: 1886
+Correct: False
+
+Prompt: 216 + 711 = 927
+818 + 867 = 1685
+655 + 7 =
+Generated: 655 + 7 = 722
+Expected: 662
+Correct: False
+
+Prompt: 512 + 189 = 701
+377 + 898 = 1275
+907 + 525 =
+Generated: 907 + 525 = 143
+Expected: 1432
+Correct: False
+
+Prompt: 390 + 864 = 1254
+902 + 892 = 1794
+408 + 226 =
+Generated: 408 + 226 = 634
+Expected: 634
+Correct: True
+
+Prompt: 34 + 9 = 43
+594 + 597 = 1191
+736 + 102 =
+Generated: 736 + 102 = 838
+Expected: 838
+Correct: True
+
+Prompt: 393 + 283 = 676
+542 + 500 = 1042
+417 + 336 =
+Generated: 417 + 336 = 753
+Expected: 753
+Correct: True
+
+Prompt: 798 + 333 = 1131
+576 + 980 = 1556
+469 + 310 =
+Generated: 469 + 310 = 779
+Expected: 779
+Correct: True
+
+Prompt: 717 + 193 = 910
+559 + 717 = 1276
+30 + 815 =
+Generated: 30 + 815 = 111
+Expected: 845
+Correct: False
+
+Prompt: 913 + 853 = 1766
+418 + 423 = 841
+571 + 206 =
+Generated: 571 + 206 = 777
+Expected: 777
+Correct: True
+
+Accuracy for 3-digit numbers with 3 equations: 0.26

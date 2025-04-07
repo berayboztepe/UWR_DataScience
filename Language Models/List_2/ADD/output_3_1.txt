@@ -1,0 +1,501 @@
+Prompt: 358 + 832 =
+Generated: 358 + 832 = 441
+Expected: 1190
+Correct: False
+
+Prompt: 839 + 244 =
+Generated: 839 + 244 = 118
+Expected: 1083
+Correct: False
+
+Prompt: 144 + 169 =
+Generated: 144 + 169 = 313
+Expected: 313
+Correct: True
+
+Prompt: 302 + 276 =
+Generated: 302 + 276 = 588
+Expected: 578
+Correct: False
+
+Prompt: 770 + 987 =
+Generated: 770 + 987 = 867
+Expected: 1757
+Correct: False
+
+Prompt: 432 + 113 =
+Generated: 432 + 113 = 443
+Expected: 545
+Correct: False
+
+Prompt: 999 + 952 =
+Generated: 999 + 952 = 100
+Expected: 1951
+Correct: False
+
+Prompt: 967 + 667 =
+Generated: 967 + 667 = 163
+Expected: 1634
+Correct: False
+
+Prompt: 295 + 345 =
+Generated: 295 + 345 = 640
+Expected: 640
+Correct: True
+
+Prompt: 415 + 155 =
+Generated: 415 + 155 = 560
+Expected: 570
+Correct: False
+
+Prompt: 21 + 774 =
+Generated: 21 + 774 = 217
+Expected: 795
+Correct: False
+
+Prompt: 877 + 672 =
+Generated: 877 + 672 = 154
+Expected: 1549
+Correct: False
+
+Prompt: 256 + 91 =
+Generated: 256 + 91 = 347
+Expected: 347
+Correct: True
+
+Prompt: 900 + 733 =
+Generated: 900 + 733 = 163
+Expected: 1633
+Correct: False
+
+Prompt: 384 + 256 =
+Generated: 384 + 256 = 630
+Expected: 640
+Correct: False
+
+Prompt: 125 + 8 =
+Generated: 125 + 8 = 133
+Expected: 133
+Correct: True
+
+Prompt: 687 + 583 =
+Generated: 687 + 583 = 126
+Expected: 1270
+Correct: False
+
+Prompt: 663 + 538 =
+Generated: 663 + 538 = 119
+Expected: 1201
+Correct: False
+
+Prompt: 47 + 80 =
+Generated: 47 + 80 = 127
+Expected: 127
+Correct: True
+
+Prompt: 525 + 91 =
+Generated: 525 + 91 = 534
+Expected: 616
+Correct: False
+
+Prompt: 465 + 741 =
+Generated: 465 + 741 = 539
+Expected: 1206
+Correct: False
+
+Prompt: 182 + 225 =
+Generated: 182 + 225 = 307
+Expected: 407
+Correct: False
+
+Prompt: 177 + 771 =
+Generated: 177 + 771 = 254
+Expected: 948
+Correct: False
+
+Prompt: 575 + 112 =
+Generated: 575 + 112 = 687
+Expected: 687
+Correct: True
+
+Prompt: 64 + 287 =
+Generated: 64 + 287 = 642
+Expected: 351
+Correct: False
+
+Prompt: 658 + 925 =
+Generated: 658 + 925 = 750
+Expected: 1583
+Correct: False
+
+Prompt: 329 + 230 =
+Generated: 329 + 230 = 559
+Expected: 559
+Correct: True
+
+Prompt: 258 + 143 =
+Generated: 258 + 143 = 401
+Expected: 401
+Correct: True
+
+Prompt: 577 + 843 =
+Generated: 577 + 843 = 661
+Expected: 1420
+Correct: False
+
+Prompt: 354 + 710 =
+Generated: 354 + 710 = 425
+Expected: 1064
+Correct: False
+
+Prompt: 807 + 124 =
+Generated: 807 + 124 = 921
+Expected: 931
+Correct: False
+
+Prompt: 525 + 944 =
+Generated: 525 + 944 = 619
+Expected: 1469
+Correct: False
+
+Prompt: 464 + 324 =
+Generated: 464 + 324 = 788
+Expected: 788
+Correct: True
+
+Prompt: 905 + 588 =
+Generated: 905 + 588 = 159
+Expected: 1493
+Correct: False
+
+Prompt: 281 + 179 =
+Generated: 281 + 179 = 450
+Expected: 460
+Correct: False
+
+Prompt: 482 + 426 =
+Generated: 482 + 426 = 808
+Expected: 908
+Correct: False
+
+Prompt: 502 + 281 =
+Generated: 502 + 281 = 783
+Expected: 783
+Correct: True
+
+Prompt: 113 + 847 =
+Generated: 113 + 847 = 197
+Expected: 960
+Correct: False
+
+Prompt: 132 + 2 =
+Generated: 132 + 2 = 134
+Expected: 134
+Correct: True
+
+Prompt: 451 + 995 =
+Generated: 451 + 995 = 540
+Expected: 1446
+Correct: False
+
+Prompt: 452 + 675 =
+Generated: 452 + 675 = 118
+Expected: 1127
+Correct: False
+
+Prompt: 27 + 708 =
+Generated: 27 + 708 = ? - Forum -
+Expected: 1127
+Correct: False
+
+Prompt: 167 + 204 =
+Generated: 167 + 204 = 361
+Expected: 371
+Correct: False
+
+Prompt: 131 + 420 =
+Generated: 131 + 420 = 173
+Expected: 551
+Correct: False
+
+Prompt: 267 + 275 =
+Generated: 267 + 275 = 542
+Expected: 542
+Correct: True
+
+Prompt: 445 + 999 =
+Generated: 445 + 999 = 444
+Expected: 1444
+Correct: False
+
+Prompt: 542 + 425 =
+Generated: 542 + 425 = 967
+Expected: 967
+Correct: True
+
+Prompt: 54 + 974 =
+Generated: 54 + 974 = 141
+Expected: 1028
+Correct: False
+
+Prompt: 875 + 243 =
+Generated: 875 + 243 = 111
+Expected: 1118
+Correct: False
+
+Prompt: 510 + 314 =
+Generated: 510 + 314 = 545
+Expected: 824
+Correct: False
+
+Prompt: 694 + 930 =
+Generated: 694 + 930 = 152
+Expected: 1624
+Correct: False
+
+Prompt: 980 + 557 =
+Generated: 980 + 557 = 143
+Expected: 1537
+Correct: False
+
+Prompt: 193 + 561 =
+Generated: 193 + 561 = 249
+Expected: 754
+Correct: False
+
+Prompt: 246 + 408 =
+Generated: 246 + 408 = 654
+Expected: 654
+Correct: True
+
+Prompt: 905 + 461 =
+Generated: 905 + 461 = 146
+Expected: 1366
+Correct: False
+
+Prompt: 245 + 344 =
+Generated: 245 + 344 = 279
+Expected: 589
+Correct: False
+
+Prompt: 340 + 901 =
+Generated: 340 + 901 = 430
+Expected: 1241
+Correct: False
+
+Prompt: 119 + 281 =
+Generated: 119 + 281 = 400
+Expected: 400
+Correct: True
+
+Prompt: 664 + 773 =
+Generated: 664 + 773 = 143
+Expected: 1437
+Correct: False
+
+Prompt: 761 + 234 =
+Generated: 761 + 234 = 995
+Expected: 995
+Correct: True
+
+Prompt: 444 + 158 =
+Generated: 444 + 158 = 592
+Expected: 602
+Correct: False
+
+Prompt: 96 + 447 =
+Generated: 96 + 447 = 140
+Expected: 543
+Correct: False
+
+Prompt: 933 + 561 =
+Generated: 933 + 561 = 149
+Expected: 1494
+Correct: False
+
+Prompt: 275 + 622 =
+Generated: 275 + 622 = 347
+Expected: 897
+Correct: False
+
+Prompt: 147 + 680 =
+Generated: 147 + 680 = 155
+Expected: 827
+Correct: False
+
+Prompt: 563 + 937 =
+Generated: 563 + 937 = 656
+Expected: 1500
+Correct: False
+
+Prompt: 77 + 123 =
+Generated: 77 + 123 = ? - Forum -
+Expected: 1500
+Correct: False
+
+Prompt: 193 + 576 =
+Generated: 193 + 576 = 249
+Expected: 769
+Correct: False
+
+Prompt: 611 + 33 =
+Generated: 611 + 33 = 644
+Expected: 644
+Correct: True
+
+Prompt: 412 + 342 =
+Generated: 412 + 342 = 754
+Expected: 754
+Correct: True
+
+Prompt: 963 + 332 =
+Generated: 963 + 332 = 129
+Expected: 1295
+Correct: False
+
+Prompt: 74 + 995 =
+Generated: 74 + 995 = 173
+Expected: 1069
+Correct: False
+
+Prompt: 144 + 661 =
+Generated: 144 + 661 = 150
+Expected: 805
+Correct: False
+
+Prompt: 810 + 803 =
+Generated: 810 + 803 = 161
+Expected: 1613
+Correct: False
+
+Prompt: 599 + 768 =
+Generated: 599 + 768 = 136
+Expected: 1367
+Correct: False
+
+Prompt: 641 + 355 =
+Generated: 641 + 355 = 676
+Expected: 996
+Correct: False
+
+Prompt: 42 + 565 =
+Generated: 42 + 565 = 577
+Expected: 607
+Correct: False
+
+Prompt: 148 + 310 =
+Generated: 148 + 310 = 498
+Expected: 458
+Correct: False
+
+Prompt: 88 + 34 =
+Generated: 88 + 34 = 122
+Expected: 122
+Correct: True
+
+Prompt: 43 + 615 =
+Generated: 43 + 615 = 109
+Expected: 658
+Correct: False
+
+Prompt: 6 + 342 =
+Generated: 6 + 342 = ? - Forum -
+Expected: 658
+Correct: False
+
+Prompt: 867 + 702 =
+Generated: 867 + 702 = 157
+Expected: 1569
+Correct: False
+
+Prompt: 923 + 632 =
+Generated: 923 + 632 = 155
+Expected: 1555
+Correct: False
+
+Prompt: 837 + 936 =
+Generated: 837 + 936 = 176
+Expected: 1773
+Correct: False
+
+Prompt: 67 + 578 =
+Generated: 67 + 578 = 125
+Expected: 645
+Correct: False
+
+Prompt: 164 + 67 =
+Generated: 164 + 67 = 221
+Expected: 231
+Correct: False
+
+Prompt: 207 + 283 =
+Generated: 207 + 283 = 490
+Expected: 490
+Correct: True
+
+Prompt: 169 + 903 =
+Generated: 169 + 903 = 259
+Expected: 1072
+Correct: False
+
+Prompt: 947 + 887 =
+Generated: 947 + 887 = 182
+Expected: 1834
+Correct: False
+
+Prompt: 911 + 576 =
+Generated: 911 + 576 = 148
+Expected: 1487
+Correct: False
+
+Prompt: 221 + 345 =
+Generated: 221 + 345 = 566
+Expected: 566
+Correct: True
+
+Prompt: 584 + 217 =
+Generated: 584 + 217 = 801
+Expected: 801
+Correct: True
+
+Prompt: 496 + 768 =
+Generated: 496 + 768 = 127
+Expected: 1264
+Correct: False
+
+Prompt: 315 + 629 =
+Generated: 315 + 629 = 943
+Expected: 944
+Correct: False
+
+Prompt: 436 + 377 =
+Generated: 436 + 377 = 793
+Expected: 813
+Correct: False
+
+Prompt: 69 + 650 =
+Generated: 69 + 650 = 135
+Expected: 719
+Correct: False
+
+Prompt: 802 + 970 =
+Generated: 802 + 970 = 177
+Expected: 1772
+Correct: False
+
+Prompt: 844 + 167 =
+Generated: 844 + 167 = 100
+Expected: 1011
+Correct: False
+
+Prompt: 472 + 612 =
+Generated: 472 + 612 = 108
+Expected: 1084
+Correct: False
+
+Prompt: 639 + 979 =
+Generated: 639 + 979 = 161
+Expected: 1618
+Correct: False
+
+Accuracy for 3-digit numbers with 1 equations: 0.22

@@ -1,0 +1,501 @@
+Prompt: 12 * 68 =
+Generated: 12 * 68 = 10
+Expected: 816
+Correct: False
+
+Prompt: 91 * 44 =
+Generated: 91 * 44 = 30
+Expected: 4004
+Correct: False
+
+Prompt: 21 * 100 =
+Generated: 21 * 100 = 21
+Expected: 2100
+Correct: False
+
+Prompt: 47 * 95 =
+Generated: 47 * 95 = 38
+Expected: 4465
+Correct: False
+
+Prompt: 71 * 59 =
+Generated: 71 * 59 = ?\n7
+Expected: 4465
+Correct: False
+
+Prompt: 88 * 91 =
+Generated: 88 * 91 = ?\n8
+Expected: 4465
+Correct: False
+
+Prompt: 95 * 11 =
+Generated: 95 * 11 = 10
+Expected: 1045
+Correct: False
+
+Prompt: 87 * 44 =
+Generated: 87 * 44 = 30
+Expected: 3828
+Correct: False
+
+Prompt: 23 * 80 =
+Generated: 23 * 80 = 16
+Expected: 1840
+Correct: False
+
+Prompt: 85 * 58 =
+Generated: 85 * 58 = 34
+Expected: 4930
+Correct: False
+
+Prompt: 27 * 46 =
+Generated: 27 * 46 = 10
+Expected: 1242
+Correct: False
+
+Prompt: 91 * 15 =
+Generated: 91 * 15 = 10
+Expected: 1365
+Correct: False
+
+Prompt: 76 * 89 =
+Generated: 76 * 89 = ?\n7
+Expected: 1365
+Correct: False
+
+Prompt: 10 * 43 =
+Generated: 10 * 43 = 40
+Expected: 430
+Correct: False
+
+Prompt: 46 * 75 =
+Generated: 46 * 75 = 30
+Expected: 3450
+Correct: False
+
+Prompt: 64 * 69 =
+Generated: 64 * 69 = 33
+Expected: 4416
+Correct: False
+
+Prompt: 42 * 78 =
+Generated: 42 * 78 = 26
+Expected: 3276
+Correct: False
+
+Prompt: 40 * 8 =
+Generated: 40 * 8 = 32
+Expected: 320
+Correct: False
+
+Prompt: 95 * 63 =
+Generated: 95 * 63 = 15
+Expected: 5985
+Correct: False
+
+Prompt: 7 * 55 =
+Generated: 7 * 55 = 35
+Expected: 385
+Correct: False
+
+Prompt: 64 * 91 =
+Generated: 64 * 91 = 53
+Expected: 5824
+Correct: False
+
+Prompt: 62 * 95 =
+Generated: 62 * 95 = 51
+Expected: 5890
+Correct: False
+
+Prompt: 63 * 43 =
+Generated: 63 * 43 = 19
+Expected: 2709
+Correct: False
+
+Prompt: 38 * 51 =
+Generated: 38 * 51 = 14
+Expected: 1938
+Correct: False
+
+Prompt: 71 * 58 =
+Generated: 71 * 58 = ?\n7
+Expected: 1938
+Correct: False
+
+Prompt: 99 * 98 =
+Generated: 99 * 98 = ?\n9
+Expected: 1938
+Correct: False
+
+Prompt: 18 * 36 =
+Generated: 18 * 36 = 54
+Expected: 648
+Correct: False
+
+Prompt: 93 * 87 =
+Generated: 93 * 87 = ?\n9
+Expected: 648
+Correct: False
+
+Prompt: 95 * 77 =
+Generated: 95 * 77 = 17
+Expected: 7315
+Correct: False
+
+Prompt: 9 * 50 =
+Generated: 9 * 50 = 45
+Expected: 450
+Correct: False
+
+Prompt: 26 * 75 =
+Generated: 26 * 75 = 14
+Expected: 1950
+Correct: False
+
+Prompt: 87 * 31 =
+Generated: 87 * 31 = 24
+Expected: 2697
+Correct: False
+
+Prompt: 14 * 37 =
+Generated: 14 * 37 = 41
+Expected: 518
+Correct: False
+
+Prompt: 63 * 81 =
+Generated: 63 * 81 = 42
+Expected: 5103
+Correct: False
+
+Prompt: 81 * 35 =
+Generated: 81 * 35 = 24
+Expected: 2835
+Correct: False
+
+Prompt: 78 * 36 =
+Generated: 78 * 36 = 21
+Expected: 2808
+Correct: False
+
+Prompt: 5 * 53 =
+Generated: 5 * 53 = 21
+Expected: 265
+Correct: False
+
+Prompt: 49 * 99 =
+Generated: 49 * 99 = 49
+Expected: 4851
+Correct: False
+
+Prompt: 84 * 47 =
+Generated: 84 * 47 = 27
+Expected: 3948
+Correct: False
+
+Prompt: 3 * 1 =
+Generated: 3 * 1 = 4 -
+Expected: 3948
+Correct: False
+
+Prompt: 75 * 11 =
+Generated: 75 * 11 = 86
+Expected: 825
+Correct: False
+
+Prompt: 55 * 91 =
+Generated: 55 * 91 = 44
+Expected: 5005
+Correct: False
+
+Prompt: 35 * 18 =
+Generated: 35 * 18 = 57
+Expected: 630
+Correct: False
+
+Prompt: 9 * 36 =
+Generated: 9 * 36 = 30
+Expected: 324
+Correct: False
+
+Prompt: 7 * 35 =
+Generated: 7 * 35 = 21
+Expected: 245
+Correct: False
+
+Prompt: 60 * 25 =
+Generated: 60 * 25 = 12
+Expected: 1500
+Correct: False
+
+Prompt: 27 * 71 =
+Generated: 27 * 71 = 14
+Expected: 1917
+Correct: False
+
+Prompt: 15 * 40 =
+Generated: 15 * 40 = 50
+Expected: 600
+Correct: False
+
+Prompt: 31 * 78 =
+Generated: 31 * 78 = 15
+Expected: 2418
+Correct: False
+
+Prompt: 98 * 1 =
+Generated: 98 * 1 = 98
+Expected: 98
+Correct: True
+
+Prompt: 13 * 46 =
+Generated: 13 * 46 = 48
+Expected: 598
+Correct: False
+
+Prompt: 91 * 47 =
+Generated: 91 * 47 = 34
+Expected: 4277
+Correct: False
+
+Prompt: 84 * 8 =
+Generated: 84 * 8 = 68
+Expected: 672
+Correct: False
+
+Prompt: 61 * 89 =
+Generated: 61 * 89 = ?\n6
+Expected: 672
+Correct: False
+
+Prompt: 30 * 45 =
+Generated: 30 * 45 = 10
+Expected: 1350
+Correct: False
+
+Prompt: 45 * 48 =
+Generated: 45 * 48 = 13
+Expected: 2160
+Correct: False
+
+Prompt: 40 * 28 =
+Generated: 40 * 28 = 10
+Expected: 1120
+Correct: False
+
+Prompt: 57 * 4 =
+Generated: 57 * 4 = 15
+Expected: 228
+Correct: False
+
+Prompt: 48 * 21 =
+Generated: 48 * 21 = 12
+Expected: 1008
+Correct: False
+
+Prompt: 88 * 68 =
+Generated: 88 * 68 = 49
+Expected: 5984
+Correct: False
+
+Prompt: 12 * 49 =
+Generated: 12 * 49 = 51
+Expected: 588
+Correct: False
+
+Prompt: 78 * 39 =
+Generated: 78 * 39 = 24
+Expected: 3042
+Correct: False
+
+Prompt: 83 * 7 =
+Generated: 83 * 7 = 10
+Expected: 581
+Correct: False
+
+Prompt: 40 * 75 =
+Generated: 40 * 75 = 28
+Expected: 3000
+Correct: False
+
+Prompt: 97 * 76 =
+Generated: 97 * 76 = 16
+Expected: 7372
+Correct: False
+
+Prompt: 6 * 80 =
+Generated: 6 * 80 = 48
+Expected: 480
+Correct: False
+
+Prompt: 0 * 46 =
+Generated: 0 * 46 = 46
+Expected: 0
+Correct: False
+
+Prompt: 56 * 25 =
+Generated: 56 * 25 = 12
+Expected: 1400
+Correct: False
+
+Prompt: 15 * 77 =
+Generated: 15 * 77 = 10
+Expected: 1155
+Correct: False
+
+Prompt: 98 * 26 =
+Generated: 98 * 26 = 21
+Expected: 2548
+Correct: False
+
+Prompt: 54 * 49 =
+Generated: 54 * 49 = 19
+Expected: 2646
+Correct: False
+
+Prompt: 28 * 12 =
+Generated: 28 * 12 = 30
+Expected: 336
+Correct: False
+
+Prompt: 46 * 83 =
+Generated: 46 * 83 = 30
+Expected: 3818
+Correct: False
+
+Prompt: 59 * 68 =
+Generated: 59 * 68 = 25
+Expected: 4012
+Correct: False
+
+Prompt: 76 * 45 =
+Generated: 76 * 45 = 31
+Expected: 3420
+Correct: False
+
+Prompt: 75 * 90 =
+Generated: 75 * 90 = 60
+Expected: 6750
+Correct: False
+
+Prompt: 82 * 70 =
+Generated: 82 * 70 = 52
+Expected: 5740
+Correct: False
+
+Prompt: 16 * 76 =
+Generated: 16 * 76 = 10
+Expected: 1216
+Correct: False
+
+Prompt: 20 * 56 =
+Generated: 20 * 56 = 10
+Expected: 1120
+Correct: False
+
+Prompt: 87 * 16 =
+Generated: 87 * 16 = 10
+Expected: 1392
+Correct: False
+
+Prompt: 98 * 16 =
+Generated: 98 * 16 = 12
+Expected: 1568
+Correct: False
+
+Prompt: 32 * 37 =
+Generated: 32 * 37 = 10
+Expected: 1184
+Correct: False
+
+Prompt: 4 * 26 =
+Generated: 4 * 26 = 10
+Expected: 104
+Correct: False
+
+Prompt: 1 * 77 =
+Generated: 1 * 77 = 77
+Expected: 77
+Correct: True
+
+Prompt: 86 * 44 =
+Generated: 86 * 44 = 30
+Expected: 3784
+Correct: False
+
+Prompt: 39 * 67 =
+Generated: 39 * 67 = 19
+Expected: 2613
+Correct: False
+
+Prompt: 96 * 47 =
+Generated: 96 * 47 = 33
+Expected: 4512
+Correct: False
+
+Prompt: 9 * 3 =
+Generated: 9 * 3 = 26
+Expected: 27
+Correct: False
+
+Prompt: 32 * 25 =
+Generated: 32 * 25 = 80
+Expected: 800
+Correct: False
+
+Prompt: 22 * 28 =
+Generated: 22 * 28 = 50
+Expected: 616
+Correct: False
+
+Prompt: 84 * 78 =
+Generated: 84 * 78 = 10
+Expected: 6552
+Correct: False
+
+Prompt: 30 * 80 =
+Generated: 30 * 80 = 24
+Expected: 2400
+Correct: False
+
+Prompt: 79 * 31 =
+Generated: 79 * 31 = 24
+Expected: 2449
+Correct: False
+
+Prompt: 57 * 32 =
+Generated: 57 * 32 = 12
+Expected: 1824
+Correct: False
+
+Prompt: 47 * 47 =
+Generated: 47 * 47 = 14
+Expected: 2209
+Correct: False
+
+Prompt: 3 * 33 =
+Generated: 3 * 33 = 10
+Expected: 99
+Correct: False
+
+Prompt: 53 * 8 =
+Generated: 53 * 8 = 41
+Expected: 424
+Correct: False
+
+Prompt: 55 * 36 =
+Generated: 55 * 36 = 16
+Expected: 1980
+Correct: False
+
+Prompt: 24 * 23 =
+Generated: 24 * 23 = 57
+Expected: 552
+Correct: False
+
+Prompt: 7 * 13 =
+Generated: 7 * 13 = 81
+Expected: 91
+Correct: False
+
+Accuracy for 2-digit numbers with 1 equations: 0.02

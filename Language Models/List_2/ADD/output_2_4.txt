@@ -1,0 +1,48 @@
+Prompt: 97 + 50 = 147
+67 + 77 = 144
+64 + 0 = 64
+86 + 98 =
+Generated: 86 + 98 = 18
+Expected: 184
+Correct: False
+
+Prompt: 31 + 29 = 60
+69 + 85 = 154
+68 + 47 = 115
+95 + 43 =
+Generated: 95 + 43 = 13
+Expected: 138
+Correct: False
+
+Prompt: 67 + 29 = 96
+57 + 99 = 156
+2 + 0 = 2
+80 + 74 =
+Generated: 80 + 74 = 15
+Expected: 154
+Correct: False
+
+Prompt: 91 + 100 = 191
+81 + 5 = 86
+89 + 71 = 160
+66 + 55 =
+Generated: 66 + 55 = 11
+Expected: 121
+Correct: False
+
+Prompt: 47 + 26 = 73
+34 + 82 = 116
+22 + 15 = 37
+32 + 29 =
+Generated: 32 + 29 = 51
+Expected: 61
+Correct: False
+
+Prompt: 26 + 81 = 107
+47 + 88 = 135
+81 + 25 = 106
+14 + 92 =
+Generated: 14 + 92 = 23
+Expected: 106
+Correct: False
+

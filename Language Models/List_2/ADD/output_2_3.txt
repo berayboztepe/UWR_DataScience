@@ -1,0 +1,701 @@
+Prompt: 50 + 99 = 149
+54 + 28 = 82
+0 + 14 =
+Generated: 0 + 14 = 15
+Expected: 14
+Correct: False
+
+Prompt: 69 + 27 = 96
+27 + 50 = 77
+70 + 30 =
+Generated: 70 + 30 = 10
+Expected: 100
+Correct: False
+
+Prompt: 42 + 65 = 107
+81 + 40 = 121
+19 + 9 =
+Generated: 19 + 9 = 28
+Expected: 28
+Correct: True
+
+Prompt: 70 + 40 = 110
+84 + 53 = 137
+73 + 57 =
+Generated: 73 + 57 = 12
+Expected: 130
+Correct: False
+
+Prompt: 44 + 14 = 58
+80 + 5 = 85
+65 + 17 =
+Generated: 65 + 17 = 82
+Expected: 82
+Correct: True
+
+Prompt: 35 + 85 = 120
+15 + 24 = 39
+75 + 64 =
+Generated: 75 + 64 = 13
+Expected: 139
+Correct: False
+
+Prompt: 62 + 67 = 129
+66 + 0 = 66
+36 + 60 =
+Generated: 36 + 60 = 96
+Expected: 96
+Correct: True
+
+Prompt: 68 + 90 = 158
+96 + 38 = 134
+14 + 32 =
+Generated: 14 + 32 = 46
+Expected: 46
+Correct: True
+
+Prompt: 34 + 65 = 99
+58 + 56 = 114
+17 + 47 =
+Generated: 17 + 47 = 64
+Expected: 64
+Correct: True
+
+Prompt: 22 + 62 = 84
+6 + 42 = 48
+87 + 2 =
+Generated: 87 + 2 = 89
+Expected: 89
+Correct: True
+
+Prompt: 30 + 79 = 109
+45 + 87 = 132
+85 + 2 =
+Generated: 85 + 2 = 87
+Expected: 87
+Correct: True
+
+Prompt: 49 + 3 = 52
+79 + 26 = 105
+89 + 18 =
+Generated: 89 + 18 = 10
+Expected: 107
+Correct: False
+
+Prompt: 21 + 26 = 47
+23 + 48 = 71
+55 + 4 =
+Generated: 55 + 4 = 59
+Expected: 59
+Correct: True
+
+Prompt: 44 + 52 = 96
+96 + 29 = 125
+12 + 71 =
+Generated: 12 + 71 = 83
+Expected: 83
+Correct: True
+
+Prompt: 96 + 3 = 99
+62 + 21 = 83
+56 + 42 =
+Generated: 56 + 42 = 98
+Expected: 98
+Correct: True
+
+Prompt: 90 + 28 = 118
+93 + 32 = 125
+67 + 78 =
+Generated: 67 + 78 = 14
+Expected: 145
+Correct: False
+
+Prompt: 88 + 21 = 109
+9 + 93 = 102
+83 + 86 =
+Generated: 83 + 86 = 90
+Expected: 169
+Correct: False
+
+Prompt: 52 + 38 = 90
+40 + 52 = 92
+76 + 58 =
+Generated: 76 + 58 = 13
+Expected: 134
+Correct: False
+
+Prompt: 89 + 93 = 182
+25 + 76 = 101
+47 + 32 =
+Generated: 47 + 32 = 79
+Expected: 79
+Correct: True
+
+Prompt: 91 + 36 = 127
+4 + 36 = 40
+83 + 50 =
+Generated: 83 + 50 = 83
+Expected: 133
+Correct: False
+
+Prompt: 12 + 8 = 20
+26 + 78 = 104
+37 + 11 =
+Generated: 37 + 11 = 48
+Expected: 48
+Correct: True
+
+Prompt: 51 + 91 = 142
+49 + 50 = 99
+39 + 66 =
+Generated: 39 + 66 = 10
+Expected: 105
+Correct: False
+
+Prompt: 4 + 50 = 54
+60 + 84 = 144
+52 + 15 =
+Generated: 52 + 15 = 67
+Expected: 67
+Correct: True
+
+Prompt: 43 + 39 = 82
+21 + 69 = 90
+65 + 94 =
+Generated: 65 + 94 = 15
+Expected: 159
+Correct: False
+
+Prompt: 56 + 93 = 149
+15 + 91 = 106
+48 + 79 =
+Generated: 48 + 79 = 12
+Expected: 127
+Correct: False
+
+Prompt: 89 + 49 = 138
+53 + 28 = 81
+55 + 68 =
+Generated: 55 + 68 = 12
+Expected: 123
+Correct: False
+
+Prompt: 73 + 82 = 155
+57 + 66 = 123
+46 + 11 =
+Generated: 46 + 11 = 57
+Expected: 57
+Correct: True
+
+Prompt: 36 + 17 = 53
+82 + 38 = 120
+7 + 93 =
+Generated: 7 + 93 = 16
+Expected: 100
+Correct: False
+
+Prompt: 39 + 90 = 129
+4 + 97 = 101
+15 + 50 =
+Generated: 15 + 50 = 65
+Expected: 65
+Correct: True
+
+Prompt: 16 + 27 = 43
+35 + 18 = 53
+84 + 20 =
+Generated: 84 + 20 = 10
+Expected: 104
+Correct: False
+
+Prompt: 67 + 26 = 93
+91 + 76 = 167
+69 + 70 =
+Generated: 69 + 70 = 13
+Expected: 139
+Correct: False
+
+Prompt: 38 + 41 = 79
+52 + 80 = 132
+76 + 17 =
+Generated: 76 + 17 = 19
+Expected: 93
+Correct: False
+
+Prompt: 82 + 14 = 96
+74 + 51 = 125
+2 + 70 =
+Generated: 2 + 70 = 70
+Expected: 72
+Correct: False
+
+Prompt: 6 + 56 = 62
+56 + 15 = 71
+74 + 84 =
+Generated: 74 + 84 = 15
+Expected: 158
+Correct: False
+
+Prompt: 45 + 79 = 124
+37 + 33 = 70
+77 + 86 =
+Generated: 77 + 86 = 16
+Expected: 163
+Correct: False
+
+Prompt: 13 + 64 = 77
+27 + 1 = 28
+37 + 20 =
+Generated: 37 + 20 = 57
+Expected: 57
+Correct: True
+
+Prompt: 47 + 73 = 120
+57 + 29 = 86
+42 + 35 =
+Generated: 42 + 35 = 77
+Expected: 77
+Correct: True
+
+Prompt: 40 + 4 = 44
+0 + 53 = 53
+5 + 84 =
+Generated: 5 + 84 = 84
+Expected: 89
+Correct: False
+
+Prompt: 77 + 6 = 83
+98 + 21 = 119
+45 + 83 =
+Generated: 45 + 83 = ?
+Expected: 89
+Correct: False
+
+Prompt: 2 + 9 = 11
+28 + 98 = 126
+11 + 14 =
+Generated: 11 + 14 = 12
+Expected: 25
+Correct: False
+
+Prompt: 30 + 94 = 124
+61 + 41 = 102
+24 + 9 =
+Generated: 24 + 9 = 11
+Expected: 33
+Correct: False
+
+Prompt: 65 + 37 = 102
+67 + 75 = 142
+16 + 87 =
+Generated: 16 + 87 = 15
+Expected: 103
+Correct: False
+
+Prompt: 16 + 21 = 37
+5 + 20 = 25
+100 + 24 =
+Generated: 100 + 24 = 12
+Expected: 124
+Correct: False
+
+Prompt: 97 + 70 = 167
+89 + 33 = 122
+77 + 80 =
+Generated: 77 + 80 = 15
+Expected: 157
+Correct: False
+
+Prompt: 76 + 86 = 162
+30 + 88 = 118
+92 + 17 =
+Generated: 92 + 17 = 10
+Expected: 109
+Correct: False
+
+Prompt: 32 + 10 = 42
+49 + 73 = 122
+83 + 56 =
+Generated: 83 + 56 = 13
+Expected: 139
+Correct: False
+
+Prompt: 85 + 8 = 93
+2 + 97 = 99
+75 + 21 =
+Generated: 75 + 21 = 96
+Expected: 96
+Correct: True
+
+Prompt: 52 + 53 = 105
+61 + 57 = 118
+44 + 23 =
+Generated: 44 + 23 = 67
+Expected: 67
+Correct: True
+
+Prompt: 76 + 52 = 128
+22 + 64 = 86
+52 + 56 =
+Generated: 52 + 56 = 10
+Expected: 108
+Correct: False
+
+Prompt: 3 + 55 = 58
+34 + 78 = 112
+24 + 99 =
+Generated: 24 + 99 = 19
+Expected: 123
+Correct: False
+
+Prompt: 19 + 85 = 104
+78 + 24 = 102
+46 + 24 =
+Generated: 46 + 24 = 60
+Expected: 70
+Correct: False
+
+Prompt: 67 + 67 = 134
+16 + 84 = 100
+98 + 81 =
+Generated: 98 + 81 = 17
+Expected: 179
+Correct: False
+
+Prompt: 31 + 91 = 122
+69 + 36 = 105
+61 + 20 =
+Generated: 61 + 20 = 81
+Expected: 81
+Correct: True
+
+Prompt: 3 + 9 = 12
+88 + 61 = 149
+96 + 84 =
+Generated: 96 + 84 = 18
+Expected: 180
+Correct: False
+
+Prompt: 66 + 58 = 124
+90 + 74 = 164
+25 + 0 =
+Generated: 25 + 0 = 25
+Expected: 25
+Correct: True
+
+Prompt: 14 + 33 = 47
+18 + 51 = 69
+45 + 74 =
+Generated: 45 + 74 = 11
+Expected: 119
+Correct: False
+
+Prompt: 89 + 9 = 98
+58 + 30 = 88
+92 + 32 =
+Generated: 92 + 32 = 12
+Expected: 124
+Correct: False
+
+Prompt: 29 + 96 = 125
+74 + 60 = 134
+24 + 14 =
+Generated: 24 + 14 = 38
+Expected: 38
+Correct: True
+
+Prompt: 39 + 27 = 66
+65 + 12 = 77
+72 + 46 =
+Generated: 72 + 46 = 12
+Expected: 118
+Correct: False
+
+Prompt: 85 + 20 = 105
+33 + 72 = 105
+33 + 49 =
+Generated: 33 + 49 = 10
+Expected: 82
+Correct: False
+
+Prompt: 62 + 86 = 148
+54 + 28 = 82
+13 + 29 =
+Generated: 13 + 29 = 42
+Expected: 42
+Correct: True
+
+Prompt: 99 + 98 = 197
+79 + 56 = 135
+94 + 86 =
+Generated: 94 + 86 = 18
+Expected: 180
+Correct: False
+
+Prompt: 21 + 66 = 87
+87 + 49 = 136
+55 + 75 =
+Generated: 55 + 75 = 13
+Expected: 130
+Correct: False
+
+Prompt: 56 + 64 = 120
+61 + 80 = 141
+86 + 84 =
+Generated: 86 + 84 = 16
+Expected: 170
+Correct: False
+
+Prompt: 72 + 80 = 152
+82 + 92 = 174
+14 + 36 =
+Generated: 14 + 36 = 40
+Expected: 50
+Correct: False
+
+Prompt: 48 + 58 = 106
+74 + 10 = 84
+32 + 39 =
+Generated: 32 + 39 = 71
+Expected: 71
+Correct: True
+
+Prompt: 25 + 32 = 57
+0 + 14 = 14
+12 + 99 =
+Generated: 12 + 99 = 19
+Expected: 111
+Correct: False
+
+Prompt: 73 + 86 = 159
+82 + 66 = 148
+60 + 33 =
+Generated: 60 + 33 = 93
+Expected: 93
+Correct: True
+
+Prompt: 12 + 82 = 94
+44 + 64 = 108
+14 + 23 =
+Generated: 14 + 23 = 37
+Expected: 37
+Correct: True
+
+Prompt: 28 + 5 = 33
+31 + 41 = 72
+84 + 43 =
+Generated: 84 + 43 = ?
+Expected: 37
+Correct: False
+
+Prompt: 43 + 45 = 88
+55 + 40 = 95
+65 + 23 =
+Generated: 65 + 23 = 98
+Expected: 88
+Correct: False
+
+Prompt: 5 + 19 = 24
+20 + 40 = 60
+38 + 21 =
+Generated: 38 + 21 = 59
+Expected: 59
+Correct: True
+
+Prompt: 28 + 85 = 113
+16 + 33 = 49
+12 + 43 =
+Generated: 12 + 43 = 55
+Expected: 55
+Correct: True
+
+Prompt: 99 + 75 = 174
+8 + 76 = 84
+97 + 43 =
+Generated: 97 + 43 = 14
+Expected: 140
+Correct: False
+
+Prompt: 45 + 16 = 61
+38 + 92 = 130
+30 + 13 =
+Generated: 30 + 13 = 43
+Expected: 43
+Correct: True
+
+Prompt: 40 + 46 = 86
+97 + 62 = 159
+57 + 77 =
+Generated: 57 + 77 = 13
+Expected: 134
+Correct: False
+
+Prompt: 57 + 97 = 154
+50 + 42 = 92
+14 + 97 =
+Generated: 14 + 97 = 15
+Expected: 111
+Correct: False
+
+Prompt: 47 + 43 = 90
+55 + 15 = 70
+9 + 82 =
+Generated: 9 + 82 = ?
+Expected: 111
+Correct: False
+
+Prompt: 86 + 0 = 86
+97 + 1 = 98
+1 + 2 =
+Generated: 1 + 2 = 3
+Expected: 3
+Correct: True
+
+Prompt: 89 + 69 = 158
+12 + 34 = 46
+4 + 12 =
+Generated: 4 + 12 = 16
+Expected: 16
+Correct: True
+
+Prompt: 96 + 92 = 188
+90 + 30 = 120
+45 + 94 =
+Generated: 45 + 94 = 13
+Expected: 139
+Correct: False
+
+Prompt: 35 + 89 = 124
+89 + 4 = 93
+13 + 79 =
+Generated: 13 + 79 = 92
+Expected: 92
+Correct: True
+
+Prompt: 33 + 36 = 69
+38 + 57 = 95
+55 + 94 =
+Generated: 55 + 94 = ?
+Expected: 92
+Correct: False
+
+Prompt: 99 + 96 = 195
+68 + 76 = 144
+18 + 81 =
+Generated: 18 + 81 = 99
+Expected: 99
+Correct: True
+
+Prompt: 8 + 28 = 36
+65 + 99 = 164
+58 + 42 =
+Generated: 58 + 42 = 60
+Expected: 100
+Correct: False
+
+Prompt: 77 + 62 = 139
+52 + 29 = 81
+46 + 20 =
+Generated: 46 + 20 = 66
+Expected: 66
+Correct: True
+
+Prompt: 1 + 42 = 43
+74 + 22 = 96
+58 + 46 =
+Generated: 58 + 46 = 10
+Expected: 104
+Correct: False
+
+Prompt: 58 + 24 = 82
+10 + 24 = 34
+8 + 94 =
+Generated: 8 + 94 = ?
+Expected: 104
+Correct: False
+
+Prompt: 47 + 61 = 108
+46 + 55 = 101
+26 + 98 =
+Generated: 26 + 98 = 10
+Expected: 124
+Correct: False
+
+Prompt: 53 + 32 = 85
+35 + 21 = 56
+31 + 72 =
+Generated: 31 + 72 = 10
+Expected: 103
+Correct: False
+
+Prompt: 8 + 88 = 96
+31 + 100 = 131
+1 + 50 =
+Generated: 1 + 50 = 50
+Expected: 51
+Correct: False
+
+Prompt: 92 + 84 = 176
+7 + 63 = 70
+30 + 87 =
+Generated: 30 + 87 = 12
+Expected: 117
+Correct: False
+
+Prompt: 18 + 35 = 53
+74 + 65 = 139
+82 + 9 =
+Generated: 82 + 9 = 83
+Expected: 91
+Correct: False
+
+Prompt: 47 + 0 = 47
+18 + 49 = 67
+34 + 91 =
+Generated: 34 + 91 = 43
+Expected: 125
+Correct: False
+
+Prompt: 75 + 34 = 109
+76 + 54 = 130
+66 + 70 =
+Generated: 66 + 70 = 13
+Expected: 136
+Correct: False
+
+Prompt: 12 + 94 = 106
+57 + 39 = 96
+20 + 69 =
+Generated: 20 + 69 = 89
+Expected: 89
+Correct: True
+
+Prompt: 30 + 99 = 129
+56 + 31 = 87
+100 + 26 =
+Generated: 100 + 26 = 12
+Expected: 126
+Correct: False
+
+Prompt: 30 + 40 = 70
+61 + 19 = 80
+70 + 46 =
+Generated: 70 + 46 = 11
+Expected: 116
+Correct: False
+
+Prompt: 3 + 2 = 5
+45 + 18 = 63
+23 + 97 =
+Generated: 23 + 97 = ?
+Expected: 116
+Correct: False
+
+Prompt: 38 + 30 = 68
+53 + 93 = 146
+37 + 93 =
+Generated: 37 + 93 = 14
+Expected: 130
+Correct: False
+
+Accuracy for 2-digit numbers with 3 equations: 0.35

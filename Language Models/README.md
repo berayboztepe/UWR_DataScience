@@ -31,4 +31,5 @@ Detailed list of topics:
 * Strength of transformers/weakness of transformers (transformers as General Artificial Intelligence, limitations in modeling certain issues, formal-linguistic models of transformers (e.g. RASP), or "emerging abilities" of large models are something real or an illusion.
 
 The final project presentation can be reached from [here](https://github.com/berayboztepe/UWR_DataScience/blob/main/Language%20Models/Project/Travel%20assistant.pptx)
+
 The final project for this course can be reach from [here](https://github.com/AnujJhunjhunwala/TravelAssistant)
